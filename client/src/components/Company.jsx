@@ -1,3 +1,3 @@
 export default function Company() {
-  return <div>CompanyProfile</div>;
+  return <div>Company</div>;
 }
