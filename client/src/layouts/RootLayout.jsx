@@ -2,8 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 export default function RootLayout() {
   return (
-    <div>
-      <div>
+    <div >
+      <div >
       <header className="header absolute top-0 block w-screen left-0">
         <nav className="nav">
           <h1 className="title">BeanThere</h1>

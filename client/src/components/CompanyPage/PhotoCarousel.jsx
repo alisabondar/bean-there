@@ -45,7 +45,7 @@ export default function PhotoCarousel() {
           </button>
         </div>
         {/* Carousel */}
-        <div className="max-w-full overflow-hidden flex">
+        <div className="w-full overflow-hidden flex">
           <div className="flex flex-row" style={{ transform: `translateX(${translateX}px)`, transition: 'transform 0.5s ease-in-out' }}>
             {images.map((image, index) => (
               <div style={{ width: '300px', height: '300px', overflow: 'hidden' }} key={index}>
