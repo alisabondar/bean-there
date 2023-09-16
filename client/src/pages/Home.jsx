@@ -9,22 +9,22 @@ import backgroundImage from './img/overview.webp';
 const Home = () => {
   return (
     <div className="App">
-      <div className="relative  h-screen w-screen " style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="absolute inset-0 bg-black opacity-40 h-full w-full"></div> {/* Overlay */}
-        <div className="mx-20">
-        <Header />
-        <Overview />
+      <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <div className="absolute inset-0 bg-black opacity-40"></div> {/* Overlay */}
+        <div className="mx-4 lg:mx-48 md:mx-28">
+          <Header />
+          <Overview />
         </div>
       </div>
-      <div className="mx-20">
-      <Middle />
-      <About />
-      <Footer />
-
+      <div className="mx-4 md:mx-28">
+        <Middle />
+        <About />
+        <Footer />
       </div>
     </div>
   );
 };
+
 
 export default Home;
 
