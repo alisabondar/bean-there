@@ -3,7 +3,10 @@ import about from '../../pages/img/about.jpeg';
 
 const About = () => {
   return (
-    <section className="relative bg-[#493f39] p-20 md:p-56 mt-10 text-white">
+
+
+    <section className="relative bg-[#493f39] p-20 md:p-56  text-white">
+
       <img
         src={about}
         alt="About Section"

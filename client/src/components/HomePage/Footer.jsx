@@ -17,7 +17,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#493f39] py-5 text-white">
+    <footer className="bg-[#493f39] py-4 pt-5 text-white">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-8 md:mb-0">
           <ul className="text-lg">
@@ -52,6 +52,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
+
           <div className="mb-4 px:4">
             <label className="block">Subscribe to our Newsletter</label>
             <div className="flex">

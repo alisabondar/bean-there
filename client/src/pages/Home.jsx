@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '../components/HomePage/Header.jsx';
 import Overview from '../components/HomePage/Overview.jsx';
@@ -11,18 +12,25 @@ const Home = () => {
     <div className="App">
       <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="absolute inset-0 bg-black opacity-40"></div> {/* Overlay */}
-        <div className="mx-4 lg:mx-45 md:mx-28">
+        <div className="mx-4 lg:mx-56 md:mx-28">
           <Header />
           <Overview />
         </div>
+
       </div>
       <div>
-        <Middle />
-        <div className=''>
-          <About />
-          <Footer />
+      <div className="w-screen flex justify-end">
+  <hr className="border-[#9F643D] border-t-8 w-[40%]" />
+</div>
 
+        <Middle />
+        <div>
+        <hr className="border-[#493f39] border-t-8 w-[40%]" />
+         <About />
+          <Footer />
         </div>
+
+
 
       </div>
     </div>

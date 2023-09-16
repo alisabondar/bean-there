@@ -26,7 +26,6 @@ function Middle() {
           </div>
         </section>
         </div>
-
       </div>
 
   );
