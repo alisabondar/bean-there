@@ -3,7 +3,7 @@ import middle from '../../pages/img/middle.jpg';
 
 function Middle() {
   return (
-      <div>
+      <div className='my-10'>
         <div className="flex flex-wrap pt-[120px] pb-[80px]">
         <section className="relative w-full p-10 md:w-1/2 p-4 bg-[#61493C] rounded-lg bg-opacity-40 pt-[120px] pb-[80px]">
         <div className="flex justify-center items-center h-full">
