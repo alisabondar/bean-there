@@ -15,6 +15,7 @@ import Messenger from "./pages/Messenger";
 import Location from "./pages/Location";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
+import Company from "./pages/company";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/messenger" element={<Messenger />} />
       <Route path="/location" element={<Location />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/company" element={<Company />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )
