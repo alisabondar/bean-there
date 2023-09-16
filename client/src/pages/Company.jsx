@@ -1,5 +1,6 @@
 import PhotoCarousel from '../components/CompanyPage/PhotoCarousel'
 import Reviews from '../components/CompanyPage/Reviews';
+import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
 export default function Company() {
   return (
