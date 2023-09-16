@@ -11,12 +11,12 @@ const Home = () => {
     <div className="App">
       <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="absolute inset-0 bg-black opacity-40"></div> {/* Overlay */}
-        <div className="mx-4 lg:mx-48 md:mx-28">
+        <div className="mx-4 lg:mx-45 md:mx-28">
           <Header />
           <Overview />
         </div>
       </div>
-      <div className="mx-4 md:mx-28">
+      <div>
         <Middle />
         <About />
         <Footer />

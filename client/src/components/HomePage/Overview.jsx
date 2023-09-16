@@ -21,7 +21,7 @@ function Overview() {
         </button>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row p-5 space-y-4 md:space-x-8 md:space-y-0 md:ml-auto relative hover:cursor-pointer">
+        <div className="flex flex-col md:flex-row p-10 mb-10 space-y-4 md:space-x-8 md:space-y-0 md:ml-auto relative hover:cursor-pointer">
   <div className="w-[188px] h-[188px] relative mx-auto md:mx-0">
     <img src={coffeeShops} alt="shops around" className="rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
     <div className="absolute inset-0 space-x-8 flex items-center justify-center">
