@@ -38,7 +38,7 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <div>
-      <footer className="footer absolute bottom-0 block w-screen left-0">
+      <footer className="footer bottom-0 block w-screen left-0 mt-10">
         <span>&copy; Wingardium Levicode - BeanThere - 2023</span>
       </footer>
       </div>
