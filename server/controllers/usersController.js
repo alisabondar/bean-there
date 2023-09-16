@@ -11,6 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 var User = require("../models/userModel");
 var login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    /**
+     * SO INSTEAD OF WHAT I HAVE HERE CURRENTLY
+     * YOU WOULD GET THE DATA FROM THE REQUEST
+     * I ASSUME THROUGH REQ.BODY
+     *
+     * THEN YOU WILL HASH THE PASSWORD
+     * FIND THE USER
+     *
+     * AND ADD AUTHENTICATION CREDENTIALS
+     * AND SEND THAT BACK
+     */
     // testing login
     const data = { username: "mario", password: "mario123" };
     const { username, password } = data;
@@ -29,6 +40,14 @@ var login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    /**
+     * SO INSTEAD OF WHAT I HAVE HERE CURRENTLY
+     * YOU WOULD GET THE DATA FROM THE REQUEST
+     * I ASSUME THROUGH REQ.BODY
+     *
+     * THEN YOU WILL HASH THE PASSWORD
+     * CREATE THE USER
+     */
     // testing register
     const data = {
         username: "mario",
