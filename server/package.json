@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"tsc --watch\" \"node --watch index.js\"",
+    "db-setup": "psql -h localhost -U postgres -f ./lib/db-setup.sql"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +21,10 @@
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.6.2",
     "chai": "^4.3.8",
+    "concurrently": "^8.2.1",
     "mocha": "^10.2.0"
   }
 }
