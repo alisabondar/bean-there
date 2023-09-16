@@ -2,8 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 export default function RootLayout() {
   return (
-    <div>
-      <div>
+    <div >
+      <div >
       <header className="header absolute top-0 block w-screen left-0">
         <nav className="nav">
           <h1 className="title">BeanThere</h1>
@@ -38,7 +38,7 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <div>
-      <footer className="footer absolute bottom-0 block w-screen left-0">
+      <footer className="footer bottom-0 block w-screen left-0 mt-10">
         <span>&copy; Wingardium Levicode - BeanThere - 2023</span>
       </footer>
       </div>
