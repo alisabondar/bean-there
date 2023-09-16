@@ -5,7 +5,7 @@ export default function RootLayout() {
     <div>
       <header className="header">
         <nav className="nav">
-          <h1 className="title">VinylTheatre</h1>
+          <h1 className="title">BeanThere</h1>
           <NavLink className="nav__link" to="/">
             Home
           </NavLink>
@@ -26,6 +26,9 @@ export default function RootLayout() {
           </NavLink>
           <NavLink className="nav__link" to="/search">
             Search
+          </NavLink>
+          <NavLink className="nav__link" to="/company">
+            CompanyPage
           </NavLink>
         </nav>
       </header>
