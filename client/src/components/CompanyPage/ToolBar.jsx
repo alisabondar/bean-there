@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function Toolbar() {
 
   return (
-    <div className="flex flex-row space-x-4">
+    <div className="flex flex-row space-x-4 justify-evenly m-2">
 
     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
       Write Review
