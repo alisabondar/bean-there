@@ -5,6 +5,7 @@ var {
   register,
   getWishlist,
   getUserReviews,
+  getFriends,
 } = require("../controllers/usersController");
 
 // all these endpoints start with /user*
@@ -14,9 +15,10 @@ router.post("/register", register);
 
 router.get("/:userId/wishlist", getWishlist);
 router.get("/:userId/reviews", getUserReviews);
+router.get("/:userId/friends", getFriends);
 
 /**
- * FUTURE
+ * FUTURE - 1
  *
  * router.put("/:userId/wishlist")
  *
@@ -30,6 +32,30 @@ router.get("/:userId/reviews", getUserReviews);
  *
  * if (YES) => update the visited status
  * if (NO) => add an entry
+ *
+ */
+
+/**
+ * FUTURE - 2
+ *
+ * router.post("/:userId/friend/add")
+ *
+ * different ways to handle this, here is what comes to mind first
+ *
+ * make it a one sided friend ship
+ * => in other words if one person friends someone, both people
+ * are automatically friends with themselves
+ *
+ * so we make TWO entries in the friends table every time
+ *  friend_id: friendId, user_id: userId
+ * THEN
+ *  friend_id: userId, user_id: userId
+ *
+ * if you are able to just grab friendId and send it in REQ.BODY
+ * if you cannot get the friendId, get the friend username
+ * and look it up with the findOne sequelize function
+ * since usernames are unqiue this should be a safe approach
+ * just an extra step if you cannot get the friendId directly
  *
  */
 

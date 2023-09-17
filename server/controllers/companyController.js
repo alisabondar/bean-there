@@ -74,6 +74,12 @@ var addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const location_id = location.place_id;
         Review.create({ title, body, rating, location_id, user_id }).then((results) => {
             const review = results.dataValues;
+            /**
+             *  HERE YOU WOULD ADD THE LOGIC TO CHECK IF THE USER HAS PHOTOS
+             *  AND THEN TAKE THOSE PHOTOS AND ADD THEM TO THE PHOTOS TABLE
+             *  I WILL MAKE THIS A STRETCH GOAL review.id SHOULD GIVE YOU
+             *  THE id TO USE FOR THE review_id COLUMN IN THE reviews_photo table
+             */
             res
                 .status(201)
                 .send({ mssg: "reached getReviews controller", review });

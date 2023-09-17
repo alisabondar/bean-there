@@ -66,7 +66,7 @@ CREATE TABLE reviews_photos (
 -- Create the 'friends' table
 CREATE TABLE friends (
   id SERIAL PRIMARY KEY,
-  friend INTEGER NOT NULL,
+  friend_id INTEGER NOT NULL,
   user_id INTEGER NOT NULL
 );
 

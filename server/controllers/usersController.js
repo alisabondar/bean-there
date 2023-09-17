@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var db = require("../db/database");
-var { User } = require("../models/userModel");
+var { User, Friend } = require("../models/userModel");
 var login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * SO INSTEAD OF WHAT I HAVE HERE CURRENTLY
@@ -121,6 +121,33 @@ WHERE r.user_id = ${user_id};
             mssg: "reviews successfully fetched",
             reviews,
         });
+    })
+        .catch((err) => {
+        const error = err.message || "internal server error";
+        res.status(404).send({ error });
     });
 });
-module.exports = { login, register, getWishlist, getUserReviews };
+var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.userId;
+    // light validation
+    if (!userId) {
+        return res.status(404).send({ error: "unknown user, please try again" });
+    }
+    Friend.findAll({
+        where: { user_id: userId },
+        include: [
+            {
+                model: User,
+                as: "users",
+                attributes: ["username"],
+            },
+        ],
+        raw: true,
+    }).then((friends) => {
+        res.status(200).send({
+            mssg: "friends successfully fetched",
+            friends,
+        });
+    });
+});
+module.exports = { login, register, getWishlist, getUserReviews, getFriends };

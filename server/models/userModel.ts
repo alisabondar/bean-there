@@ -60,4 +60,23 @@ const Wishlist = db.define(
   }
 );
 
-module.exports = { User, Wishlist };
+const Friend = db.define(
+  "friends",
+  {
+    friend_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+Friend.belongsTo(User, { foreignKey: "friend_id", as: "users" });
+
+module.exports = { User, Wishlist, Friend };
