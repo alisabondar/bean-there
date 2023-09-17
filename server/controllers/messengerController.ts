@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const { Op } = Sequelize;
 
 var { ChatRoom, ChatMember, Message } = require("../models/messengerModel");
-var User = require("../models/userModel");
+var { User } = require("../models/userModel");
 
 var getRooms = async (req: Request, res: Response) => {
   /**
@@ -82,6 +82,23 @@ var addRoom = async (req: Request, res: Response) => {
    * }
    */
 
+  // some light validation
+  if (!chat_name) {
+    return res.status(404).send({ error: "please enter a chat name" });
+  }
+
+  if (!Array.isArray(members)) {
+    return res
+      .status(404)
+      .send({ error: "please let us know which members are in the chat" });
+  }
+
+  if (members.length < 2) {
+    return res
+      .status(404)
+      .send({ error: "please add at least two members to the chat" });
+  }
+
   await ChatRoom.create({ chat_name })
     .then((room: { dataValues: { id: number } }) => {
       // the id of the room created should be room.dataValues.id
@@ -92,7 +109,7 @@ var addRoom = async (req: Request, res: Response) => {
       // YOU CAN REFACTOR THIS TO BE MUCH BETTER IF YOU ARE ABLE TO CAPTURE
       // EACH MEMBERS ID IN THE REQ.BODY INSTEAD OF FINDING IT WITH THIS QUERY
       // AT A TIME
-      const userIdArray = await User.findAll({
+      await User.findAll({
         where: {
           username: members,
         },
@@ -101,15 +118,18 @@ var addRoom = async (req: Request, res: Response) => {
         const chatMemberArray = userIdArray.map((user: { id: number }) => {
           return { user_id: user.id, room_id: roomId };
         });
+
         await ChatMember.bulkCreate(chatMemberArray).then((results: any) => {
-          console.log(results);
-          res.status(201).send({ mssg: "successfully created room" });
+          // console.log(results);
+          res.status(201).send({
+            mssg: "successfully created room",
+          });
         });
       });
     })
-    .catch((error: Error) => {
-      console.log(error);
-      res.status(404).send({ error: "unable to create a room" });
+    .catch((err: Error) => {
+      const error = err.message || "internal server error";
+      res.status(404).send({ error });
     });
 };
 
@@ -134,6 +154,19 @@ var addMessage = async (req: Request, res: Response) => {
   const room_id = req.params.roomId;
   const { message_text, message_user } = req.body;
 
+  // light validation
+  if (!room_id) {
+    return res.status(404).send({ error: "please select a room" });
+  }
+
+  if (!message_text) {
+    return res.status(404).send({ error: "please enter a message" });
+  }
+
+  if (!message_user) {
+    return res.status(404).send({ error: "error send a user's message" });
+  }
+
   Message.create({ message_text, message_user, room_id })
     .then((message: { dataValues: object }) => {
       // console.log(message);
@@ -142,9 +175,9 @@ var addMessage = async (req: Request, res: Response) => {
         message: message.dataValues,
       });
     })
-    .catch((error: Error) => {
-      console.log(error);
-      res.status(404).send({ error: "unable to create message" });
+    .catch((err: Error) => {
+      const error = err.message || "internal server error";
+      res.status(404).send({ error });
     });
 };
 

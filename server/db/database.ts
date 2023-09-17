@@ -11,10 +11,6 @@ const sequelize = new Sequelize(
   {
     host: process.env.PG_HOST,
     dialect: "postgres",
-    define: {
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-    },
   }
 );
 
