@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const { Review, ReviewPhoto } = require("../models/reviewModel");
+const { LocationModel } = require("../models/locationModel");
 var getReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const placeId = req.params.placeId;
     console.log(placeId);
@@ -30,11 +31,16 @@ var getReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 var addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const placeId = req.params.placeId;
-    const { title, body, rating, location_id } = req.body;
+    const { title, body, rating, location_name, user_id, photos } = req.body;
     //light validation
-    if (!placeId) {
+    if (!placeId || !location_name) {
         return res.status(404).send({
             error: "please let us know what company you are making a review for",
+        });
+    }
+    if (!user_id) {
+        return res.status(404).send({
+            error: "unable to get user credentials, please try again",
         });
     }
     if (!title) {
@@ -45,13 +51,37 @@ var addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!body) {
         return res.status(404).send({ error: "please enter a review message" });
     }
-    if (!rating) {
-        return res.status(404).send({ error: "please add " });
+    if (!rating || !(rating >= 1 && rating <= 5)) {
+        return res.status(404).send({ error: "please add a valid rating" });
     }
-    if (!location_id) {
-        // user did not enter a location id
-        return res.status(404).send({ error: "please enter a location" });
-    }
-    res.status(200).send({ mssg: "reached getReviews controller" });
+    // check if location exists
+    yield LocationModel.findByPk(placeId, { raw: true })
+        .then((results) => {
+        if (results === null) {
+            // if the location does not exist we will have to add it
+            return LocationModel.create({
+                place_id: placeId,
+                name: location_name,
+            }).then((loc) => {
+                return loc.dataValues;
+            });
+        }
+        return results;
+    })
+        .then((location) => {
+        // here location = { place_id, name }
+        // so now location is stored, make a review
+        const location_id = location.place_id;
+        Review.create({ title, body, rating, location_id, user_id }).then((results) => {
+            const review = results.dataValues;
+            res
+                .status(201)
+                .send({ mssg: "reached getReviews controller", review });
+        });
+    })
+        .catch((err) => {
+        const error = err.message || "internal server error";
+        res.status(404).send({ error });
+    });
 });
 module.exports = { getReviews, addReview };

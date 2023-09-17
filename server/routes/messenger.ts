@@ -9,10 +9,10 @@ var {
 
 // all these endpoints start with /messenger/rooms*
 
-router.get("/user/:userId", getRooms);
-router.get("/:roomId/messages/", getMessages);
+router.get("/rooms/user/:userId", getRooms);
+router.get("/rooms/:roomId/messages/", getMessages);
 
-router.post("/add", addRoom);
-router.post("/:roomId/messages/", addMessage);
+router.post("/rooms/add", addRoom);
+router.post("/rooms/:roomId/messages/", addMessage);
 
 module.exports = router;

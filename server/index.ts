@@ -15,7 +15,7 @@ app.use(morgan("tiny"));
 app.get("/", (req: Request, res: Response) => res.send("bean-there"));
 
 app.use("/user", userRoutes);
-app.use("/messenger/rooms", messengerRoutes);
+app.use("/messenger", messengerRoutes);
 app.use("/company", companyRoutes);
 
 /**

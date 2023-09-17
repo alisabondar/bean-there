@@ -6,6 +6,6 @@ var { getReviews, addReview } = require("../controllers/companyController");
 
 router.get("/:placeId/reviews", getReviews);
 
-router.post("/:placeId/review", addReview);
+router.post("/:placeId/reviews/add", addReview);
 
 module.exports = router;

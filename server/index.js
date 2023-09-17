@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.get("/", (req, res) => res.send("bean-there"));
 app.use("/user", userRoutes);
-app.use("/messenger/rooms", messengerRoutes);
+app.use("/messenger", messengerRoutes);
 app.use("/company", companyRoutes);
 /**
  * GET /reviews/
