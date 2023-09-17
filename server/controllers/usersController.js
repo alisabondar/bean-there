@@ -9,12 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Sequelize = require("sequelize");
-const { Op } = Sequelize;
 var db = require("../db/database");
-var { User, Wishlist } = require("../models/userModel");
-var { Review } = require("../models/reviewModel");
-var { LocationModel } = require("../models/locationModel");
+var { User } = require("../models/userModel");
 var login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * SO INSTEAD OF WHAT I HAVE HERE CURRENTLY
@@ -104,6 +100,10 @@ var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             mssg: "wishlist successfully fetched",
             wishlist,
         });
+    })
+        .catch((err) => {
+        const error = err.message || "internal server error";
+        res.status(404).send({ error });
     });
 });
 var getUserReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

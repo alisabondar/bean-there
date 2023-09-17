@@ -2,7 +2,7 @@
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
 var LocationModel = require("../models/locationModel");
-const User = db.define("user", {
+const User = db.define("users", {
     username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -33,7 +33,7 @@ const User = db.define("user", {
 }, {
     timestamps: false,
 });
-const Wishlist = db.define("Wishlist", {
+const Wishlist = db.define("wishlists", {
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

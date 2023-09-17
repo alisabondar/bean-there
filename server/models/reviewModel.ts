@@ -2,7 +2,7 @@ var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
 
 const Review = db.define(
-  "review",
+  "reviews",
   {
     title: {
       type: DataTypes.STRING,
@@ -36,4 +36,23 @@ const Review = db.define(
   }
 );
 
-module.exports = { Review };
+const ReviewPhoto = db.define(
+  "reviews_photos",
+  {
+    photo_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    review_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
+Review.hasMany(ReviewPhoto, { foreignKey: "review_id" });
+
+module.exports = { Review, ReviewPhoto };

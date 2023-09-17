@@ -60,7 +60,7 @@ CREATE TABLE reviews (
 CREATE TABLE reviews_photos (
   id SERIAL PRIMARY KEY,
   photo_url TEXT NOT NULL,
-  review_id INTEGER
+  review_id INTEGER NOT NULL
 );
 
 -- Create the 'friends' table
@@ -176,7 +176,8 @@ VALUES
   ('Coffee Lovers Chat'),
   ('Espresso Enthusiasts'),
   ('Latte Enthusiasts'),
-  ('Cappuccino Fans');
+  ('Cappuccino Fans'),
+  ('Expresso Heads 5 Lyfe');
 
 -- Mock data for the 'chat_members' table
 INSERT INTO chat_members (room_id, user_id)
@@ -188,7 +189,10 @@ VALUES
   (3, 4),
   (3, 5),
   (4, 6),
-  (4, 7);
+  (4, 7),
+  (5, 1),
+  (5, 2),
+  (5, 6);
 
 -- Mock data for the 'messages' table
 INSERT INTO messages (message_text, message_user, created_at, updated_at, room_id)
@@ -200,4 +204,9 @@ VALUES
   ('Cappuccino time!', 4, '2023-09-14 16:30:00', '2023-09-14 16:30:00', 4),
   ('Mocha madness!', 5, '2023-09-14 10:45:00', '2023-09-14 10:45:00', 5),
   ('Hello, latte lovers!', 6, '2023-09-13 18:00:00', '2023-09-13 18:00:00', 6),
-  ('Latte art is beautiful.', 7, '2023-09-13 22:30:00', '2023-09-13 22:30:00', 7);
+  ('Latte art is beautiful.', 7, '2023-09-13 22:30:00', '2023-09-13 22:30:00', 7),
+  ('I love lattes!', 1, '2023-09-15 14:00:00', '2023-09-15 14:00:00', 5),
+  ('Adventure time!', 2, '2023-09-14 16:30:00', '2023-09-14 16:30:00', 5),
+  ('Finn the human!', 1, '2023-09-14 10:45:00', '2023-09-14 10:45:00', 5),
+  ('Jake the dog!', 2, '2023-09-13 18:00:00', '2023-09-13 18:00:00', 5),
+  ('I like trains.', 6, '2023-09-13 22:30:00', '2023-09-13 22:30:00', 5);

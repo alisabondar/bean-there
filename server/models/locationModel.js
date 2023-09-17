@@ -1,7 +1,7 @@
 "use strict";
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
-var LocationModel = db.define("Location", {
+var LocationModel = db.define("locations", {
     place_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

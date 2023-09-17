@@ -1,12 +1,8 @@
 import { Request, Response } from "express";
-const Sequelize = require("sequelize");
-const { Op } = Sequelize;
 
 var db = require("../db/database");
 
-var { User, Wishlist } = require("../models/userModel");
-var { Review } = require("../models/reviewModel");
-var { LocationModel } = require("../models/locationModel");
+var { User } = require("../models/userModel");
 
 var login = async (req: Request, res: Response) => {
   /**
@@ -113,6 +109,10 @@ var getWishlist = async (req: Request, res: Response) => {
         mssg: "wishlist successfully fetched",
         wishlist,
       });
+    })
+    .catch((err: Error) => {
+      const error = err.message || "internal server error";
+      res.status(404).send({ error });
     });
 };
 

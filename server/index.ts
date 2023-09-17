@@ -6,6 +6,7 @@ var colors = require("colors");
 var express = require("express");
 var userRoutes = require("./routes/user");
 var messengerRoutes = require("./routes/messenger");
+var companyRoutes = require("./routes/company");
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ app.get("/", (req: Request, res: Response) => res.send("bean-there"));
 
 app.use("/user", userRoutes);
 app.use("/messenger/rooms", messengerRoutes);
+app.use("/company", companyRoutes);
 
 /**
  * GET /reviews/

@@ -4,7 +4,7 @@ var db = require("../db/database");
 var LocationModel = require("../models/locationModel");
 
 const User = db.define(
-  "user",
+  "users",
   {
     username: {
       type: DataTypes.STRING,
@@ -40,7 +40,7 @@ const User = db.define(
 );
 
 const Wishlist = db.define(
-  "Wishlist",
+  "wishlists",
   {
     user_id: {
       type: DataTypes.INTEGER,

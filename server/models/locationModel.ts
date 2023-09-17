@@ -2,7 +2,7 @@ var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
 
 var LocationModel = db.define(
-  "Location",
+  "locations",
   {
     place_id: {
       type: DataTypes.INTEGER,

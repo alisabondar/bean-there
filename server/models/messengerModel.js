@@ -1,7 +1,7 @@
 "use strict";
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
-const ChatRoom = db.define("chat_room", {
+const ChatRoom = db.define("chat_rooms", {
     chat_name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -9,7 +9,7 @@ const ChatRoom = db.define("chat_room", {
 }, {
     timestamps: false,
 });
-const ChatMember = db.define("chat_member", {
+const ChatMember = db.define("chat_members", {
     room_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -21,7 +21,7 @@ const ChatMember = db.define("chat_member", {
 }, {
     timestamps: false,
 });
-const Message = db.define("message", {
+const Message = db.define("messages", {
     message_text: {
         type: DataTypes.TEXT,
         allowNull: false,

@@ -2,7 +2,7 @@ var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
 
 const ChatRoom = db.define(
-  "chat_room",
+  "chat_rooms",
   {
     chat_name: {
       type: DataTypes.STRING,
@@ -15,7 +15,7 @@ const ChatRoom = db.define(
 );
 
 const ChatMember = db.define(
-  "chat_member",
+  "chat_members",
   {
     room_id: {
       type: DataTypes.INTEGER,
@@ -32,7 +32,7 @@ const ChatMember = db.define(
 );
 
 const Message = db.define(
-  "message",
+  "messages",
   {
     message_text: {
       type: DataTypes.TEXT,
