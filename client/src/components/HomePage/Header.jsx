@@ -18,11 +18,11 @@ function Header() {
       </div>
       <nav>
         <ul className="flex space-x-8 text-white text-lg font-bold hidden md:flex">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Events</a></li>
-          <li><a href="#">Contacts</a></li>
-          <li className='text-[#CFB299] hover:text-[#9F643D]'><a href="#">Login</a></li>
+          <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Home</a></li>
+          <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">About</a></li>
+          <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Events</a></li>
+          <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Contacts</a></li>
+          <li className='text-[#CFB299] hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="#">Login</a></li>
         </ul>
       </nav>
 
