@@ -7,12 +7,12 @@ var {
   addMessage,
 } = require("../controllers/messengerController");
 
-// all these endpoints start with /messenger*
+// all these endpoints start with /messenger/rooms*
 
-router.get("/rooms/user/:userId", getRooms);
-router.get("/rooms/:roomId/messages/", getMessages);
+router.get("/user/:userId", getRooms);
+router.get("/:roomId/messages/", getMessages);
 
-router.post("/rooms/add", addRoom);
-router.post("/rooms/:roomId/messages/", addMessage);
+router.post("/add", addRoom);
+router.post("/:roomId/messages/", addMessage);
 
 module.exports = router;

@@ -14,30 +14,17 @@ app.use(morgan("tiny"));
 app.get("/", (req: Request, res: Response) => res.send("bean-there"));
 
 app.use("/user", userRoutes);
-app.use("/messenger", messengerRoutes);
+app.use("/messenger/rooms", messengerRoutes);
 
 /**
- * /messenger
- *  GET /rooms/:userId (the userId needs to be sent with this, in params)
- * then
- *  look up every room the member is a part of [chat_members | chat_rooms ]
- *  return list of room names (and Id so you can get the messages later)
+ * GET /reviews/
+ * GIVEN A LOCATION PLACE ID | FROM GOOGLE API |
+ * GET ALL REVIEWS THAT MATCH THAT PLACE ID
+ * FROM [reviews]
  *
- *  GET /rooms/:roomId/messages/
- * then
- *  look up every message with the roomId [messages]
- *  return messages
- *
- *
- *  POST /rooms/ (in the body send a list of users in the room)
- * then
- *  create a new room => grab that room id
- *  create a row in chat_members for each user with that room_id and that user's_id
- *
- *  POST /rooms/:roomId/messages { send roomId, in params, send the user who send the message (i guess in case yourself) }
- * then
- *  create a row in messages for that specific room_id
- *
+ * POST reviews/
+ * GIVEN A LOCATION PLACE ID | FROM GOOGLE API |
+ * get { title, body, date, rating, }
  */
 
 const port = process.env.PORT || 5001;

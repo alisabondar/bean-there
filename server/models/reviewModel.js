@@ -1,36 +1,20 @@
 "use strict";
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
-const ChatRoom = db.define("chat_room", {
-    chat_name: {
+const Review = db.define("review", {
+    title: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-}, {
-    timestamps: false,
-});
-const ChatMember = db.define("chat_member", {
-    room_id: {
+    body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-}, {
-    timestamps: false,
-});
-const Message = db.define("message", {
-    message_text: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    message_user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    room_id: {
+    location_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -44,5 +28,7 @@ const Message = db.define("message", {
         defaultValue: db.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
     },
-}, { timestamps: false });
-module.exports = { ChatRoom, ChatMember, Message };
+}, {
+    timestamps: false,
+});
+module.exports = { Review };

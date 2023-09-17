@@ -1,14 +1,17 @@
 "use strict";
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
+var LocationModel = require("../models/locationModel");
 const User = db.define("user", {
     username: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,
@@ -16,14 +19,12 @@ const User = db.define("user", {
     },
     photo: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     banner_photo: {
         type: DataTypes.STRING,
     },
     about: {
         type: DataTypes.TEXT,
-        allowNull: false,
     },
     private: {
         type: DataTypes.BOOLEAN,
@@ -32,4 +33,20 @@ const User = db.define("user", {
 }, {
     timestamps: false,
 });
-module.exports = User;
+const Wishlist = db.define("Wishlist", {
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    visited: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    location_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+}, {
+    timestamps: false,
+});
+module.exports = { User, Wishlist };
