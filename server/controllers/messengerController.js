@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Sequelize = require("sequelize");
 const { Op } = Sequelize;
 var { ChatRoom, ChatMember, Message } = require("../models/messengerModel");
-var User = require("../models/userModel");
+var { User } = require("../models/userModel");
 var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * send userId as a param or (or some other way)
@@ -80,6 +80,20 @@ var addRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
      * "members": ["user2", "user4", "user6"]
      * }
      */
+    // some light validation
+    if (!chat_name) {
+        return res.status(404).send({ error: "please enter a chat name" });
+    }
+    if (!Array.isArray(members)) {
+        return res
+            .status(404)
+            .send({ error: "please let us know which members are in the chat" });
+    }
+    if (members.length < 2) {
+        return res
+            .status(404)
+            .send({ error: "please add at least two members to the chat" });
+    }
     yield ChatRoom.create({ chat_name })
         .then((room) => {
         // the id of the room created should be room.dataValues.id
@@ -90,7 +104,7 @@ var addRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // YOU CAN REFACTOR THIS TO BE MUCH BETTER IF YOU ARE ABLE TO CAPTURE
         // EACH MEMBERS ID IN THE REQ.BODY INSTEAD OF FINDING IT WITH THIS QUERY
         // AT A TIME
-        const userIdArray = yield User.findAll({
+        yield User.findAll({
             where: {
                 username: members,
             },
@@ -100,14 +114,16 @@ var addRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 return { user_id: user.id, room_id: roomId };
             });
             yield ChatMember.bulkCreate(chatMemberArray).then((results) => {
-                console.log(results);
-                res.status(201).send({ mssg: "successfully created room" });
+                // console.log(results);
+                res.status(201).send({
+                    mssg: "successfully created room",
+                });
             });
         }));
     }))
-        .catch((error) => {
-        console.log(error);
-        res.status(404).send({ error: "unable to create a room" });
+        .catch((err) => {
+        const error = err.message || "internal server error";
+        res.status(404).send({ error });
     });
 });
 var addMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -128,6 +144,16 @@ var addMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
      */
     const room_id = req.params.roomId;
     const { message_text, message_user } = req.body;
+    // light validation
+    if (!room_id) {
+        return res.status(404).send({ error: "please select a room" });
+    }
+    if (!message_text) {
+        return res.status(404).send({ error: "please enter a message" });
+    }
+    if (!message_user) {
+        return res.status(404).send({ error: "error send a user's message" });
+    }
     Message.create({ message_text, message_user, room_id })
         .then((message) => {
         // console.log(message);
@@ -136,9 +162,9 @@ var addMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             message: message.dataValues,
         });
     })
-        .catch((error) => {
-        console.log(error);
-        res.status(404).send({ error: "unable to create message" });
+        .catch((err) => {
+        const error = err.message || "internal server error";
+        res.status(404).send({ error });
     });
 });
 module.exports = { getRooms, getMessages, addRoom, addMessage };

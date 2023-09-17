@@ -7,7 +7,7 @@ var {
   addMessage,
 } = require("../controllers/messengerController");
 
-// all these endpoints start with /messenger*
+// all these endpoints start with /messenger/rooms*
 
 router.get("/rooms/user/:userId", getRooms);
 router.get("/rooms/:roomId/messages/", getMessages);

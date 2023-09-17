@@ -1,36 +1,24 @@
 "use strict";
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
-const ChatRoom = db.define("chat_rooms", {
-    chat_name: {
+const Review = db.define("reviews", {
+    title: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-}, {
-    timestamps: false,
-});
-const ChatMember = db.define("chat_members", {
-    room_id: {
+    body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    location_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
     user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-}, {
-    timestamps: false,
-});
-const Message = db.define("messages", {
-    message_text: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    message_user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    room_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -44,5 +32,20 @@ const Message = db.define("messages", {
         defaultValue: db.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
     },
-}, { timestamps: false });
-module.exports = { ChatRoom, ChatMember, Message };
+}, {
+    timestamps: false,
+});
+const ReviewPhoto = db.define("reviews_photos", {
+    photo_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    review_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+}, {
+    timestamps: false,
+});
+Review.hasMany(ReviewPhoto, { foreignKey: "review_id" });
+module.exports = { Review, ReviewPhoto };
