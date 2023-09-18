@@ -1,3 +1,8 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+const USER_ID = 1;
+const url = 'http://localhost:5000/messenger/'
 export default function Messenger() {
   const testChat = (key) => {
     var coinFlip = Math.floor(Math.random() * 2);
@@ -18,9 +23,8 @@ export default function Messenger() {
     );
   }
   const testGroup = (key) => {
-
     return (
-      <div id={key}>
+      <div key={key}>
         {key !== 0 ? (
           <div className="divider m-3"></div>
         ) : (<div></div>)}
@@ -36,6 +40,21 @@ export default function Messenger() {
       </div>
     )
   }
+
+
+  useEffect(() => {
+    axios.get(url + 'rooms/user/1', {
+      headesr: {
+        Authorization: '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',
+        Accept: '*/*',
+        Connection: 'keep-alive'
+      }
+    }).then(result => {
+      console.log('result:' + result);
+    }).catch(err => {
+      console.log(err);
+    })
+  }, []);
 
   return (
     <div className="flex w-full  h-screen">
