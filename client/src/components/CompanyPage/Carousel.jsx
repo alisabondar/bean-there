@@ -10,6 +10,8 @@ export default function SimpleSlider( {photos} ) {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    arrows: true,
+    accessibility: true
 
   };
   return (
