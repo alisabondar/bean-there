@@ -2,7 +2,7 @@ import React from "react";
 
 const OverallRating = () => {
 return (
-  <div className="bg-sky-600 pt-3 mt-4 flex justify-between ">
+  <div className="pt-3 mt-4 flex justify-between ">
     <div className="self-center">
       <h1>OverallRating</h1>
       <h2>★★★★★</h2>
