@@ -38,3 +38,5 @@ db.authenticate()
       (colors.red as any)("Unable to connect to the database:", error)
     );
   });
+
+module.exports = app;

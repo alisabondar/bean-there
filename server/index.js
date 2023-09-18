@@ -27,3 +27,4 @@ db.authenticate()
     .catch((error) => {
     console.log(colors.red("Unable to connect to the database:", error));
 });
+module.exports = app;

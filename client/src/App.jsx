@@ -18,7 +18,8 @@ import Company from "./pages/Company";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Home/>}>
+    <Route path="/">
+      <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
