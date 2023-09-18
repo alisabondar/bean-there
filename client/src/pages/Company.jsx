@@ -76,7 +76,7 @@ export default function Company() {
   const [business, setBusiness] = useState(mockBusiness);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-primary">
       <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
         {/* Title and Ratings */}
         <div className="flex flex-col items-center">
@@ -110,7 +110,7 @@ export default function Company() {
           <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
             <div className="col-span-2 sm:col-span-2">
               <div className="flex-col">
-                <div id="tool-bar" className="w-full h-[4rem]">
+                <div id="tool-bar" className="w-full h-[4rem] mt-2">
                   <Toolbar />
                 </div>
                 <div id="reviews" className="h-full overflow-auto">

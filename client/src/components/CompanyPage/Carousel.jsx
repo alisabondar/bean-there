@@ -15,10 +15,10 @@ export default function SimpleSlider( {photos} ) {
 
   };
   return (
-    <div className="min-w-full mx-auto">
+    <div className="min-w-full mx-auto bg-neutral rounded-box border-accent border-4">
       <Slider {...settings}>
         {photos.map((image, index) => (
-          <div key={index} className="px-1 py-2 h-full flex items-center justify-center">
+          <div key={index} className="px-2 py-2 h-full flex items-center justify-center">
             <img
               src={image}
               className="rounded-box opacity-100 w-full h-[20rem] object-cover"
