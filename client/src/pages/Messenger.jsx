@@ -43,14 +43,8 @@ export default function Messenger() {
 
 
   useEffect(() => {
-    axios.get(url + 'rooms/user/1', {
-      headesr: {
-        Authorization: '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',
-        Accept: '*/*',
-        Connection: 'keep-alive'
-      }
-    }).then(result => {
-      console.log('result:' + result);
+    axios.get(url + 'rooms/user/1').then(result => {
+      console.log(result.data);
     }).catch(err => {
       console.log(err);
     })
