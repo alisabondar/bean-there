@@ -4,11 +4,13 @@ require("dotenv").config();
 var morgan = require("morgan");
 var colors = require("colors");
 var express = require("express");
+var cors = require('cors');
 var userRoutes = require("./routes/user");
 var messengerRoutes = require("./routes/messenger");
 var companyRoutes = require("./routes/company");
 var locationRoutes = require("./routes/location");
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use(morgan("tiny"));
 app.get("/", (req, res) => res.send("bean-there"));
