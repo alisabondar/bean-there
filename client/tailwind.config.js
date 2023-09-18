@@ -11,11 +11,11 @@ export default {
     themes: [
       {
         mytheme: {
-            "one": "#CFB299",
-            "two": "A98E77",
-            "three": "#61493C",
-            "four": "#9F643D",
-            "black": "#ffffff",
+            "primary": "#CFB299",
+            "secondary": "A98E77",
+            "accent": "#61493C",
+            "neutral": "#9F643D",
+            "base-100": "#ffffff",
         },
       },
     ],

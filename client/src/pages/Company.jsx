@@ -77,28 +77,29 @@ export default function Company() {
 
   return (
     <div className="flex justify-center">
-      <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] overflow-auto">
+      <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
         {/* Title and Ratings */}
-        <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
-        <div className="flex justify-center my-2">
-          <div className="flex space-x-4">
-            <div className="flex-shrink-0">
-              <BeanRating rating={business.rating} />
-            </div>
-            <div className="text-2xl font-bold">
-              {business.rating}
-            </div>
-            <div className="text-2xl">
-              ({business.user_ratings_total} Reviews)
+        <div className="flex flex-col items-center">
+          <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
+          <div className="flex justify-center my-2">
+            <div className="flex space-x-4">
+              <div className="flex-shrink-0">
+                <BeanRating rating={business.rating} />
+              </div>
+              <div className="text-2xl font-bold">
+                {business.rating}
+              </div>
+              <div className="text-2xl">
+                ({business.user_ratings_total} Reviews)
+              </div>
             </div>
           </div>
+          <div className="inline-flex items-center mb-2">
+            <span className={`text-md rounded-full px-4 py-2 ${business.opening_hours.open_now ? 'bg-green-400' : 'bg-red-400'}`}>
+              {business.opening_hours.open_now ? "Open" : "Closed"}
+            </span>
+          </div>
         </div>
-        <div className="inline-flex items-center mb-2">
-          <span className={`text-md rounded-full px-4 py-2 ${business.opening_hours.open_now ? 'bg-green-400' : 'bg-red-400'}`}>
-            {business.opening_hours.open_now ? "Open" : "Closed"}
-          </span>
-        </div>
-
         {/* PhotoCarousel */}
         <div className="mx-auto w-full max-w-[95%]">
           <PhotoCarousel />

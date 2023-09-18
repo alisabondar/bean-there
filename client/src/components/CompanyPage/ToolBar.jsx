@@ -7,7 +7,7 @@ export default function Toolbar() {
 
       <div className="flex flex-row justify-evenly">
 
-        <button className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg">
+        <button className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg">
           Write Review
         </button>
 
