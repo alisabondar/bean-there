@@ -13,6 +13,7 @@ const Sequelize = require("sequelize");
 const { Op } = Sequelize;
 var { ChatRoom, ChatMember, Message } = require("../models/messengerModel");
 var { User } = require("../models/userModel");
+var db = require("../db/database");
 var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * send userId as a param or (or some other way)
@@ -22,26 +23,44 @@ var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
      * return list of roomName and their roomId (for message lookup later)
      */
     // testing get rooms
-    const userId = req.params.userId;
-    yield ChatRoom.findAll({
-        where: {
-            id: {
-                [Op.in]: Sequelize.literal(`(SELECT room_id FROM chat_members WHERE user_id = ${userId})`),
+    try {
+        const userId = req.params.userId;
+        const roomsList = yield ChatRoom.findAll({
+            attributes: ["id"],
+            where: {
+                id: {
+                    [Op.in]: Sequelize.literal(`(SELECT room_id FROM chat_members WHERE user_id = ${userId})`),
+                },
             },
-        },
-    })
-        .then((results) => {
-        const roomList = results.map((result) => result.dataValues);
-        // console.log(results.map((result) => result.dataValues));
+            raw: true,
+        });
+        const roomIds = roomsList.map((room) => room.id);
+        const roomsWithMembers = yield ChatRoom.findAll({
+            attributes: ["id", "chat_name"],
+            include: [
+                {
+                    model: ChatMember,
+                    attributes: ["user_id"],
+                    where: {
+                        room_id: roomIds,
+                    },
+                    include: {
+                        model: User,
+                        as: "users",
+                        attributes: ["username", "photo"],
+                    },
+                },
+            ],
+        });
         res.status(200).send({
             mssg: "you have reached the getRooms controller",
-            rooms: roomList,
+            rooms: roomsWithMembers,
         });
-    })
-        .catch((error) => {
+    }
+    catch (error) {
         console.log(error);
         res.status(404).send({ error: "unable to login user" });
-    });
+    }
 });
 var getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**

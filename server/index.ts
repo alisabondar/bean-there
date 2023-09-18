@@ -8,10 +8,12 @@ var userRoutes = require("./routes/user");
 var messengerRoutes = require("./routes/messenger");
 var companyRoutes = require("./routes/company");
 var locationRoutes = require("./routes/location");
+var cors = require("cors");
 
 const app = express();
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => res.send("bean-there"));
 
@@ -26,11 +28,9 @@ var db = require("./db/database");
 //test
 db.authenticate()
   .then(() => {
-    console.log(
-      (colors.yellow as any)("Connection has been established successfully.")
-    );
+    console.log(colors.yellow("Connection has been established successfully."));
     app.listen(port, () =>
-      console.log((colors.green as any)(`Server connected on port ${port}`))
+      console.log(colors.green(`Server connected on port ${port}`))
     );
   })
   .catch((error: Error) => {
