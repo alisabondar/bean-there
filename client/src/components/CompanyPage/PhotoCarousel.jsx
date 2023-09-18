@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function PhotoCarousel() {
   const images = [
-    '/assets/coffee-mock-1.jpeg',
-    '/assets/coffee-mock-2.jpeg',
-    '/assets/coffee-mock-3.jpeg',
-    '/assets/coffee-mock-4.jpeg',
-    '/assets/coffee-mock-5.jpeg',
-    '/assets/coffee-mock-6.jpeg',
-    '/assets/coffee-mock-7.jpeg',
+    "/assets/coffee-mock-1.jpeg",
+    "/assets/coffee-mock-2.jpeg",
+    "/assets/coffee-mock-3.jpeg",
+    "/assets/coffee-mock-4.jpeg",
+    "/assets/coffee-mock-5.jpeg",
+    "/assets/coffee-mock-6.jpeg",
+    "/assets/coffee-mock-7.jpeg",
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,11 +24,10 @@ export default function PhotoCarousel() {
     }
   };
 
-
   const prevSlide = () => {
     if (currentSlide === 0) {
       setCurrentSlide(images.length - 3);
-      setTranslateX(-(images.length - 3) * 300 );
+      setTranslateX(-(images.length - 3) * 300);
     } else {
       setCurrentSlide(currentSlide - 1);
       setTranslateX(translateX + 300);
@@ -46,12 +45,21 @@ export default function PhotoCarousel() {
         </div>
         {/* Carousel */}
         <div className="w-full overflow-hidden flex">
-          <div className="flex flex-row" style={{ transform: `translateX(${translateX}px)`, transition: 'transform 0.5s ease-in-out' }}>
+          <div
+            className="flex flex-row"
+            style={{
+              transform: `translateX(${translateX}px)`,
+              transition: "transform 0.5s ease-in-out",
+            }}
+          >
             {images.map((image, index) => (
-              <div style={{ width: '300px', height: '300px', overflow: 'hidden' }} key={index}>
+              <div
+                style={{ width: "300px", height: "300px", overflow: "hidden" }}
+                key={index}
+              >
                 <img
                   src={image}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   className="rounded-box opacity-100"
                 />
               </div>
@@ -68,9 +76,3 @@ export default function PhotoCarousel() {
     </div>
   );
 }
-
-
-
-
-
-
