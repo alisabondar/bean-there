@@ -38,7 +38,7 @@ function Middle() {
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{duration: 0.5, delay: 0.25}}
+        transition={{duration: 0.3, delay: 0.15 }}
         className="relative w-full p-10 md:w-1/2 p-4 rounded-lg pt-[120px] pb-[80px] bg-cover bg-center"
          style={{ backgroundImage: `url(${middleBackground})` }}>
   <div className="relative z-10 flex justify-center items-center h-full">
