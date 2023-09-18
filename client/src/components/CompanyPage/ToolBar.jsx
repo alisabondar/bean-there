@@ -4,14 +4,16 @@ export default function Toolbar() {
 
   return (
     <div className="bg-slate-800 rounded-md shadow-lg">
-
-      <div className="flex flex-row justify-evenly">
-
-        <button className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg">
+      <div className="flex flex-row justify-evenly flex-wrap">
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        >
           Write Review
         </button>
-
-        <button className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg" onClick={()=>document.getElementById('share_modal').showModal()}>
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+          onClick={()=>document.getElementById('share_modal').showModal()}
+        >
           Share
         </button>
 
@@ -25,22 +27,21 @@ export default function Toolbar() {
                 ✕
             </button>
           </div>
-          <form method="dialog" className="modal-backdrop">
-            <button>close</button>
-          </form>
         </dialog>
 
-        <button className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg">
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        >
           Wish I Had Bean There
         </button>
 
-        <button className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg">
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-accent m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        >
           Bean There
         </button>
-
       </div>
     </div>
-
   );
 
 }

@@ -102,7 +102,7 @@ export default function Company() {
         </div>
         {/* PhotoCarousel */}
         <div className="mx-auto w-full max-w-[95%]">
-          <PhotoCarousel />
+          <Carousel photos={mockImages}/>
         </div>
 
         {/* ToolBar and Reviews */}
