@@ -1,6 +1,8 @@
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
 
+var UserModels = require("../models/userModel");
+
 const ChatRoom = db.define(
   "chat_rooms",
   {
@@ -59,5 +61,8 @@ const Message = db.define(
   },
   { timestamps: false }
 );
+
+ChatRoom.hasMany(ChatMember, { foreignKey: "room_id" });
+ChatMember.belongsTo(UserModels.User, { foreignKey: "user_id", as: "users" });
 
 module.exports = { ChatRoom, ChatMember, Message };

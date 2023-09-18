@@ -28,11 +28,9 @@ var db = require("./db/database");
 //test
 db.authenticate()
   .then(() => {
-    console.log(
-      (colors.yellow as any)("Connection has been established successfully.")
-    );
+    console.log(colors.yellow("Connection has been established successfully."));
     app.listen(port, () =>
-      console.log((colors.green as any)(`Server connected on port ${port}`))
+      console.log(colors.green(`Server connected on port ${port}`))
     );
   })
   .catch((error: Error) => {
