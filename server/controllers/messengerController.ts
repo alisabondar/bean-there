@@ -5,6 +5,8 @@ const { Op } = Sequelize;
 var { ChatRoom, ChatMember, Message } = require("../models/messengerModel");
 var { User } = require("../models/userModel");
 
+var db = require("../db/database");
+
 var getRooms = async (req: Request, res: Response) => {
   /**
    * send userId as a param or (or some other way)
@@ -15,29 +17,50 @@ var getRooms = async (req: Request, res: Response) => {
    */
 
   // testing get rooms
-  const userId = req.params.userId;
 
-  await ChatRoom.findAll({
-    where: {
-      id: {
-        [Op.in]: Sequelize.literal(
-          `(SELECT room_id FROM chat_members WHERE user_id = ${userId})`
-        ),
+  try {
+    const userId = req.params.userId;
+
+    const roomsList = await ChatRoom.findAll({
+      attributes: ["id"],
+      where: {
+        id: {
+          [Op.in]: Sequelize.literal(
+            `(SELECT room_id FROM chat_members WHERE user_id = ${userId})`
+          ),
+        },
       },
-    },
-  })
-    .then((results: { dataValues: object }[]) => {
-      const roomList = results.map((result) => result.dataValues);
-      // console.log(results.map((result) => result.dataValues));
-      res.status(200).send({
-        mssg: "you have reached the getRooms controller",
-        rooms: roomList,
-      });
-    })
-    .catch((error: Error) => {
-      console.log(error);
-      res.status(404).send({ error: "unable to login user" });
+      raw: true,
     });
+
+    const roomIds = roomsList.map((room: { id: number }) => room.id);
+
+    const roomsWithMembers = await ChatRoom.findAll({
+      attributes: ["id", "chat_name"],
+      include: [
+        {
+          model: ChatMember,
+          attributes: ["user_id"],
+          where: {
+            room_id: roomIds,
+          },
+          include: {
+            model: User,
+            as: "users",
+            attributes: ["username", "photo"],
+          },
+        },
+      ],
+    });
+
+    res.status(200).send({
+      mssg: "you have reached the getRooms controller",
+      rooms: roomsWithMembers,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).send({ error: "unable to login user" });
+  }
 };
 
 var getMessages = async (req: Request, res: Response) => {

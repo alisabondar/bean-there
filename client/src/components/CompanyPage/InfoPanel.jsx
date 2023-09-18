@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function InfoPanel() {
 
   return (
-    <div className="mx-auto p-5 border rounded-lg">
+    <div className="mx-auto p-5 mt-2 bg-neutral rounded-box border-accent border-[1rem]">
       <div className="border-b pb-4 mb-4">
         <h2 className="text-2xl font-bold mb-4">Business Details</h2>
         <a href="https://coffeeshop.com" className="text-blue-500 hover:underline mb-4 block">Visit Coffee Shop Website</a>
