@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef} from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 import middleBackground from '../../pages/img/middleBackground.avif';
 import history from '../../pages/img/history.avif';
 
-function Middle() {
+function CoffeeHis () {
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, {once:true});
+
+  const mainControls = useAnimation();
+  const slideControls = useAnimation();
+
+  useEffect (() => {
+    console.log(isInView)
+
+    if(isInView) {
+      mainControls.start('visible');
+      slideControls.start('visible');
+    }
+
+
+  }, [isInView])
   return (
       <div className='my-10'>
         <div className="flex flex-wrap pb-[80px]">
@@ -24,16 +42,25 @@ As word moved east and coffee reached the Arabian peninsula, it began a journey 
           </div>
         </section>
 
-        <section className="relative w-full p-10 md:w-1/2  rounded-lg pt-[90px] pb-[80px] bg-cover bg-center my-12"
+        <motion.section
+        ref={ref}
+        variants={{
+          hidden: { opacity:0, y: 75},
+          visible:{ opacity:1, y:0 },
+        }}
+        initial="hidden"
+        animate={mainControls}
+        transition={{duration: 0.5, delay: 0.25}}
+        className="relative w-full p-10 md:w-1/2  rounded-lg pt-[90px] pb-[80px] bg-cover bg-center my-12"
          style={{ backgroundImage: `url(${middleBackground})` }}>
   <div className="relative z-10 flex justify-center items-center h-full">
     <img src={history} alt="Middle Section Image" className="max-w-full rounded-lg h-auto ml-auto md:-ml-40 sm:ml-0 lg:-mr-100"/>
   </div>
-</section>
+</motion.section>
         </div>
       </div>
 
   );
 }
 
-export default Middle;
+export default CoffeeHis ;

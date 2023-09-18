@@ -1,17 +1,50 @@
-import React from 'react';
+import React, { useEffect, useRef} from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 import middle from '../../pages/img/middle.avif';
 import middleBackground from '../../pages/img/middleBackground.avif';
 
+
+
+
 function Middle() {
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, {once:true});
+
+  const mainControls = useAnimation();
+  const slideControls = useAnimation();
+
+  useEffect (() => {
+    console.log(isInView)
+
+    if(isInView) {
+      mainControls.start('visible');
+      slideControls.start('visible');
+    }
+
+
+  }, [isInView])
+
   return (
+
+
       <div className='my-10'>
-        <div className="flex flex-wrap pt-[120px] pb-[40px]">
-        <section className="relative w-full p-10 md:w-1/2 p-4 rounded-lg pt-[120px] pb-[80px] bg-cover bg-center"
+        <div         className="flex flex-wrap pt-[120px] pb-[40px]">
+        <motion.section
+        ref={ref}
+        variants={{
+          hidden: { opacity:0, y: 75},
+          visible:{ opacity:1, y:0 },
+        }}
+        initial="hidden"
+        animate={mainControls}
+        transition={{duration: 0.5, delay: 0.25}}
+        className="relative w-full p-10 md:w-1/2 p-4 rounded-lg pt-[120px] pb-[80px] bg-cover bg-center"
          style={{ backgroundImage: `url(${middleBackground})` }}>
   <div className="relative z-10 flex justify-center items-center h-full">
     <img src={middle} alt="Middle Section Image" className="max-w-full rounded-lg h-auto ml-auto md:-mr-40 sm:ml-0 lg:-mr-100"/>
   </div>
-</section>
+</motion.section>
 
 
         <section className="w-full p-10 md:w-1/2 md:px-40 hover:scale-105 transition duration-300 ease-in-out cursor-pointer ">
@@ -30,6 +63,7 @@ function Middle() {
         </section>
         </div>
       </div>
+
 
   );
 }

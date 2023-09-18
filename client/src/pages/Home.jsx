@@ -8,6 +8,8 @@ import About from '../components/HomePage/About.jsx';
 import Footer from '../components/HomePage/Footer.jsx';
 import backgroundImage from './img/overview.webp';
 
+
+
 const Home = () => {
   return (
     <div className="App">
