@@ -31,45 +31,56 @@ export default function Register() {
       .catch((err) => console.error(err));
   };
   return (
-    <div className="mt-[100px]">
+    <div className="h-screen flex flex-col justify-center items-center">
       {registerError.length ? registerError : null}
-      <form onSubmit={registerSubmit}>
-        <div className="pb-5">
-          <label>Email: </label>
-          <input
-            type="email"
-            className="register-email"
-            name="email"
-            onChange={(e) => changeEmail(e.target.value)}
-            value={email}
-            required
-          />
-        </div>
-        <div className="pb-5">
-          <label>Name: </label>
-          <input
-            type="text"
-            className="register-name"
-            name="username"
-            onChange={(e) => changeName(e.target.value)}
-            value={name}
-            required
-          />
-        </div>
-        <div className="pb-5">
-          <label>Password: </label>
-          <input
-            type="text"
-            className="register-password"
-            name="password"
-            onChange={(e) => changePass(e.target.value)}
-            value={pass}
-            required
-          />
-        </div>
-        <button type="submit">Register</button>
+      <h1 className="text-2xl">Sign Up</h1>
+      <form
+        onSubmit={registerSubmit}
+        className="flex flex-col items-start px-2 py-4 w-[25rem]"
+      >
+        <label className="py-1">Display Name: </label>
+        <input
+          type="text"
+          className="register-name px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+          name="username"
+          onChange={(e) => changeName(e.target.value)}
+          value={name}
+          required
+          placeholder="Choose a display name"
+        />
+        <label className="py-1">Email: </label>
+        <input
+          type="email"
+          className="register-email px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+          name="email"
+          onChange={(e) => changeEmail(e.target.value)}
+          value={email}
+          required
+          placeholder="Enter a valid email"
+        />
+        <label className="py-1">Password: </label>
+        <input
+          type="text"
+          className="register-password px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+          name="password"
+          onChange={(e) => changePass(e.target.value)}
+          value={pass}
+          required
+          placeholder="Enter a password"
+        />
+        <button
+          className="self-center mt-5 mb-1 w-[75%] border px-4 py-2 rounded-md hover:bg-[#61493C]/[0.8]"
+          type="submit"
+        >
+          Register
+        </button>
       </form>
-      <a href="/login">Login</a>
+      <a
+        className="self-center mt-4 border px-4 py-1 rounded-md hover:bg-[#61493C]/[0.8]"
+        href="/login"
+      >
+        Already a Member? Login Here
+      </a>
     </div>
   );
 }
