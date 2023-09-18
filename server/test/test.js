@@ -6,19 +6,28 @@ const expect = chaiInstance.expect;
 const should = chaiInstance.should();
 var server = require("../index");
 chaiInstance.use(chaiHttp);
-describe("/First Test Collection", () => {
-    it("test default API welcome route...", (done) => {
+describe("Welcome Routes", () => {
+    it("GET /", (done) => {
         chaiInstance
             .request(server)
             .get("/")
             .end((err, res) => {
             res.should.have.status(200);
+            expect(res.text).to.be.equal("bean-there");
             done();
         });
     });
-    it("should test two values...", () => {
-        let expected = 10;
-        let actual = 10;
-        expect(actual).to.be.equal(expected);
+});
+describe("User Routes", () => {
+    it("GET /user/:userId/reviews", (done) => {
+        chaiInstance
+            .request(server)
+            .get("/user/5/reviews")
+            .end((err, res) => {
+            res.should.have.status(200);
+            console.log(Array.isArray(res.body.reviews));
+            expect(Array.isArray(res.body.reviews)).to.be.equal(true);
+            done();
+        });
     });
 });

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"tsc --watch\" \"node --watch index.js\"",
     "db-setup": "psql -h localhost -U postgres -f ./lib/db-setup.sql",
-    "test": "mocha --timeout 10000"
+    "test": "tsc && mocha --timeout 10000"
   },
   "keywords": [],
   "author": "",
