@@ -25,7 +25,6 @@ describe("User Routes", () => {
             .get("/user/5/reviews")
             .end((err, res) => {
             res.should.have.status(200);
-            console.log(Array.isArray(res.body.reviews));
             expect(Array.isArray(res.body.reviews)).to.be.equal(true);
             done();
         });
