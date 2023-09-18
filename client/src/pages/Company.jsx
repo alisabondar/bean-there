@@ -8,9 +8,19 @@ import axios from "axios"
 import { useState, useEffect } from 'react';
 
 export default function Company() {
+  const [reviews, updateReviews] = useState([{title: "Great Load",
+  body: "I love loading!",
+ created_at: '2023-09-16 10:00:00',
+ updated_at: '2023-09-16 10:00:00',
+ rating: 1,
+ user_id: 1,
+ location_id: 900
+}])
+
   useEffect(() => {
     axios.get("http://localhost:3001/company/900/reviews").then((res) => {
-      console.log(res)
+      console.log(res.data.reviews)
+      updateReviews(res.data.reviews)
     }).catch((err) => console.error)
   },[])
 
@@ -172,7 +182,7 @@ location_id: 900
                   <Toolbar />
                 </div>
                 <div id="reviews" className="h-full overflow-auto">
-                  <Reviews reviews={mockReviewsResult}/>
+                  <Reviews reviews={reviews}/>
                 </div>
               </div>
             </div>

@@ -18,21 +18,20 @@ const CompanyRatings = (prop) => {
         result[key] = percentage;
       }
     }
-
     updateRatings(result);
   },[])
   return (
-    <div className="progressGrid grid grid-cols-5 grid-rows-5 gap-4 items-center">
+    <div className="progressGrid grid grid-cols-5 grid-rows-5 gap-4 items-center ml-20">
       <div className="col-start-1 row-start-5">1 star</div>
       <div className="col-start-1 row-start-4">2 stars</div>
       <div className="col-start-1 row-start-3">3 stars</div>
       <div className="col-start-1 row-start-2">4 stars</div>
       <div className="col-start-1 row-start-1">5 stars</div>
-      <progress className="progress w-56 col-span-4 col-start-2 row-start-1" value={ratings[5]} max="100"></progress>
-      <progress className="progress w-56 col-span-4 col-start-2 row-start-2" value={ratings[4]} max="100"></progress>
-      <progress className="progress w-56 col-span-4 col-start-2 row-start-3" value={ratings[3]} max="100"></progress>
-      <progress className="progress w-56 col-span-4 col-start-2 row-start-4" value={ratings[2]} max="100"></progress>
-      <progress className="progress w-56 col-span-4 col-start-2 row-start-5" value={ratings[1]} max="100"></progress>
+      <progress className="progress w-96 col-span-4 col-start-2 row-start-1" value={ratings[5]} max="100"></progress>
+      <progress className="progress w-96 col-span-4 col-start-2 row-start-2" value={ratings[4]} max="100"></progress>
+      <progress className="progress w-96 col-span-4 col-start-2 row-start-3" value={ratings[3]} max="100"></progress>
+      <progress className="progress w-96 col-span-4 col-start-2 row-start-4" value={ratings[2]} max="100"></progress>
+      <progress className="progress w-96 col-span-4 col-start-2 row-start-5" value={ratings[1]} max="100"></progress>
     </div>
 
   )
