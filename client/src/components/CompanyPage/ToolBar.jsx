@@ -3,24 +3,21 @@ import ShareForm from './ShareModal';
 import axios from 'axios';
 
 export default function Toolbar({ place_id, place_name }) {
-  const [wishlisted, setWishlisted] = useState(false);
-  const [beanThere, setBeanThere] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const currentPageLocationId = place_id;
 
-  const fetchWishlisted = async () => {
+  const fetchFavorite = async () => {
     try {
       const userId = 1;
       const res = await axios.get(`http://localhost:5000/user/${userId}/wishlist`);
       const { wishlist } = res.data;
       const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
-      console.log(wishlist)
+      console.log(filtered)
       if (filtered.length > 0) {
-        const item = filtered[0];
-        setWishlisted(!!item.wishlisted);
-        setBeanThere(!!item.visited);
+        setFavorite(true);
+
       } else {
-        setWishlisted(false);
-        setBeanThere(false);
+        setFavorite(false);
       }
 
     } catch (err) {
@@ -28,46 +25,27 @@ export default function Toolbar({ place_id, place_name }) {
     }
   };
 
-  const toggleWishlisted = async () => {
+  const toggleFavorite = async () => {
     const userId = 1;
-    const newStatus = !wishlisted;
+    const newStatus = !favorite;
 
     try {
       await axios.patch(`http://localhost:5000/user/${userId}/wishlist`, {
         user_id: userId,
-        wishlisted: newStatus,
+        favorite: newStatus,
         location_id: currentPageLocationId,
         name: place_name
       });
-      setWishlisted(newStatus);
+      setFavorite(newStatus);
     } catch (err) {
-      console.error("Failed to update wishlisted status:", err);
+      console.error("Failed to update Favorite status:", err);
     }
   };
 
-  const toggleVisited = async () => {
-    const userId = 1;
-    const newStatus = !beanThere;
-
-    try {
-      await axios.patch(`http://localhost:5000/user/${userId}/wishlist`, {
-        user_id: userId,
-        visited: newStatus,
-        location_id: currentPageLocationId,
-        name: place_name
-      });
-      setBeanThere(newStatus);
-    } catch (err) {
-      console.error("Failed to update visited status:", err);
-    }
-  };
 
   useEffect(() => {
-    fetchWishlisted();
+    fetchFavorite();
   }, [currentPageLocationId]);
-
-
-
 
   return (
     <div className="bg-neutral rounded-md shadow-lg">
@@ -100,17 +78,10 @@ export default function Toolbar({ place_id, place_name }) {
         </dialog>
 
         <button
-          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${wishlisted ? 'wishlisted-class' : ''}`}
-          onClick={toggleWishlisted}
+          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${favorite ? 'bg-opacity-40 translate-y-[1px] shadow-inner' : ''}`}
+          onClick={toggleFavorite}
         >
-          Wish I Had Bean There
-        </button>
-
-        <button
-          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${beanThere ? 'beanThere-class' : ''}`}
-          onClick={toggleVisited}
-        >
-          Bean There
+          Favorite
         </button>
       </div>
     </div>

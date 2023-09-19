@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS reviews CASCADE;
 
 DROP TABLE IF EXISTS reviews_photos CASCADE;
 DROP TABLE IF EXISTS locations CASCADE;
-DROP TABLE IF EXISTS wishlists CASCADE;
+DROP TABLE IF EXISTS favorites CASCADE;
 DROP TABLE IF EXISTS friends CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
 DROP TABLE IF EXISTS chat_members CASCADE;
@@ -40,12 +40,10 @@ CREATE TABLE locations (
 );
 
 -- Create the 'wishlist' table
-CREATE TABLE wishlists (
+CREATE TABLE favorites (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
-  visited BOOLEAN NOT NULL,
-  wishlisted BOOLEAN NOT NULL,
-  location_id VARCHAR(200) NOT NULL
+  location_id VARCHAR(200)  NOT NULL
 );
 
 -- Create the 'reviews' table
@@ -57,7 +55,7 @@ CREATE TABLE reviews (
   updated_at timestamp,
   rating INTEGER NOT NULL,
   user_id INTEGER NOT NULL,
-  location_id VARCHAR(200) NOT NULL
+  location_id VARCHAR(200)  NOT NULL
 );
 
 -- Create the 'reviews_photos' table
@@ -125,17 +123,17 @@ VALUES
   ('902', 'Coffee Shop G'),
   ('455', 'Coffee Shop H');
 
--- Mock data for the 'wishlists' table
-INSERT INTO wishlists (user_id, visited, wishlisted, location_id)
+-- Mock data for the 'favorites' table
+INSERT INTO favorites (user_id, location_id)
 VALUES
-  (1, true, true, '455'),
-  (2, true, false, '455'),
-  (1, true, true, '900'),
-  (4, false, true, '455'),
-  (5, true, false, '901'),
-  (6, true, true, '902'),
-  (7, true, true, '452'),
-  (1, false, false, '452');
+  (1, '455'),
+  (2,'455'),
+  (1,'900'),
+  (4,'455'),
+  (5,'901'),
+  (6,'902'),
+  (7,'452'),
+  (1,'452');
 
 
 -- Mock data for the 'reviews' table
