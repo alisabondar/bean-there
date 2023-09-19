@@ -197,4 +197,4 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(500).send({ error });
     }
 });
-module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist };
+module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };

@@ -6,7 +6,7 @@ var {
   getWishlist,
   getUserReviews,
   getFriends,
-  updateWishlist
+  updateWishlist,
   getProfile
 } = require("../controllers/usersController");
 
