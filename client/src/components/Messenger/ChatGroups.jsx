@@ -7,7 +7,7 @@ const testGroup = (room, key, changeRoom) => {
       {key !== 0 ? (
         <div className="divider m-3"></div>
       ) : (<div></div>)}
-      <div className="w-full text-white flex p-5 items-start justify-center flex-col bg-secondary color-[white] cursor-pointer h-[113px] rounded-[11px] border-[1.5px] border-grey-500"
+      <div className="w-full text-white flex p-5 items-start justify-center flex-col bg-[black] color-[white] cursor-pointer h-[113px] rounded-[3px]"
         onClick={changeRoom}
        >
         <p className="font-bold">{room.chat_name}</p>

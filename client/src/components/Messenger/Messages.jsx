@@ -3,18 +3,19 @@ import { useEffect, useState } from 'react';
 
 const testChat = (userId, message, userMap, key) => {
   const user = userMap[message.message_user];
+  const sentUser = message.message_user === userId;
   return (
-    <div key={key} className={`chat chat-${message.message_user === userId ? 'start' : 'end'}`}>
+    <div key={key} className={`chat chat-${sentUser ? 'start' : 'end'}`}>
       <div className="chat-image avatar">
-        <div className="w-10">
-          <img src={`${user.photo}`} />
+        <div className="w-10 rounded-full">
+          <img src={`${user?.photo}`} />
         </div>
       </div>
       <div className="chat-header">
-        {user.username} |
+        {user?.username} |
         <time className="text-xs opacity-50"> {message.created_at}</time>
       </div>
-      <div className="chat-bubble">{message.message_text}</div>
+      <div className={`chat-bubble bg-[${sentUser ? 'black' : 'seconfary'}]`}>{message.message_text}</div>
     </div>
   );
 }
@@ -33,13 +34,15 @@ const buildUserMap = (chatUsers) => {
 const url = 'http://localhost:5000/messenger/'
 
 var Messages = ({ userId, room, chatUsers }) => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(null);
   const [userMap, setUserMap] = useState({});
+  var loading = messages === null;
 
   var getMessages = (id) => axios.get(url + `rooms/${id}/messages/`);
 
   useEffect(() => {
     setUserMap(buildUserMap(chatUsers))
+
     getMessages(room.id).then(result => {
       var msgs = result.data.messages;
       setMessages(msgs.map((m) => ({
@@ -53,10 +56,14 @@ var Messages = ({ userId, room, chatUsers }) => {
   }, [room])
 
   return (
-    <div className="flex w-full overflow-auto justify-start flex-col-reverse flex-items-end">
-      {messages.map((m, i) => (
-        testChat(userId, m, userMap, i)
-      ))}
+    <div className="flex w-full overflow-auto justify-start flex-col-reverse flex-items-end p-3">
+      {loading ? (<></>) : (
+        <>
+          {messages.map((m, i) => (
+            testChat(userId, m, userMap, i)
+          ))}
+        </>
+      )}
     </div>
   )
 }
