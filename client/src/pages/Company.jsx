@@ -8,73 +8,15 @@ import axios from "axios"
 import { useState, useEffect } from 'react';
 
 export default function Company() {
-  const [reviews, updateReviews] = useState([{title: "Great Load",
-  body: "I love loading!",
- created_at: '2023-09-16 10:00:00',
- updated_at: '2023-09-16 10:00:00',
- rating: 1,
- user_id: 1,
- location_id: 900
-}])
+  const [reviews, updateReviews] = useState([])
 
   useEffect(() => {
     axios.get("http://localhost:3001/company/900/reviews").then((res) => {
-      console.log(res.data.reviews)
-      updateReviews(res.data.reviews)
+      console.log(res)
+    updateReviews(res.data.reviews)
     }).catch((err) => console.error)
   },[])
 
-    const mockReviewsResult = [
-    {title: "Great Coffe",
-     body: "I love their coffee!",
-    created_at: '2023-09-16 10:00:00',
-    updated_at: '2023-09-16 10:00:00',
-    rating: 1,
-    user_id: 1,
-    location_id: 900
-  },
-  {title: "Great Coffe",
-  body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
- created_at: '2023-09-16 10:00:00',
- updated_at: '2023-09-16 10:00:00',
- rating: 3,
- user_id: 1,
- location_id: 900
-},
-{title: "Great Coffe",
-body: "Yes I went here and the coffee very much tasted like coffee, it almost tasted like they got dried beans and then roasted them followed by dumping water over it and then giving me the remains.",
-created_at: '2023-09-16 10:00:00',
-updated_at: '2023-09-16 10:00:00',
-rating: 5,
-user_id: 1,
-location_id: 900
-},
-{title: "Great Coffe",
-body: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
-created_at: '2023-09-16 10:00:00',
-updated_at: '2023-09-16 10:00:00',
-rating: 4,
-user_id: 1,
-location_id: 900
-},
-{title: "Great Coffe",
-body: "But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.",
-created_at: '2023-09-16 10:00:00',
-updated_at: '2023-09-16 10:00:00',
-rating: 3,
-user_id: 1,
-location_id: 900
-},
-{title: "Great Coffe",
-body: "But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.",
-created_at: '2023-09-16 10:00:00',
-updated_at: '2023-09-16 10:00:00',
-rating: 3,
-user_id: 1,
-location_id: 900
-},
-
-  ]
   let mockBusiness = {
     business_status: "OPERATIONAL",
     geometry: {
@@ -182,7 +124,7 @@ location_id: 900
                   <Toolbar />
                 </div>
                 <div id="reviews" className="h-full overflow-auto">
-                  <Reviews reviews={reviews}/>
+                  <Reviews reviews={reviews} rating={business.rating}/>
                 </div>
               </div>
             </div>

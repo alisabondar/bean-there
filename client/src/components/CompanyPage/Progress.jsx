@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 const CompanyRatings = (prop) => {
 
   const [ratings, updateRatings] = useState(prop.rating)
+
   useEffect(() => {
     const totalSum = Object.values(prop.rating).reduce((acc, val) => acc + val, 0);
 
@@ -18,10 +19,23 @@ const CompanyRatings = (prop) => {
         result[key] = percentage;
       }
     }
+
+    // Find the highest percentage
+    const maxPercentage = Math.max(...Object.values(result));
+
+    // Calculate the adjustment factor
+    const adjustmentFactor = 100 / maxPercentage;
+
+    // Adjust all percentages accordingly
+    for (const key in result) {
+      if (result.hasOwnProperty(key)) {
+        result[key] *= adjustmentFactor;
+      }
+    }
     updateRatings(result);
-  },[])
+  },[prop.rating])
   return (
-    <div className="progressGrid grid grid-cols-5 grid-rows-5 gap-4 items-center ml-20">
+    <div className="progressGrid grid grid-cols-5 grid-rows-5 gap-4 items-center ">
       <div className="col-start-1 row-start-5">1 star</div>
       <div className="col-start-1 row-start-4">2 stars</div>
       <div className="col-start-1 row-start-3">3 stars</div>
