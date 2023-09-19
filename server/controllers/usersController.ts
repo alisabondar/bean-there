@@ -92,6 +92,7 @@ var register = async (req: Request, res: Response) => {
 };
 
 var getWishlist = async (req: Request, res: Response) => {
+  console.log(req.params.userId);
   const user_id = req.params.userId;
 
   await db
@@ -168,4 +169,70 @@ var getFriends = async (req: Request, res: Response) => {
   });
 };
 
-module.exports = { login, register, getWishlist, getUserReviews, getFriends };
+// PATCH REQ
+
+var updateWishlist = async (req: Request, res: Response) => {
+  const { user_id, visited, wishlisted, location_id } = req.body;
+
+  if (location_id === undefined || (visited === undefined && wishlisted === undefined)) {
+    return res.status(400).send({ error: "Missing parameters" });
+  }
+
+  try {
+    const [existingRows] = await db.query(
+      `SELECT * FROM wishlists WHERE user_id = ? AND location_id = ?`,
+      {
+        replacements: [user_id, location_id],
+        type: db.QueryTypes.SELECT,
+      }
+    );
+
+    if (existingRows) {
+      let updateQuery = `UPDATE wishlists SET `;
+      const updates = [];
+      const replacements = [];
+
+      if (visited !== undefined) {
+        updates.push('visited = ?');
+        replacements.push(visited);
+      }
+
+      if (wishlisted !== undefined) {
+        updates.push('wishlisted = ?');
+        replacements.push(wishlisted);
+      }
+
+      updateQuery += updates.join(', ') + ` WHERE user_id = ? AND location_id = ?`;
+      replacements.push(user_id, location_id);
+
+      await db.query(updateQuery, {
+        replacements,
+        type: db.QueryTypes.UPDATE,
+      });
+
+    } else {
+      const visitedDefault = visited !== undefined ? visited : false;
+      const wishlistedDefault = wishlisted !== undefined ? wishlisted : false;
+
+      await db.query(
+        `INSERT INTO wishlists (user_id, location_id, visited, wishlisted) VALUES (?, ?, ?, ?)`,
+        {
+          replacements: [user_id, location_id, visitedDefault, wishlistedDefault],
+          type: db.QueryTypes.INSERT,
+        }
+      );
+    }
+
+    res.status(200).send({ message: "Wishlist status updated" });
+
+  } catch (err: any) {
+    console.error("Error:", err);
+    const error = err.message || "Internal server error";
+    res.status(500).send({ error });
+  }
+};
+
+
+
+
+module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist };

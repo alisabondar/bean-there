@@ -112,7 +112,7 @@ export default function Company() {
             <div className="col-span-2 sm:col-span-2">
               <div className="flex-col">
                 <div id="tool-bar" className="w-full h-[4rem] mt-2">
-                  <Toolbar />
+                  <Toolbar place_id={business.place_id}/>
                 </div>
                 <div id="reviews" className="h-full overflow-auto">
                   <Reviews />

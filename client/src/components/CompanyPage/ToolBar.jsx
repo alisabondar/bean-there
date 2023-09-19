@@ -1,6 +1,74 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ShareForm from './ShareModal';
-export default function Toolbar() {
+import axios from 'axios';
+
+export default function Toolbar({ place_id }) {
+  const [wishlisted, setWishlisted] = useState(false);
+  const [beanThere, setBeanThere] = useState(false);
+  const currentPageLocationId = place_id;
+
+
+  const toggleWishlisted = async () => {
+    const userId = 1;
+    const newStatus = !wishlisted;
+
+    try {
+      await axios.patch(`http://localhost:5000/user/${userId}/wishlist`, {
+        user_id: userId,
+        wishlisted: newStatus,
+        location_id: currentPageLocationId,
+      });
+      setWishlisted(newStatus);
+    } catch (err) {
+      console.error("Failed to update wishlisted status:", err);
+    }
+  };
+
+
+
+  const toggleVisited = async () => {
+    const userId = 1;
+    const newStatus = !beanThere;
+
+    try {
+      await axios.patch(`http://localhost:5000/user/${userId}/wishlist`, {
+        user_id: userId,
+        visited: newStatus,
+        location_id: currentPageLocationId,
+      });
+      setBeanThere(newStatus);
+    } catch (err) {
+      console.error("Failed to update visited status:", err);
+    }
+  };
+
+  useEffect(() => {
+    const fetchWishlisted = async () => {
+      try {
+        const userId = 1;
+        const res = await axios.get(`http://localhost:5000/user/${userId}/wishlist`);
+        const { wishlist } = res.data;
+        const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
+
+        if (filtered.length > 0) {
+          const item = filtered[0];
+          setWishlisted(!!item.wishlisted);
+          setBeanThere(!!item.visited);
+        } else {
+          setWishlisted(false);
+          setBeanThere(false);
+        }
+
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchWishlisted();
+  }, [currentPageLocationId]);
+
+
+
 
   return (
     <div className="bg-neutral rounded-md shadow-lg">
@@ -33,13 +101,15 @@ export default function Toolbar() {
         </dialog>
 
         <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${wishlisted ? 'wishlisted-class' : ''}`}
+          onClick={toggleWishlisted}
         >
           Wish I Had Bean There
         </button>
 
         <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${beanThere ? 'beanThere-class' : ''}`}
+          onClick={toggleVisited}
         >
           Bean There
         </button>

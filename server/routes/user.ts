@@ -6,6 +6,7 @@ var {
   getWishlist,
   getUserReviews,
   getFriends,
+  updateWishlist
 } = require("../controllers/usersController");
 
 // all these endpoints start with /user*
@@ -16,6 +17,8 @@ router.post("/register", register);
 router.get("/:userId/wishlist", getWishlist);
 router.get("/:userId/reviews", getUserReviews);
 router.get("/:userId/friends", getFriends);
+
+router.patch("/:userId/wishlist", updateWishlist);
 
 /**
  * FUTURE - 1
