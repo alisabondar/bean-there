@@ -33,7 +33,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user/profile", { withCredentials: true })
+      .get("http://localhost:5001/user/profile", { withCredentials: true })
       .then((res) => {
         setProfile(res.data);
       })
@@ -45,7 +45,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5000/user/${profile.id}/friends`, {
+        .get(`http://localhost:5001/user/${profile.id}/friends`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -61,7 +61,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5000/user/${profile.id}/reviews`, {
+        .get(`http://localhost:5001/user/${profile.id}/reviews`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -77,7 +77,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5000/user/${profile.id}/wishlist`, {
+        .get(`http://localhost:5001/user/${profile.id}/wishlist`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -177,8 +177,11 @@ function Profile() {
                     >
                       <img
                         alt="..."
-                        src="https://gray-wfsb-prod.cdn.arcpublishing.com/resizer/0iJ7vDpX2zZdSFnsF57WxMRelIA=/800x800/smart/filters:quality(70)/s3.amazonaws.com/arc-authors/gray/539ba86e-fad7-490f-a82c-439e3a3896d7.jpg"
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+                        src={
+                          profile.photo ||
+                          "https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg"
+                        }
+                        className="shadow-xl rounded-full h-auto align-middle border-4 border-secondary absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                       />
                     </div>
                   </div>

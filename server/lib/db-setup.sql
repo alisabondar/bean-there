@@ -27,7 +27,7 @@ CREATE TABLE users (
   username VARCHAR(200) UNIQUE NOT NULL,
   email VARCHAR(200) UNIQUE NOT NULL,
   password VARCHAR(200) NOT NULL,
-  photo TEXT DEFAULT 'https://picsum.photos/200/200',
+  photo TEXT DEFAULT 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg',
   banner_photo TEXT DEFAULT 'https://picsum.photos/800/400',
   about TEXT DEFAULT 'Welcome to my coffee adventure! I''m on a never-ending quest to explore the world of coffee. From trying unique beans to experimenting with brewing methods, I''m here to share my passion for all things caffeine. Join me on this aromatic journey, and let''s raise our cups to the wonderful world of coffee!',
   private BOOLEAN NOT NULL DEFAULT false
@@ -103,14 +103,14 @@ CREATE TABLE messages (
 --- Mock data for the 'users' table
 INSERT INTO users (username, email, password, photo, banner_photo, about, private)
 VALUES
-  ('coffee_lover1', 'coffee1@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', 'https://picsum.photos/900/400', 'Hi there! I''m a coffee lover who enjoys savoring each cup to the fullest.', false),
-  ('espresso_enthusiast', 'espresso@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', NULL, 'Passionate about espresso and its unique flavors.', false),
-  ('java_junkie', 'java@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', 'https://picsum.photos/900/400', 'Coffee and coding fuel my day!', false),
-  ('caffeine_addict', 'caffeine@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', NULL, 'Caffeine is my lifeline.', false),
-  ('mocha_master', 'mocha@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', 'https://picsum.photos/900/400', 'Mastering the art of mocha-making.', false),
-  ('latte_lover', 'latte@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', NULL, 'Latte art enthusiast and coffee explorer.', false),
-  ('cappuccino_crazy', 'cappuccino@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', 'https://picsum.photos/900/400', 'Cappuccinos are my guilty pleasure.', false),
-  ('espresso_addict', 'espresso2@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://picsum.photos/200/200', NULL, 'Addicted to the intense flavor of espresso.', false);
+  ('coffee_lover1', 'coffee1@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', 'https://picsum.photos/900/400', 'Hi there! I''m a coffee lover who enjoys savoring each cup to the fullest.', false),
+  ('espresso_enthusiast', 'espresso@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', NULL, 'Passionate about espresso and its unique flavors.', false),
+  ('java_junkie', 'java@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', 'https://picsum.photos/900/400', 'Coffee and coding fuel my day!', false),
+  ('caffeine_addict', 'caffeine@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', NULL, 'Caffeine is my lifeline.', false),
+  ('mocha_master', 'mocha@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', 'https://picsum.photos/900/400', 'Mastering the art of mocha-making.', false),
+  ('latte_lover', 'latte@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', NULL, 'Latte art enthusiast and coffee explorer.', false),
+  ('cappuccino_crazy', 'cappuccino@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', 'https://picsum.photos/900/400', 'Cappuccinos are my guilty pleasure.', false),
+  ('espresso_addict', 'espresso2@example.com', '$2b$10$THU.Ge2UKkMA2jLpdPIk4uYZbNdX5awOqtupWvN1vF8dqx6FCsKZK', 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg', NULL, 'Addicted to the intense flavor of espresso.', false);
 
 -- Mock data for the 'locations' table
 INSERT INTO locations (place_id, name)

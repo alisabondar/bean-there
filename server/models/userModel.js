@@ -19,11 +19,11 @@ const User = db.define("users", {
     },
     photo: {
         type: DataTypes.STRING,
-        defaultValue: 'https://picsum.photos/200/200',
+        defaultValue: "https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg",
     },
     banner_photo: {
         type: DataTypes.STRING,
-        defaultValue: 'https://picsum.photos/800/400',
+        defaultValue: "https://picsum.photos/800/400",
     },
     about: {
         type: DataTypes.TEXT,
