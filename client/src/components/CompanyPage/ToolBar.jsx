@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import ShareForm from './ShareModal';
 export default function Toolbar() {
 
   return (
@@ -19,7 +19,7 @@ export default function Toolbar() {
 
         <dialog id="share_modal" className="modal">
           <div className="modal-box border border-secondary bg-primary">
-            <h3 className="font-bold text-lg">Hello!</h3>
+            <ShareForm/>
             <button
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
               onClick={() => document.getElementById('share_modal').close()}
@@ -27,6 +27,9 @@ export default function Toolbar() {
                 ✕
             </button>
           </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
         </dialog>
 
         <button

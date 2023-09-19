@@ -7,6 +7,7 @@ import Carousel from '../components/CompanyPage/Carousel';
 import axios from "axios"
 import { useState, useEffect } from 'react';
 
+
 export default function Company() {
   const [reviews, updateReviews] = useState([{title: "Great Load",
   body: "I love loading!",
