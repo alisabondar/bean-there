@@ -4,6 +4,7 @@ import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
 import BeanRating from '../components/CompanyPage/BeanRating';
 import Carousel from '../components/CompanyPage/Carousel';
+
 import { useState } from 'react';
 
 export default function Company() {
