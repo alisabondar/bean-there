@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import helpers from "../helpers";
-import { AiTwotoneMail } from 'react-icons/ai';
+import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
+import { BsFacebook} from 'react-icons/bs';
 
 export default function Login() {
   const [logError, setLogError] = useState("");
@@ -29,7 +30,7 @@ export default function Login() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="wrapper">
+      <div className="wrapper ">
         <div className="form-box login">
           {logError && <div className="error">{logError}</div>}
           <h2>Login</h2>
@@ -71,7 +72,21 @@ export default function Login() {
               Login
             </button>
           </form>
-          <div className="login-rejister">
+
+          <div >
+          <h3 className="text-center pt-4">Or Sign Up Using</h3>
+
+            <div className="flex justify-around my-2">
+              <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+                <BsFacebook size={20}/>
+              </div>
+              <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+               <AiFillGoogleCircle size={23} />
+              </div>
+            </div>
+          </div>
+
+          <div className="login-register">
             <p>
               Don't have an account? <a href="#" className="rejister-link">Register</a>
             </p>
