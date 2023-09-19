@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 const testChat = (userId, message, userMap, key) => {
   const user = userMap[message.message_user];
   const sentUser = message.message_user === userId;
+  var side = sentUser ? 'chat-start' : 'chat-end';
   return (
-    <div key={key} className={`chat chat-${sentUser ? 'start' : 'end'}`}>
+    <div key={key} className={`chat ${side}`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img src={`${user?.photo}`} />
@@ -56,7 +57,7 @@ var Messages = ({ userId, room, chatUsers }) => {
   }, [room])
 
   return (
-    <div className="flex w-full overflow-auto justify-start flex-col-reverse flex-items-end p-3">
+    <div className="flex w-full overflow-auto justify-start flex-col flex-items-end p-3">
       {loading ? (<></>) : (
         <>
           {messages.map((m, i) => (
