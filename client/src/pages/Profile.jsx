@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSnapshot } from 'valtio';
 import state from '../store';
-import { BsMap, BsFillPlusCircleFill, BsFillStarFill, BsFillCalendarCheckFill} from 'react-icons/bs';
+import { BsMap, BsFillPlusCircleFill, BsFillStarFill, BsFillCalendarCheckFill, BsFillChatDotsFill} from 'react-icons/bs';
 import { FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
+import { GiCoffeeCup } from 'react-icons/gi';
 import backgroundImage from './img/backgroundImage.png';
 import Bio from '../components/profilePage/Bio.jsx';
 import Calendar from '../components/profilePage/Calendar.jsx';
@@ -95,12 +96,24 @@ function Profile() {
                         <FaUserFriends  size={23}/>
 
                       </button>
+                      <button
+                       style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('location')}
+                       className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
+                       <BsFillChatDotsFill size={23} />
+                      </button>
 
 
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                    <button
+                       style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('location')}
+                       className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
+                       <GiCoffeeCup size={28} />
+                      </button>
                     <button
                        style={{ backgroundColor: '#A98E77' }}
                        onClick={() => handleButtonClick('calendar')}
@@ -114,6 +127,7 @@ function Profile() {
                        <BsFillStarFill  size={23}/>
 
                       </button>
+
                     </div>
                   </div>
                 </div>
