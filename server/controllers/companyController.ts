@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 
 const { Review, ReviewPhoto } = require("../models/reviewModel");
 const { LocationModel } = require("../models/locationModel");
+var { User } = require("../models/userModel");
+var db = require("../db/database");
 
 var getReviews = async (req: Request, res: Response) => {
   const placeId = req.params.placeId;
@@ -9,7 +11,10 @@ var getReviews = async (req: Request, res: Response) => {
 
   Review.findAll({
     where: { location_id: placeId },
-    include: [{ model: ReviewPhoto, as: "reviews_photos" }],
+    include: [
+      { model: ReviewPhoto, as: "reviews_photos" },
+      { model: User, as: "users", attributes: ["username"] },
+    ],
   })
     .then((reviews: []) => {
       res.status(200).send({

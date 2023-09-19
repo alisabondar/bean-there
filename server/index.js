@@ -9,12 +9,12 @@ var messengerRoutes = require("./routes/messenger");
 var companyRoutes = require("./routes/company");
 var locationRoutes = require("./routes/location");
 var cors = require("cors");
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var passport = require('passport');
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+var passport = require("passport");
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
     // origin: '*',
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -23,11 +23,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 app.use(session({
-    secret: 'secret',
+    secret: "secret",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
-app.use(cookieParser('secret'));
+app.use(cookieParser("secret"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.get("/", (req, res) => res.send("bean-there"));
