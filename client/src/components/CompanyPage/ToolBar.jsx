@@ -1,6 +1,51 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ShareForm from './ShareModal';
-export default function Toolbar() {
+import axios from 'axios';
+
+export default function Toolbar({ place_id, place_name }) {
+  const [favorite, setFavorite] = useState(false);
+  const currentPageLocationId = place_id;
+
+  const fetchFavorite = async () => {
+    try {
+      const userId = 1;
+      const res = await axios.get(`http://localhost:5000/user/${userId}/wishlist`);
+      const { wishlist } = res.data;
+      const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
+      console.log(filtered)
+      if (filtered.length > 0) {
+        setFavorite(true);
+
+      } else {
+        setFavorite(false);
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const toggleFavorite = async () => {
+    const userId = 1;
+    const newStatus = !favorite;
+
+    try {
+      await axios.patch(`http://localhost:5000/user/${userId}/wishlist`, {
+        user_id: userId,
+        favorite: newStatus,
+        location_id: currentPageLocationId,
+        name: place_name
+      });
+      setFavorite(newStatus);
+    } catch (err) {
+      console.error("Failed to update Favorite status:", err);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchFavorite();
+  }, [currentPageLocationId]);
 
   return (
     <div className="bg-neutral rounded-md shadow-lg">
@@ -33,15 +78,10 @@ export default function Toolbar() {
         </dialog>
 
         <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${favorite ? 'bg-opacity-40 translate-y-[1px] shadow-inner' : ''}`}
+          onClick={toggleFavorite}
         >
-          Wish I Had Bean There
-        </button>
-
-        <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
-        >
-          Bean There
+          Favorite
         </button>
       </div>
     </div>

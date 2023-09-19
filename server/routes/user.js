@@ -1,7 +1,7 @@
 "use strict";
 var express = require("express");
 var router = express.Router();
-var { login, register, getWishlist, getUserReviews, getFriends, getProfile } = require("../controllers/usersController");
+var { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile } = require("../controllers/usersController");
 // all these endpoints start with /user*
 router.post("/login", login);
 router.post("/register", register);
@@ -9,6 +9,7 @@ router.get("/profile", getProfile);
 router.get("/:userId/wishlist", getWishlist);
 router.get("/:userId/reviews", getUserReviews);
 router.get("/:userId/friends", getFriends);
+router.patch("/:userId/wishlist", updateWishlist);
 /**
  * FUTURE - 1
  *d
