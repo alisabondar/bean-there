@@ -159,7 +159,7 @@ VALUES
   ('https://picsum.photos/800/400', 8);
 
 -- Mock data for the 'friends' table
-INSERT INTO friends (friend, user_id)
+INSERT INTO friends (friend_id, user_id)
 VALUES
   (2, 1),
   (1, 2),
