@@ -1,6 +1,7 @@
 "use strict";
 var { Sequelize, DataTypes } = require("sequelize");
 var db = require("../db/database");
+var UserModels = require("../models/userModel");
 const Review = db.define("reviews", {
     title: {
         type: DataTypes.STRING,
@@ -48,4 +49,5 @@ const ReviewPhoto = db.define("reviews_photos", {
     timestamps: false,
 });
 Review.hasMany(ReviewPhoto, { foreignKey: "review_id" });
+Review.belongsTo(UserModels.User, { foreignKey: "user_id", as: "users" });
 module.exports = { Review, ReviewPhoto };

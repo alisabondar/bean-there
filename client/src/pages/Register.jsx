@@ -14,9 +14,9 @@ export default function Register() {
     e.preventDefault();
     let registerObj = helpers.formParser(e.target.elements);
     axios
-      .post("http://localhost:5001/user/register", registerObj)
+      .post("http://localhost:5000/user/register", registerObj)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.data.success) {
           navigate("/login");
           return;
