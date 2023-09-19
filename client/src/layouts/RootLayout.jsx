@@ -29,7 +29,7 @@ export default function RootLayout() {
           </NavLink>
         </nav>
       </header>
-      <main>
+      <main className="h-screen">
         <Outlet />
       </main>
       <footer className="footer">
