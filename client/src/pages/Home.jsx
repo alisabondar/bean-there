@@ -6,6 +6,7 @@ import Middle from '../components/HomePage/Middle.jsx';
 import CoffeeHis from '../components/HomePage/CoffeeHis.jsx';
 import About from '../components/HomePage/About.jsx';
 import Footer from '../components/HomePage/Footer.jsx';
+import Login from './Login.jsx';
 import backgroundImage from './img/overview.webp';
 import { useSnapshot } from 'valtio';
 import state from '../store';
@@ -13,8 +14,15 @@ import state from '../store';
 
 
 const Home = () => {
+
+  const snap = useSnapshot(state);
+
+
   return (
     <div className="App">
+    {/* login and rejister components */}
+      {snap.login && <Login />}
+    <div className={snap.login && "blur-md"}>
       <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="absolute inset-0 bg-black opacity-20"></div> {/* Overlay */}
         <div className="mx-4 md:mx-28">
@@ -27,7 +35,6 @@ const Home = () => {
       <div className="w-screen flex justify-end">
   <hr className="border-[#9F643D] border-t-8 w-[40%]" />
 </div>
-
         <Middle />
         <CoffeeHis />
         <div>
@@ -36,11 +43,9 @@ const Home = () => {
          <About />
           <Footer />
         </div>
-
-
-
       </div>
     </div>
+  </div>
   );
 };
 
