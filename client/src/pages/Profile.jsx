@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSnapshot } from 'valtio';
+import state from '../store';
 import { BsMap, BsFillPlusCircleFill, BsFillStarFill, BsFillCalendarCheckFill} from 'react-icons/bs';
 import { FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
 import backgroundImage from './img/backgroundImage.png'
@@ -8,6 +10,9 @@ import backgroundImage from './img/backgroundImage.png'
 //bg-blueGray-200
 
 function Profile() {
+
+  const snapshot = useSnapshot(state);
+
   return (
     <div >
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
