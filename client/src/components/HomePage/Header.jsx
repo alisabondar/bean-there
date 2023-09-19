@@ -22,7 +22,7 @@ function Header() {
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">About</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Events</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Contacts</a></li>
-          <li className='text-[#CFB299] hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="#">Login</a></li>
+          <li className='text-[#CFB299] hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="/login">Login</a></li>
         </ul>
       </nav>
 

@@ -14,17 +14,11 @@ export default function Login() {
     e.preventDefault();
     let loginObj = helpers.formParser(e.target.elements);
     axios
-      .post("http://localhost:5001/auth/login", loginObj, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "http://127.0.0.1:5173",
-          "Access-Control-Allow-Credentials": "true",
-        },
-      })
+      .post("http://localhost:5001/user/login", loginObj, { withCredentials: true })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.success) {
-          navigate("/");
+          navigate("/profile");
           return;
         }
         setLogError(res.data.message);
@@ -33,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
+    <div className="h-screen flex flex-col justify-center items-center bg-primary">
       {logError.length ? logError : null}
       <h1 className="text-2xl">Login</h1>
       <div className="flex flex-col">
@@ -43,7 +37,7 @@ export default function Login() {
         >
           <label className="py-1">Email: </label>
           <input
-            className="px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+            className="px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-neutral text-white focus:outline-none w-[100%]"
             type="email"
             id="login-email"
             name="email"
@@ -54,7 +48,7 @@ export default function Login() {
           />
           <label className="px-2 py-1">Password: </label>
           <input
-            className="px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+            className="px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-neutral text-white focus:outline-none w-[100%]"
             type="text"
             id="login-password"
             name="password"
@@ -65,7 +59,7 @@ export default function Login() {
           />
           <span className="self-end italic">Forgot password?</span>
           <button
-            className="self-center mt-5 mb-1 w-[75%] border px-4 py-2 rounded-md hover:bg-[#61493C]/[0.8]"
+            className="self-center mt-5 mb-1 w-[75%] border px-4 py-2 rounded-md hover:bg-accent/[0.5]"
             type="submit"
           >
             Login
@@ -74,16 +68,16 @@ export default function Login() {
         <div className="self-center text-center">
           <h3>Or Sign Up Using</h3>
           <div className="flex justify-around my-2">
-            <div className="w-[50px] h-[50px] rounded-full border flex items-center justify-center hover:bg-[#61493C]/[0.8]">
+            <div className="w-[50px] h-[50px] rounded-full border flex items-center justify-center hover:bg-accent/[0.5]">
               <span>G</span>
             </div>
-            <div className="w-[50px] h-[50px] rounded-full border flex items-center justify-center hover:bg-[#61493C]/[0.8]">
+            <div className="w-[50px] h-[50px] rounded-full border flex items-center justify-center hover:bg-accent/[0.5]">
               <span>F</span>
             </div>
           </div>
         </div>
         <a
-          className="self-center mt-4 border px-4 py-1 rounded-md hover:bg-[#61493C]/[0.8]"
+          className="self-center mt-4 border px-4 py-1 rounded-md hover:bg-accent/[0.5]"
           href="/register"
         >
           Not a Member? Register Here
