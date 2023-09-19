@@ -24,9 +24,9 @@ CREATE TABLE users (
   username VARCHAR(200) UNIQUE NOT NULL,
   email VARCHAR(200) UNIQUE NOT NULL,
   password VARCHAR(200) NOT NULL,
-  photo TEXT,
-  banner_photo TEXT,
-  about TEXT DEFAULT 'Hi there! I''m a coffee lover who enjoys savoring each cup to the fullest.',
+  photo TEXT DEFAULT 'https://picsum.photos/200/200',
+  banner_photo TEXT DEFAULT 'https://picsum.photos/800/400',
+  about TEXT DEFAULT 'Welcome to my coffee adventure! I''m on a never-ending quest to explore the world of coffee. From trying unique beans to experimenting with brewing methods, I''m here to share my passion for all things caffeine. Join me on this aromatic journey, and let''s raise our cups to the wonderful world of coffee!',
   private BOOLEAN NOT NULL DEFAULT false
 );
 
@@ -144,7 +144,15 @@ VALUES
   ('Espresso Bliss', 'The espresso here is pure bliss.', '2023-09-12 17:30:00', '2023-09-12 17:30:00', 5, 5, 900),
   ('Mocha Delight', 'Their mocha is a delightful treat.', '2023-09-11 14:00:00', '2023-09-11 14:00:00', 4, 3, 902),
   ('Latte Lover', 'I adore their lattes!', '2023-09-10 09:30:00', '2023-09-10 09:30:00', 5, 3, 901),
-  ('Cappuccino Craze', 'This place knows how to make cappuccinos.', '2023-09-09 16:45:00', '2023-09-09 16:45:00', 4, 8, 454);
+  ('Cappuccino Craze', 'This place knows how to make cappuccinos.', '2023-09-09 16:45:00', '2023-09-09 16:45:00', 4, 8, 454),
+   ('Another Great Coffee', 'This place consistently serves amazing coffee!', '2023-09-17 11:00:00', '2023-09-17 11:00:00', 5, 2, 451),
+  ('Terrible Experience', 'I''ve had enough of the terrible service here.', '2023-09-17 12:30:00', '2023-09-17 12:30:00', 1, 1, 452),
+  ('Incredible Latte', 'Their latte never fails to impress me.', '2023-09-17 14:15:00', '2023-09-17 14:15:00', 5, 4, 900),
+  ('Heavenly Cappuccino', 'I feel like I''m in cappuccino heaven every time I visit.', '2023-09-17 16:00:00', '2023-09-17 16:00:00', 5, 2, 454),
+  ('Blissful Espresso', 'I can''t resist the pure bliss of their espresso.', '2023-09-17 18:00:00', '2023-09-17 18:00:00', 5, 7, 901),
+  ('Disgusting Mocha', 'Their mocha is always a delightful treat for my taste buds, until today.', '2023-09-17 19:30:00', '2023-09-17 19:30:00', 1, 6, 902),
+  ('Lattes to Love', 'I''m a true latte lover, and this place never disappoints.', '2023-09-17 21:15:00', '2023-09-17 21:15:00', 5, 5, 455),
+  ('Cappuccino Magic', 'Their cappuccinos are pure magic.', '2023-09-17 22:45:00', '2023-09-17 22:45:00', 5, 8, 453);
 
 -- Mock data for the 'reviews_photos' table
 INSERT INTO reviews_photos (photo_url, review_id)
@@ -156,7 +164,10 @@ VALUES
   ('https://picsum.photos/800/400', 5),
   ('https://picsum.photos/800/400', 6),
   ('https://picsum.photos/800/400', 7),
-  ('https://picsum.photos/800/400', 8);
+  ('https://picsum.photos/800/400', 8),
+  ('https://picsum.photos/800/400', 9),
+  ('https://picsum.photos/800/400', 10),
+  ('https://picsum.photos/800/400', 11);
 
 -- Mock data for the 'friends' table
 INSERT INTO friends (friend_id, user_id)
