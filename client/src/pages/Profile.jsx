@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsMap, BsFillPlusCircleFill, BsFillStarFill } from 'react-icons/bs';
+import { BsMap, BsFillPlusCircleFill, BsFillStarFill, BsFillCalendarCheckFill} from 'react-icons/bs';
 import { FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
 import backgroundImage from './img/backgroundImage.png'
 
@@ -13,16 +13,16 @@ function Profile() {
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
 
-      <main className="profile-page">
-      <section className="relative block h-500-px">
-          <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{
+      <main className="profile-page ">
+      <section className="relative block h-500-px ">
+          <div className="absolute top-0 w-full h-full bg-center bg-cover " style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1459755486867-b55449bb39ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80')`,
           }}>
-            <span id="blackOverlay" className="w-full h-full absolute opacity-50 bg-black"></span>
+            <span id="blackOverlay" className="w-full h-full absolute opacity-30 bg-black"></span>
           </div>
           <div className=" top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style={{ transform: 'translateZ(0px)' }}>
             <svg className="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-              <polygon className="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+              <polygon className="text-[#f2eada] fill-current" points="2560 0 2560 100 0 100"></polygon>
             </svg>
           </div>
         </section>
@@ -60,7 +60,7 @@ function Profile() {
                     <button
                        style={{ backgroundColor: '#A98E77' }}
                        className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
-                       <FaMapMarkerAlt size={23} />
+                       <BsFillCalendarCheckFill size={23} />
                       </button>
                       <button
                         style={{ backgroundColor: '#A98E77' }}
@@ -107,7 +107,7 @@ function Profile() {
           </div>
 
 
-          <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-8">
+          <footer className="relative bg-[#f2eada] pt-8 pb-6 mt-8">
             <div className="container mx-auto px-4">
               <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-6/12 px-4 mx-auto text-center">
