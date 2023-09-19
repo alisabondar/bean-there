@@ -1,15 +1,15 @@
 import React from 'react';
 import { BsMap, BsFillPlusCircleFill, BsFillStarFill } from 'react-icons/bs';
 import { FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
-
+import backgroundImage from './img/backgroundImage.png'
 
 
 //#7c6c60, AF8D6F, #918673
+//bg-blueGray-200
 
 function Profile() {
   return (
     <div >
-      {/* Include your stylesheet links here */}
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
 
@@ -27,7 +27,7 @@ function Profile() {
           </div>
         </section>
 
-        <section className="relative py-16 bg-blueGray-200">
+        <section className="relative py-16 bg-[#f2eada]">
           <div className="container mx-auto px-4">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
