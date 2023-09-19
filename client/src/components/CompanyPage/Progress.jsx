@@ -34,6 +34,7 @@ const CompanyRatings = (prop) => {
     }
     updateRatings(result);
   },[prop.rating])
+
   return (
     <div className="progressGrid grid grid-cols-5 grid-rows-5 gap-4 items-center ">
       <div className="col-start-1 row-start-5">1 star</div>
