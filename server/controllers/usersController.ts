@@ -43,20 +43,26 @@ var getProfile = async (req: any, res: Response) => {
 var register = async (req: Request, res: Response) => {
   const { username, email, password, photo, banner_photo, about } = req.body;
 
+  const user = await User.findOne({ where: { email: email }});
+
+  if (user) {
+    return res.send({ message: "There is already an account linked to this email."})
+  }
+
   if (!username) {
-    return res.status(400).send({ error: "please enter a username" });
+    return res.status(400).send({ message: "Please enter a username" });
   }
 
   if (!email) {
-    return res.status(400).send({ error: "please enter a email" });
+    return res.status(400).send({ message: "Please enter a email" });
   }
 
   if (!password) {
-    return res.status(400).send({ error: "please enter a password" });
+    return res.status(400).send({ message: "Please enter a password" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log(hashedPassword);
+
   User.create({ username, email, password: hashedPassword, photo, about })
     .then((user: { dataValues: object }) => {
       res

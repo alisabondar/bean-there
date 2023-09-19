@@ -35,6 +35,7 @@ function Profile() {
 
   // Fetch user profile data
   useEffect(() => {
+<<<<<<< HEAD
     axios
       .get("http://localhost:5001/user/profile", { withCredentials: true })
       .then((res) => {

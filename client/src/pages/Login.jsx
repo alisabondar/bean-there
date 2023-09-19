@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios-config.js";
 import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';

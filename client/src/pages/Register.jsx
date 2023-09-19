@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios-config.js";
 import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle } from "react-icons/ai";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -20,9 +20,9 @@ export default function Register() {
     e.preventDefault();
     let registerObj = helpers.formParser(e.target.elements);
     axios
-      .post("http://localhost:5000/user/register", registerObj)
+      .post("/user/register", registerObj)
       .then((res) => {
-        console.log(res);
+        // console.log(res)
         if (res.data.success) {
           navigate("/login");
           return;

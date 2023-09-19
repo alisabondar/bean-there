@@ -52,17 +52,20 @@ var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password, photo, banner_photo, about } = req.body;
+    const user = yield User.findOne({ where: { email: email } });
+    if (user) {
+        return res.send({ message: "There is already an account linked to this email." });
+    }
     if (!username) {
-        return res.status(400).send({ error: "please enter a username" });
+        return res.status(400).send({ message: "Please enter a username" });
     }
     if (!email) {
-        return res.status(400).send({ error: "please enter a email" });
+        return res.status(400).send({ message: "Please enter a email" });
     }
     if (!password) {
-        return res.status(400).send({ error: "please enter a password" });
+        return res.status(400).send({ message: "Please enter a password" });
     }
     const hashedPassword = yield bcrypt.hash(password, 10);
-    console.log(hashedPassword);
     User.create({ username, email, password: hashedPassword, photo, about })
         .then((user) => {
         res
