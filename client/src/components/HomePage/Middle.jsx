@@ -11,7 +11,7 @@ function Middle() {
   const slideControls = useAnimation();
 
   useEffect(() => {
-    console.log(isInView);
+    // console.log(isInView);
 
     if (isInView) {
       mainControls.start("visible");
