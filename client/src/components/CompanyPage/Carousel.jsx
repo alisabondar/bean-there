@@ -10,23 +10,23 @@ export default function SimpleSlider( {photos} ) {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    adaptiveHeight: true,
+    arrows: true,
+    accessibility: true
 
   };
   return (
-    <div className="max-w-full mx-auto">
-
-    <Slider {...settings}>
-      {photos.map((image, index) => (
-        <div key={index} className=" px-2 py-2 ">
+    <div className="min-w-full mx-auto bg-neutral rounded-box border-accent border-4">
+      <Slider {...settings}>
+        {photos.map((image, index) => (
+          <div key={index} className="px-2 py-2 h-full flex items-center justify-center">
             <img
-              key={index}
               src={image}
-              className="rounded-box opacity-100 w-full max-h-96 object-cover"
+              className="rounded-box opacity-100 w-full h-[20rem] object-cover"
             />
-        </div>
-          ))}
-    </Slider>
+          </div>
+        ))}
+      </Slider>
     </div>
+
   );
 }

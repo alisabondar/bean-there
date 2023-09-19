@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
-import { AiFillFacebook, AiOutlineInstagram, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai';
-import { BsPinterest } from 'react-icons/bs';
+import React, { useState } from "react";
+import {
+  AiFillFacebook,
+  AiOutlineInstagram,
+  AiFillYoutube,
+  AiOutlineTwitter,
+} from "react-icons/ai";
+import { BsPinterest } from "react-icons/bs";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
 
-  const [email, setEmail] = useState('');
-
-// Function to handle email input change
+  // Function to handle email input change
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
   // Function to handle join button click
   const handleJoinClick = () => {
-    setEmail('');
+    setEmail("");
   };
 
   return (
@@ -52,7 +56,6 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-
           <div className="mb-4 px:4">
             <label className="block">Subscribe to our Newsletter</label>
             <div className="flex">
@@ -63,7 +66,10 @@ const Footer = () => {
                 onChange={handleEmailChange}
                 className="mr-2 px-2 py-1 border text-black border-[#27272A]"
               />
-              <button className="px-4 py-2 bg-[#3b3025] text-white rounded" onClick={handleJoinClick}>
+              <button
+                className="px-4 py-2 bg-[#3b3025] text-white rounded"
+                onClick={handleJoinClick}
+              >
                 Join
               </button>
             </div>
@@ -91,7 +97,9 @@ const Footer = () => {
             </li>
           </ul>
           <div className="text-right text-sm mt-8 md:mt-0">
-            <p>&copy; {new Date().getFullYear()} BEANTHERE. ALL RIGHTS RESERVED.</p>
+            <p>
+              &copy; {new Date().getFullYear()} BEANTHERE. ALL RIGHTS RESERVED.
+            </p>
           </div>
         </div>
       </div>

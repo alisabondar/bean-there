@@ -1,27 +1,50 @@
 import { useState } from 'react';
-
+import ShareForm from './ShareModal';
 export default function Toolbar() {
 
   return (
-    <div className="flex flex-row space-x-4 justify-evenly m-2">
+    <div className="bg-neutral rounded-md shadow-lg">
+      <div className="flex flex-row justify-evenly flex-wrap">
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        >
+          Write Review
+        </button>
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+          onClick={()=>document.getElementById('share_modal').showModal()}
+        >
+          Share
+        </button>
 
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Write Review
-    </button>
+        <dialog id="share_modal" className="modal">
+          <div className="modal-box border border-secondary bg-primary">
+            <ShareForm/>
+            <button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => document.getElementById('share_modal').close()}
+            >
+                ✕
+            </button>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
 
-    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-      Share
-    </button>
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        >
+          Wish I Had Bean There
+        </button>
 
-    <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-      Wish I Had Bean There
-    </button>
-
-    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-      Bean There
-    </button>
-
-  </div>
+        <button
+          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        >
+          Bean There
+        </button>
+      </div>
+    </div>
   );
 
 }

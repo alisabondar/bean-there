@@ -1,17 +1,25 @@
 import React from "react";
+import BeanRating from "./BeanRating";
+import moment from "moment"
 
-const CompanyReviews = () => {
+const CompanyReviews = (prop) => {
+  const date = prop.reviewData.updated_at
  return (
-  <div className="bg-amber-700 my-4 py-4">
+  <div className=" my-4 py-4">
     <div className="flex text-left items-center">
-      <img src="https://cdn.discordapp.com/attachments/1140681171617984683/1152697648093069342/image.png" className="rounded-e-full w-auto h-20"></img>
+      <img src="https://cdn.discordapp.com/attachments/1140681171617984683/1152697648093069342/image.png" className="rounded-full w-20 h-20 object-cover"></img>
       <div className="flex-col end pl-3 ">
       <h3>User McName</h3>
-      <p>★★★★★ 01/02/2023</p>
+      <p className="pt-1">{moment(date).format("MMM Do YYYY")}</p>
       </div>
     </div>
+    <div>
+      <div className="w-fit pt-4 pb-3">
+      <BeanRating rating={prop.reviewData.rating} />
+      </div>
     <div className="py-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>{prop.reviewData.body}</p>
+    </div>
     </div>
   </div>
  )

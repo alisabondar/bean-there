@@ -8,9 +8,11 @@ var userRoutes = require("./routes/user");
 var messengerRoutes = require("./routes/messenger");
 var companyRoutes = require("./routes/company");
 var locationRoutes = require("./routes/location");
+var cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(cors());
 app.get("/", (req, res) => res.send("bean-there"));
 app.use("/user", userRoutes);
 app.use("/messenger", messengerRoutes);
@@ -27,3 +29,4 @@ db.authenticate()
     .catch((error) => {
     console.log(colors.red("Unable to connect to the database:", error));
 });
+module.exports = app;

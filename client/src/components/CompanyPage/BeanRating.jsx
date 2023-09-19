@@ -22,7 +22,7 @@ export default function BeanRating ({ rating }) {
     beans.push(
       <div
         key={i}
-        className={`relative w-9 h-9 rounded`}
+        className={`relative w-7 h-7 rounded`}
       >
         {i === fullBeans + 1 && (
           <div
