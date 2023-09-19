@@ -7,6 +7,8 @@ import CoffeeHis from '../components/HomePage/CoffeeHis.jsx';
 import About from '../components/HomePage/About.jsx';
 import Footer from '../components/HomePage/Footer.jsx';
 import backgroundImage from './img/overview.webp';
+import { useSnapshot } from 'valtio';
+import state from '../store';
 
 
 
