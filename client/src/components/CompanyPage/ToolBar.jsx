@@ -2,11 +2,31 @@ import React, { useState, useEffect } from 'react';
 import ShareForm from './ShareModal';
 import axios from 'axios';
 
-export default function Toolbar({ place_id }) {
+export default function Toolbar({ place_id, place_name }) {
   const [wishlisted, setWishlisted] = useState(false);
   const [beanThere, setBeanThere] = useState(false);
   const currentPageLocationId = place_id;
 
+  const fetchWishlisted = async () => {
+    try {
+      const userId = 1;
+      const res = await axios.get(`http://localhost:5000/user/${userId}/wishlist`);
+      const { wishlist } = res.data;
+      const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
+      console.log(wishlist)
+      if (filtered.length > 0) {
+        const item = filtered[0];
+        setWishlisted(!!item.wishlisted);
+        setBeanThere(!!item.visited);
+      } else {
+        setWishlisted(false);
+        setBeanThere(false);
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const toggleWishlisted = async () => {
     const userId = 1;
@@ -17,14 +37,13 @@ export default function Toolbar({ place_id }) {
         user_id: userId,
         wishlisted: newStatus,
         location_id: currentPageLocationId,
+        name: place_name
       });
       setWishlisted(newStatus);
     } catch (err) {
       console.error("Failed to update wishlisted status:", err);
     }
   };
-
-
 
   const toggleVisited = async () => {
     const userId = 1;
@@ -35,6 +54,7 @@ export default function Toolbar({ place_id }) {
         user_id: userId,
         visited: newStatus,
         location_id: currentPageLocationId,
+        name: place_name
       });
       setBeanThere(newStatus);
     } catch (err) {
@@ -43,27 +63,6 @@ export default function Toolbar({ place_id }) {
   };
 
   useEffect(() => {
-    const fetchWishlisted = async () => {
-      try {
-        const userId = 1;
-        const res = await axios.get(`http://localhost:5000/user/${userId}/wishlist`);
-        const { wishlist } = res.data;
-        const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
-
-        if (filtered.length > 0) {
-          const item = filtered[0];
-          setWishlisted(!!item.wishlisted);
-          setBeanThere(!!item.visited);
-        } else {
-          setWishlisted(false);
-          setBeanThere(false);
-        }
-
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     fetchWishlisted();
   }, [currentPageLocationId]);
 

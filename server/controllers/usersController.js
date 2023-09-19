@@ -153,11 +153,23 @@ var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 // PATCH REQ
 var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { user_id, visited, wishlisted, location_id } = req.body;
+    const { user_id, visited, wishlisted, location_id, name } = req.body;
+    console.log('location_id:', location_id);
+    console.log('place_name:', name);
     if (location_id === undefined || (visited === undefined && wishlisted === undefined)) {
         return res.status(400).send({ error: "Missing parameters" });
     }
     try {
+        const [existingLocation] = yield db.query(`SELECT * FROM locations WHERE place_id = ?`, {
+            replacements: [location_id],
+            type: db.QueryTypes.SELECT,
+        });
+        if (!existingLocation) {
+            yield db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
+                replacements: [location_id, name],
+                type: db.QueryTypes.INSERT,
+            });
+        }
         const [existingRows] = yield db.query(`SELECT * FROM wishlists WHERE user_id = ? AND location_id = ?`, {
             replacements: [user_id, location_id],
             type: db.QueryTypes.SELECT,

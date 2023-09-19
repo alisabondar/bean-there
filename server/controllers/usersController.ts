@@ -172,13 +172,34 @@ var getFriends = async (req: Request, res: Response) => {
 // PATCH REQ
 
 var updateWishlist = async (req: Request, res: Response) => {
-  const { user_id, visited, wishlisted, location_id } = req.body;
+  const { user_id, visited, wishlisted, location_id, name } = req.body;
+  console.log('location_id:', location_id);
+  console.log('place_name:', name);
+
 
   if (location_id === undefined || (visited === undefined && wishlisted === undefined)) {
     return res.status(400).send({ error: "Missing parameters" });
   }
 
   try {
+    const [existingLocation] = await db.query(
+      `SELECT * FROM locations WHERE place_id = ?`,
+      {
+        replacements: [location_id],
+        type: db.QueryTypes.SELECT,
+      }
+    );
+
+    if (!existingLocation) {
+      await db.query(
+        `INSERT INTO locations (place_id, name) VALUES (?, ?)`,
+        {
+          replacements: [location_id, name],
+          type: db.QueryTypes.INSERT,
+        }
+      );
+    }
+
     const [existingRows] = await db.query(
       `SELECT * FROM wishlists WHERE user_id = ? AND location_id = ?`,
       {
@@ -200,11 +221,10 @@ var updateWishlist = async (req: Request, res: Response) => {
       if (wishlisted !== undefined) {
         updates.push('wishlisted = ?');
         replacements.push(wishlisted);
-      }
+        }
 
       updateQuery += updates.join(', ') + ` WHERE user_id = ? AND location_id = ?`;
       replacements.push(user_id, location_id);
-
       await db.query(updateQuery, {
         replacements,
         type: db.QueryTypes.UPDATE,
@@ -224,13 +244,13 @@ var updateWishlist = async (req: Request, res: Response) => {
     }
 
     res.status(200).send({ message: "Wishlist status updated" });
-
   } catch (err: any) {
     console.error("Error:", err);
     const error = err.message || "Internal server error";
     res.status(500).send({ error });
   }
 };
+
 
 
 
