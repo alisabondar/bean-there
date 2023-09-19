@@ -5,17 +5,14 @@ import axios from 'axios';
 dotenv.config();
 
 var getLocations = async (req: Request, res: Response) => {
-  const query = req.params.query;
-  console.log(query);
+  const lat = req.params.lat;
+  const long = req.params.long;
+  // params for zipcode -> lat and long coords
+  console.log('server', lat, long);
 
-  // optimize -> get someones loc for lat and long params
-  axios.get(`${process.env.GOOGLEAPI_URL}
-    ?keyword=coffee
-    &location=41.881832,-87.623177
-    &radius=5000
-    &key=${process.env.GOOGLEAPI_KEY}`)
+  axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${req.params.lat},${req.params.long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
     .then(result => {
-      console.log(result)
+      console.log(result.data)
     })
     .catch(err => {
       console.error('Cannot fetch nearby locations', err)
