@@ -14,14 +14,9 @@ export default function Register() {
     e.preventDefault();
     let registerObj = helpers.formParser(e.target.elements);
     axios
-      .post("http://localhost:5001/auth/register", registerObj, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "http://127.0.0.1:5173",
-          "Access-Control-Allow-Credentials": "true",
-        },
-      })
+      .post("http://localhost:5000/user/register", registerObj)
       .then((res) => {
+        console.log(res);
         if (res.data.success) {
           navigate("/login");
           return;
@@ -31,17 +26,17 @@ export default function Register() {
       .catch((err) => console.error(err));
   };
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
+    <div className="h-screen flex flex-col justify-center items-center bg-primary">
       {registerError.length ? registerError : null}
       <h1 className="text-2xl">Sign Up</h1>
       <form
         onSubmit={registerSubmit}
-        className="flex flex-col items-start px-2 py-4 w-[25rem]"
+        className="flex flex-col items-start px-2 py-4 w-[25rem] bg-neutral rounded-md"
       >
         <label className="py-1">Display Name: </label>
         <input
           type="text"
-          className="register-name px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+          className="text-white register-name px-2 py-1 mt-1 mb-2 bg-neutral/[0.5] border-b-2 focus:bg-[black]/[0.1] focus:outline-none w-[100%]"
           name="username"
           onChange={(e) => changeName(e.target.value)}
           value={name}
@@ -51,7 +46,7 @@ export default function Register() {
         <label className="py-1">Email: </label>
         <input
           type="email"
-          className="register-email px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+          className="text-white register-email px-2 py-1 mt-1 mb-2 bg-neutral/[0.2] border-b-2 focus:bg-[black]/[0.1] focus:outline-none w-[100%]"
           name="email"
           onChange={(e) => changeEmail(e.target.value)}
           value={email}
@@ -60,8 +55,8 @@ export default function Register() {
         />
         <label className="py-1">Password: </label>
         <input
-          type="text"
-          className="register-password px-2 py-1 mt-1 mb-2 bg-[black]/[0.2] border-b-2 focus:bg-[black]/[0.6] focus:outline-none w-[100%]"
+          type="password"
+          className="text-white register-password px-2 py-1 mt-1 mb-2 bg-neutral/[0.2] border-b-2 focus:bg-[black]/[0.1] focus:outline-none w-[100%]"
           name="password"
           onChange={(e) => changePass(e.target.value)}
           value={pass}
@@ -69,14 +64,14 @@ export default function Register() {
           placeholder="Enter a password"
         />
         <button
-          className="self-center mt-5 mb-1 w-[75%] border px-4 py-2 rounded-md hover:bg-[#61493C]/[0.8]"
+          className="self-center mt-5 mb-1 w-[75%] border px-4 py-2 rounded-md hover:bg-base-100/[0.8]"
           type="submit"
         >
           Register
         </button>
       </form>
       <a
-        className="self-center mt-4 border px-4 py-1 rounded-md hover:bg-[#61493C]/[0.8]"
+        className="self-center mt-4 border px-4 py-1 rounded-md hover:bg-base-100/[0.8]"
         href="/login"
       >
         Already a Member? Login Here

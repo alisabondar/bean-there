@@ -7,12 +7,15 @@ var {
   getUserReviews,
   getFriends,
   updateWishlist
+  getProfile
 } = require("../controllers/usersController");
 
 // all these endpoints start with /user*
 
 router.post("/login", login);
 router.post("/register", register);
+
+router.get("/profile", getProfile);
 
 router.get("/:userId/wishlist", getWishlist);
 router.get("/:userId/reviews", getUserReviews);
@@ -22,7 +25,7 @@ router.patch("/:userId/wishlist", updateWishlist);
 
 /**
  * FUTURE - 1
- *
+ *d
  * router.put("/:userId/wishlist")
  *
  * first check if the place_id exists in the locations table
