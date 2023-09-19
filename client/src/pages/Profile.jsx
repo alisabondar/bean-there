@@ -1,9 +1,20 @@
 
-import { BsMap, BsFillPlusCircleFill, BsFillStarFill, BsFillCalendarCheckFill} from 'react-icons/bs';
-import { FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
-import backgroundImage from './img/backgroundImage.png'
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSnapshot } from 'valtio';
+import state from '../store';
+import { BsMap, BsFillPlusCircleFill, BsFillStarFill, BsFillCalendarCheckFill, BsFillChatDotsFill} from 'react-icons/bs';
+import { FaUserFriends, FaMapMarkerAlt } from 'react-icons/fa';
+import { GiCoffeeCup } from 'react-icons/gi';
+import backgroundImage from './img/backgroundImage.png';
+import Bio from '../components/profilePage/Bio.jsx';
+import Calendar from '../components/profilePage/Calendar.jsx';
+import Favs from '../components/profilePage/Favs.jsx';
+import Friends from '../components/profilePage/Friends.jsx';
+import Posts from '../components/profilePage/Posts.jsx';
+
+
 
 //#7c6c60, AF8D6F, #918673
 //bg-blueGray-200
@@ -68,6 +79,36 @@ function Profile() {
 
 
 
+
+    const [selectedComponent, setSelectedComponent] = useState('bio');
+
+
+    const handleButtonClick = (component) => {
+      state.homePage = false;
+      state.postsPage = false;
+      state.friendsPage = false;
+      state.favsPage = false;
+      state.calendarPage = false;
+      state[`${component}Page`] = true;
+      setSelectedComponent(component);
+    };
+
+  const renderComponent = () => {
+    switch (selectedComponent) {
+      case 'calendar':
+        return <Calendar />;
+      case 'favs':
+        return <Favs />;
+      case 'friends':
+        return <Friends />;
+      case 'posts':
+        return <Posts />;
+      case 'bio':
+        return <Bio />;
+      default:
+        return null;
+    }
+  };
   return (
     <div >
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
@@ -98,26 +139,32 @@ function Profile() {
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                    <div className="relative">
-                      <img alt="..."
-                      // src="https://gray-wfsb-prod.cdn.arcpublishing.com/resizer/0iJ7vDpX2zZdSFnsF57WxMRelIA=/800x800/smart/filters:quality(70)/s3.amazonaws.com/arc-authors/gray/539ba86e-fad7-490f-a82c-439e3a3896d7.jpg"
-                      src={profile.photo}
-                      className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                    <div className="relative hover:scale-110 transition duration-300 ease-in-out cursor-pointer"
+                     onClick={() => handleButtonClick('bio')}>
+                      <img alt="..." src="https://gray-wfsb-prod.cdn.arcpublishing.com/resizer/0iJ7vDpX2zZdSFnsF57WxMRelIA=/800x800/smart/filters:quality(70)/s3.amazonaws.com/arc-authors/gray/539ba86e-fad7-490f-a82c-439e3a3896d7.jpg" className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
                       <button onClick={() => getWishlist()}
                        style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('posts')}
                       className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
                        <BsFillPlusCircleFill  size={23}/>
 
                       </button>
                       <button onClick={() => getFriends()}
                        style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('friends')}
                       className="uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out " type="button">
                         <FaUserFriends  size={23}/>
 
+                      </button>
+                      <button
+                       style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('location')}>>>>>>> main
+                       className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
+                       <BsFillChatDotsFill size={23} />
                       </button>
 
 
@@ -127,15 +174,24 @@ function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                     <button
                        style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('location')}
+                       className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
+                       <GiCoffeeCup size={28} />
+                      </button>
+                    <button
+                       style={{ backgroundColor: '#A98E77' }}
+                       onClick={() => handleButtonClick('calendar')}
                        className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
                        <BsFillCalendarCheckFill size={23} />
                       </button>
                       <button onClick={() => getReviews()}
                         style={{ backgroundColor: '#A98E77' }}
+                        onClick={() => handleButtonClick('favs')}
                       className=" uppercase  text-[#3C2A21]  font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1  hover:scale-110 transition duration-300 ease-in-out" type="button">
                        <BsFillStarFill  size={23}/>
 
                       </button>
+
                     </div>
                   </div>
                 </div>
@@ -155,6 +211,7 @@ function Profile() {
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
+
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                       {/* Hey there, coffee aficionados! I'm Jenna, your friendly neighborhood coffee explorer.
                        My passion for coffee knows no bounds, and I'm always on a quest to find the perfect brew.
@@ -171,7 +228,7 @@ function Profile() {
     </ul>
 
 
-
+                            {renderComponent()}
                     </div>
                   </div>
                 </div>
