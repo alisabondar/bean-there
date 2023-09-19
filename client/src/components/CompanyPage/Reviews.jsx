@@ -20,16 +20,18 @@ export default function Reviews(prop) {
     return ratings
   }
   return (
-    <div className=' col-span-2 mb-16 divide-y text-center'>
+    <div className=' mt-4 col-span-2 mb-16  text-center overflow-x-hidden bg-secondary/[.1] rounded'>
+      <div className="divide-y-[1px] divide-neutral/[.5]">
       <UserSection />
-      <OverallRating ratings={ratings(prop.reviews)}/>
+      <OverallRating ratings={ratings(prop.reviews)} total={prop.reviews.length} rating={prop.rating}/>
       {reviewsRendered.map((elem, index) => {
             return (
-              <div key={index} className="text-left">
+              <div key={index} className="text-left px-2">
               <CompanyReviews key={index} reviewData={elem}/>
               </div>
             )
       })}
+      </div>
       <div className="join">
         {Array.from({ length: Math.ceil(prop.reviews.length / reviewsPerPage ) }).map((_, index) => {
             return <Pagination

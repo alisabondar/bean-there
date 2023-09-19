@@ -37,6 +37,7 @@ var getReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 var addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const placeId = req.params.placeId;
     const { title, body, rating, location_name, user_id, photos } = req.body;
+
     //light validation
     if (!placeId || !location_name) {
         return res.status(404).send({
