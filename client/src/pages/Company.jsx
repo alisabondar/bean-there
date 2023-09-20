@@ -8,10 +8,10 @@ import { useState, useEffect } from 'react';
 
 export default function Company() {
   const [reviews, updateReviews] = useState([])
+  const [avgRating, updateAvg] = useState(0)
 
   useEffect(() => {
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/900/reviews`).then((res) => {
-      console.log(res)
       updateReviews(res.data.reviews)
     }).catch((err) => console.error)
   }, []);
@@ -69,10 +69,10 @@ export default function Company() {
             <div className="flex justify-center my-2">
               <div className="flex space-x-4">
                 <div className="flex-shrink-0">
-                  <BeanRating rating={business.rating} />
+                  <BeanRating rating={avgRating} />
                 </div>
                 <div className="text-2xl font-bold">
-                  {business.rating}
+                  {avgRating}
                 </div>
                 <div className="text-2xl">
                   ({reviews.length} Reviews)
@@ -99,7 +99,7 @@ export default function Company() {
                     <Toolbar place_id={business.place_id} place_name={business.name} />
                   </div>
                   <div id="reviews" className="h-full overflow-auto">
-                    <Reviews reviews={reviews} rating={business.rating} />
+                    <Reviews reviews={reviews} updateAvg={updateAvg} name={business.name}/>
                   </div>
                 </div>
               </div>
