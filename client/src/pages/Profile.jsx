@@ -35,9 +35,8 @@ function Profile() {
 
   // Fetch user profile data
   useEffect(() => {
-<<<<<<< HEAD
     axios
-      .get("http://localhost:5001/user/profile", { withCredentials: true })
+      .get("/user/profile", { withCredentials: true })
       .then((res) => {
         setProfile(res.data);
       })
@@ -50,7 +49,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5001/user/${profile.id}/friends`, {
+        .get(`/user/${profile.id}/friends`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -66,7 +65,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5001/user/${profile.id}/reviews`, {
+        .get(`/user/${profile.id}/reviews`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -82,7 +81,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5001/user/${profile.id}/wishlist`, {
+        .get(`/user/${profile.id}/wishlist`, {
           withCredentials: true,
         })
         .then((res) => {

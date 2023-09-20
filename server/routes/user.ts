@@ -3,6 +3,9 @@ var router = express.Router();
 var {
   login,
   register,
+  googleLogin,
+  googleCB,
+  facebookLogin,
   getWishlist,
   getUserReviews,
   getFriends,
@@ -14,6 +17,9 @@ var {
 
 router.post("/login", login);
 router.post("/register", register);
+router.post("/google", googleLogin);
+router.get("/google/callback", googleCB);
+router.post("/facebook", facebookLogin);
 
 router.get("/profile", getProfile);
 

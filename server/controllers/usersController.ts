@@ -1,13 +1,63 @@
 import { Request, Response, NextFunction } from "express";
 var passport = require('passport');
-var initializePassport = require('../passport-config.js');
+var initializeLocal = require('../passports/passport-local-config.js');
+var initializeGoogle = require('../passports/passport-google-config.js');
+var initializeFacebook = require('../passports/passport-facebook-config.js');
 var db = require("../db/database");
 var { User, Friend } = require("../models/userModel");
 var bcrypt = require("bcrypt");
 
-initializePassport(passport);
-
 var login = async (req: any, res: Response, next: NextFunction) => {
+  initializeLocal(passport);
+  passport.authenticate('local', (err: any, user: any, info: any) => {
+    if (err) {
+      throw err
+    };
+    if (!user) {
+      // failure
+      res.send({ success: false, message: 'Invalid login credentials' });
+    } else {
+      // authentication success case
+      req.login(user, (err: any) => {
+        if (err) {
+          throw err
+        }
+        res.send({ success: true });
+      })
+    }
+  })(req, res, next)
+};
+
+var googleLogin = async (req: any, res: Response, next: NextFunction) => {
+  initializeGoogle(passport);
+  passport.authenticate('google', { scope: ["profile"]});
+};
+
+var googleCB = async (req: any, res: Response, next: NextFunction) => {
+  initializeGoogle(passport);
+  passport.authenticate('google', {
+    successRedirect: 'http://localhost:5001/user/google/success',
+    failureRedirect: 'http://localhost:5001/user/google/failure'
+  })
+};
+
+var googleSuccess = async (req: any, res: Response, next: NextFunction) => {
+  if (req.user) {
+    res.status(200).send({
+      success: true
+    })
+  }
+};
+
+var googleFailure = async (req: any, res: Response, next: NextFunction) => {
+  res.send({
+    success: false,
+    message: 'Invalid login credentials'
+  })
+};
+
+var facebookLogin = async (req: any, res: Response, next: NextFunction) => {
+  initializeFacebook(passport);
   passport.authenticate('local', (err: any, user: any, info: any) => {
     if (err) {
       throw err
@@ -28,7 +78,6 @@ var login = async (req: any, res: Response, next: NextFunction) => {
 };
 
 var getProfile = async (req: any, res: Response) => {
-  console.log('this is the req.user!!!:', req.user);
   if (!req.user) { return res.send({ error: "user is not logged in"})};
 
   try {
@@ -205,4 +254,5 @@ var updateWishlist = async (req: Request, res: Response) => {
 
 
 
-module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
+module.exports = { login, googleLogin, googleCB, googleSuccess, googleFailure, facebookLogin, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
+

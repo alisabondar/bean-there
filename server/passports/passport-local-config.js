@@ -1,6 +1,7 @@
+require('dotenv').config();
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt');
-var { User } = require('./models/userModel.js');
+var { User } = require('../models/userModel.js');
 
 const initialize = (passport) => {
   // fn to check email and password matches user in db
@@ -20,6 +21,7 @@ const initialize = (passport) => {
 
   // local strategy
   passport.use(new LocalStrategy({ usernameField: 'email' }, authenticate));
+  // facebook strategy
 
   // serialize and deserialize user in session
   passport.serializeUser((user, done) => {
