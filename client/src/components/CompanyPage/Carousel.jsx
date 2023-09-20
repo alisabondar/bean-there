@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 export default function SimpleSlider( {photos} ) {
+  console.log(photos)
   var settings = {
     dots: false,
     infinite: true,

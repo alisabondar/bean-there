@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import axios from "axios";
 
 const { Review, ReviewPhoto } = require("../models/reviewModel");
 const { LocationModel } = require("../models/locationModel");
@@ -101,4 +102,24 @@ var addReview = async (req: Request, res: Response) => {
     });
 };
 
-module.exports = { getReviews, addReview };
+const getPlaceDetails = (req: Request, res: Response): void => {
+  const { placeId } = req.params;
+  console.log(placeId)
+
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?&place_id=${placeId}&key=${process.env.GOOGLEAPI_KEY}`;
+
+  axios.get(url)
+    .then(response => {
+      if (response.data.status === 'OK') {
+        res.status(200).json(response.data);
+      } else {
+        res.status(400).json({ status: 'Error', message: response.data.status });
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching place details:', error);
+      res.status(500).json({ status: 'Error', message: 'Internal Server Error' });
+    });
+};
+
+module.exports = { getReviews, addReview, getPlaceDetails };

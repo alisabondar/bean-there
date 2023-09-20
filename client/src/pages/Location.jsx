@@ -13,6 +13,7 @@ export default function Location() {
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
   const photos = [one, two, three, four, five];
+
   const fetchCafeList = (param) => {
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.long;
