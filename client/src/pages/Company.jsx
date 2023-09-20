@@ -3,8 +3,10 @@ import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
 import BeanRating from '../components/CompanyPage/BeanRating';
 import Carousel from '../components/CompanyPage/Carousel';
+import NavBar from "./NavBar.jsx";
 import axios from "axios"
 import { useState, useEffect } from 'react';
+
 
 export default function Company() {
   const [reviews, updateReviews] = useState([])
@@ -61,7 +63,9 @@ export default function Company() {
 
   return (
     <div className="h-full relative">
+      <NavBar/>
       <div className="flex justify-center items-center h-full">
+
         <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
           {/* Title and Ratings */}
           <div className="flex flex-col items-center">
