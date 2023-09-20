@@ -1,4 +1,3 @@
-import PhotoCarousel from '../components/CompanyPage/PhotoCarousel'
 import Reviews from '../components/CompanyPage/Reviews';
 import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
@@ -7,72 +6,44 @@ import Carousel from '../components/CompanyPage/Carousel';
 import axios from "axios"
 import { useState, useEffect } from 'react';
 
-
 export default function Company() {
   const [reviews, updateReviews] = useState([])
+  const [avgRating, updateAvg] = useState(0)
 
   useEffect(() => {
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/900/reviews`).then((res) => {
-      console.log(res)
-    updateReviews(res.data.reviews)
+      updateReviews(res.data.reviews)
     }).catch((err) => console.error)
-  },[])
+  }, []);
 
-  let mockBusiness = {
-    business_status: "OPERATIONAL",
-    geometry: {
-        location: {
-            lat: 30.5164997,
-            lng: -97.6892709
-        },
-        viewport: {
-            northeast: {
-                lat: 30.51789122989272,
-                lng: -97.68786802010729
-            },
-            southwest: {
-                lat: 30.51519157010728,
-                lng: -97.69056767989272
-            }
+  const [business, setBusiness] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlaceDetails = async (placeId) => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${placeId}/details`);
+        if (response.status === 200 && response.data.status === 'OK') {
+          setBusiness(response.data.result);
+          console.log("Success:", response.data.result);
+        } else {
+          console.log('Server responded but not OK:', response.data.status);
         }
-    },
-    icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
-    icon_background_color: "#FF9E67",
-    icon_mask_base_uri: "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
-    name: "Starbucks",
-    opening_hours: {
-        open_now: false
-    },
-    photos: [
-        {
-            height: 1080,
-            html_attributions: [
-                "<a href=\"https://maps.google.com/maps/contrib/110230165512752560617\">Rachel Dornfeld</a>"
-            ],
-            photo_reference: "ATJ83zgAlZyOIVYznn2FwriMY3EL-mauD2Ra6kWqiH5MYPwfNlUhrpg-sGeuGlu99it5QbkEs4-eLRx6nVy8XnqnaGuGEuiS8k9zrjXIFfnqKsvNNwoAWbLdEwIKevTMQia-NrNPZmWEF_f27UdwzrwVkdm_oaLfKk6euuZOxidM4eY-KMYK",
-            width: 1920
-        }
-    ],
-    place_id: "ChIJowE4NI7RRIYRXV77fvWtKLU",
-    plus_code: {
-        compound_code: "G886+H7 Round Rock, Texas",
-        global_code: "8624G886+H7"
-    },
-    price_level: 2,
-    rating: 4.3,
-    reference: "ChIJowE4NI7RRIYRXV77fvWtKLU",
-    scope: "GOOGLE",
-    types: [
-        "cafe",
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "store",
-        "establishment"
-    ],
-    user_ratings_total: 678,
-    vicinity: "1010 S I-35 Frontage Rd, Round Rock"
-  };
+      } catch (error) {
+        console.log('Fetch Error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    const urlParams = new URLSearchParams(window.location.search);
+    const placeId = urlParams.get('placeId');
+    if (placeId) {
+      fetchPlaceDetails(placeId);
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
   const mockImages = [
     '/assets/coffee-mock-1.jpeg',
@@ -84,61 +55,63 @@ export default function Company() {
     '/assets/coffee-mock-7.jpeg',
   ];
 
-  const [business, setBusiness] = useState(mockBusiness);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="bg-combined h-full relative darkening">
-    <div className="flex justify-center items-center h-full">
-      <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
-        {/* Title and Ratings */}
-        <div className="flex flex-col items-center">
-          <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
-          <div className="flex justify-center my-2">
-            <div className="flex space-x-4">
-              <div className="flex-shrink-0">
-                <BeanRating rating={business.rating} />
-              </div>
-              <div className="text-2xl font-bold">
-                {business.rating}
-              </div>
-              <div className="text-2xl">
-                ({business.user_ratings_total} Reviews)
-              </div>
-            </div>
-          </div>
-          <div className="inline-flex items-center mb-2">
-            <span className={`text-md rounded-full px-4 py-2 ${business.opening_hours.open_now ? 'bg-green-400' : 'bg-red-400'}`}>
-              {business.opening_hours.open_now ? "Open" : "Closed"}
-            </span>
-          </div>
-        </div>
-        {/* PhotoCarousel */}
-        <div className="mx-auto w-full max-w-[95%]">
-          <Carousel photos={mockImages}/>
-        </div>
-
-        {/* ToolBar and Reviews */}
-        <div className="flex flex-wrap justify-center pt-12">
-          <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
-            <div className="col-span-2 sm:col-span-2">
-              <div className="flex-col">
-                <div id="tool-bar" className="w-full h-[4rem] mt-2">
-                  <Toolbar place_id={business.place_id} place_name={business.name}/>
+    <div className="h-full relative">
+      <div className="flex justify-center items-center h-full">
+        <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
+          {/* Title and Ratings */}
+          <div className="flex flex-col items-center">
+            <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
+            <div className="flex justify-center my-2">
+              <div className="flex space-x-4">
+                <div className="flex-shrink-0">
+                  <BeanRating rating={avgRating} />
                 </div>
-                <div id="reviews" className="h-full overflow-auto">
-                  <Reviews reviews={reviews} rating={business.rating}/>
+                <div className="text-2xl font-bold">
+                  {avgRating}
+                </div>
+                <div className="text-2xl">
+                  ({reviews.length} Reviews)
                 </div>
               </div>
             </div>
+            <div className="inline-flex items-center mb-2">
+              <span className={`text-md rounded-full px-4 py-2 ${business.opening_hours.open_now ? 'bg-green-400' : 'bg-red-400'}`}>
+                {business.opening_hours.open_now ? "Open" : "Closed"}
+              </span>
+            </div>
+          </div>
+          {/* PhotoCarousel */}
+          <div className="mx-auto w-full max-w-[95%]">
+            <Carousel photos={business.photos} />
+          </div>
 
-            {/* InfoPanel */}
-            <div id="info-cards" className="sticky top-0 z-10 h-[200px]">
-              <InfoPanel />
+          {/* ToolBar and Reviews */}
+          <div className="flex flex-wrap justify-center pt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
+              <div className="col-span-2 sm:col-span-2">
+                <div className="flex-col">
+                  <div id="tool-bar" className="w-full h-[4rem] mt-2">
+                    <Toolbar place_id={business.place_id} place_name={business.name} />
+                  </div>
+                  <div id="reviews" className="h-full overflow-auto">
+                    <Reviews reviews={reviews} updateAvg={updateAvg} name={business.name}/>
+                  </div>
+                </div>
+              </div>
+
+              {/* InfoPanel */}
+              <div id="info-cards" className="sticky top-0 z-10 h-[200px]">
+                <InfoPanel business={business}/>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 

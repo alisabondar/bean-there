@@ -11,7 +11,9 @@ function Friends({ friends }) {
           );
         })
       ) : (
+        <div className="lg:p-36">
         <span>Search for more Brew Buds!</span>
+      </div>
       )}
     </div>
   );
