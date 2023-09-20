@@ -86,7 +86,7 @@ var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 `, { type: db.QueryTypes.SELECT })
         .then((wishlist) => {
         res.status(200).send({
-            mssg: "wishlist successfully fetched",
+            mssg: "favorites successfully fetched",
             wishlist,
         });
     })
@@ -140,52 +140,44 @@ var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 // PATCH REQ
-
-var updateWishlist = async (req, res) => {
+var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user_id, location_id, name } = req.body;
-
     if (!user_id || !location_id) {
         return res.status(400).send({ error: "Missing user_id or location_id" });
     }
-
     try {
-        const [existingLocation] = await db.query(
-            `SELECT * FROM locations WHERE place_id = ?`, {
+        const [existingLocation] = yield db.query(`SELECT * FROM locations WHERE place_id = ?`, {
             replacements: [location_id],
             type: db.QueryTypes.SELECT,
         });
         if (!existingLocation) {
-            await db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
+            yield db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
                 replacements: [location_id, name],
                 type: db.QueryTypes.INSERT,
             });
         }
-        const [existingRows] = await db.query(
-            `SELECT * FROM favorites WHERE user_id = ? AND location_id = ?`, {
+        const [existingRows] = yield db.query(`SELECT * FROM favorites WHERE user_id = ? AND location_id = ?`, {
             replacements: [user_id, location_id],
             type: db.QueryTypes.SELECT,
         });
         if (existingRows) {
-            await db.query(
-                `DELETE FROM favorites WHERE user_id = ? AND location_id = ?`, {
+            yield db.query(`DELETE FROM favorites WHERE user_id = ? AND location_id = ?`, {
                 replacements: [user_id, location_id],
                 type: db.QueryTypes.DELETE,
             });
         }
         else {
-            await db.query(
-                `INSERT INTO favorites (user_id, location_id) VALUES (?, ?)`, {
+            yield db.query(`INSERT INTO favorites (user_id, location_id) VALUES (?, ?)`, {
                 replacements: [user_id, location_id],
                 type: db.QueryTypes.INSERT,
             });
         }
         res.status(200).send({ message: "Wishlist updated successfully." });
-    } catch (err) {
+    }
+    catch (err) {
         console.error("Error:", err);
         const error = err.message || "Internal server error";
         res.status(500).send({ error });
     }
-};
-
-
+});
 module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
