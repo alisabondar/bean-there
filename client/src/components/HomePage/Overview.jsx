@@ -19,7 +19,7 @@ function Overview() {
   };
   return (
     <AnimatePresence>
-      <div className="relative">
+      <div className="relative ">
         <div className="flex flex-col justify-between items-center relative">
           <div className="flex mr-auto mt-27 pt-20">
             <motion.div {...headContainerAnimation}>
