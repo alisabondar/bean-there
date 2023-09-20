@@ -20,7 +20,7 @@ const Location = ({ data, photos }) => {
   }
 
   const handleRedirect = (data) => {
-    navigate('/company', { state: { data: data } });
+    navigate(`/company/?${data.place_id}`, { state: { data: data } });
   };
 
   return (
