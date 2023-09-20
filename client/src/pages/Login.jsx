@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="wrapper ">
-        <div className="form-box login">
+        <div className="form-box ">
           {logError && <div className="error">{logError}</div>}
           <h2>Login</h2>
           <form onSubmit={loginSubmit}>
@@ -41,7 +41,8 @@ export default function Login() {
               <span className="icon">
                 <AiTwotoneMail size={25} />
               </span>
-              <label>Email</label>
+              {
+                email === '' ?   <label >Email:</label> : null            }
               <input
                 type="email"
                 name="email"
@@ -54,13 +55,16 @@ export default function Login() {
               <span className="icon">
                 <RiLockPasswordFill size={25} />
               </span>
-              <label>Password</label>
+
+              {
+                pass === '' ?   <label>Password:</label> : null            }
               <input
                 type="password"
                 name="password"
                 onChange={(e) => changePass(e.target.value)}
                 value={pass}
                 required
+
               />
             </div>
             <div className="remember-forgot">
@@ -74,11 +78,15 @@ export default function Login() {
               Login
             </button>
           </form>
+          <div className="login-register">
+            <p>
+              Don't have an account? <a href="#" className="rejister-link">Register</a>
+            </p>
+          </div>
 
           <div >
-          <h3 className="text-center pt-4">Or Sign Up Using</h3>
 
-            <div className="flex justify-around my-2">
+            <div className="flex justify-around my-2 mt-5">
               <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
                 <BsFacebook size={20}/>
               </div>
@@ -88,11 +96,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="login-register">
-            <p>
-              Don't have an account? <a href="#" className="rejister-link">Register</a>
-            </p>
-          </div>
+
         </div>
       </div>
     </div>
