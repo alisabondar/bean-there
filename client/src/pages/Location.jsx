@@ -1,3 +1,85 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import LocList from '../components/LocationPage/LocList'
+import Map from '../components/LocationPage/Map'
+import one from './img/loc1.jpeg';
+import two from './img/loc2.jpeg';
+import three from './img/loc3.jpeg';
+import four from './img/loc4.jpeg';
+import five from './img/loc5.jpeg';
+
 export default function Location() {
-  return <div>Location</div>;
+  const [loc, setLoc] = useState({ lat: '41.881832', long: '-87.623177' })
+  const [cafeList, setCafeList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const photos = [one, two, three, four, five];
+
+  const fetchCafeList = (param) => {
+    const lat = param.lat || loc.lat;
+    const long = param.lng || loc.long;
+
+    axios.get(`http://localhost:5002/location/search/${lat.toString()}/${long.toString()}`)
+      .then(res => {
+        setCafeList(res.data);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Could not fetch location', err);
+      })
+  }
+
+  const fetchZip = (code) => {
+    axios.get(`http://localhost:5002/location/search/${code}`)
+      .then(res => {
+        console.log(res.data[0].geometry.location)
+        fetchCafeList(res.data[0].geometry.location)
+      })
+      .catch(err => {
+        console.error('Could not fetch location', err);
+      })
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    console.log(e.target.value)
+    fetchZip(e.target.value)
+  }
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      const userLoc = {
+        lat: pos.coords.latitude,
+        long: pos.coords.longitude,
+      };
+      setLoc(userLoc);
+      fetchCafeList(userLoc);
+    }, (err) => {
+      console.error('Cannot find location', err)
+    })
+  }, [])
+
+  return (
+    <div className='bg-primary'>
+      <div className='text-center p-4'>
+        <div className='text-3xl'>Find your next brew with SipSearcher!</div>
+        <div>Get details and directions for a coffee shop near you.</div>
+        <label className='block mx-auto p-10'>Search:
+          <input type="text" placeholder="Type in a zipcode ..." className="input w-full max-w-sm" onChange={handleSearch} />
+        </label>
+      </div>
+      {loading ? (
+        <div className='flex justify-center'>
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
+      ) : (
+        <div className='flex flex-row'>
+          <LocList data={cafeList} photos={photos}/>
+          <Map data={cafeList} />
+        </div>
+      )}
+    </div>
+  );
 }

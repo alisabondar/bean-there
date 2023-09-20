@@ -9,95 +9,84 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var passport = require('passport');
+var initializePassport = require('../passport-config.js');
 var db = require("../db/database");
 var { User, Friend } = require("../models/userModel");
-var login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    /**
-     * SO INSTEAD OF WHAT I HAVE HERE CURRENTLY
-     * YOU WOULD GET THE DATA FROM THE REQUEST
-     * I ASSUME THROUGH REQ.BODY
-     *
-     * THEN YOU WILL HASH THE PASSWORD
-     * FIND THE USER
-     *
-     * AND ADD AUTHENTICATION CREDENTIALS
-     * AND SEND THAT BACK
-     */
-    // testing login
-    const { username, password } = req.body;
-    if (!username) {
-        return res.status(404).send({ error: "please enter a username" });
-    }
-    if (!password) {
-        return res.status(404).send({ error: "please enter a password" });
-    }
-    User.findOne({
-        where: { username, password },
-    })
-        .then((user) => {
-        if (!user) {
-            throw Error("unable to login user");
+var bcrypt = require("bcrypt");
+initializePassport(passport);
+var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            throw err;
         }
-        res
-            .status(200)
-            .send({ mssg: "user successfully logged in", user: user.dataValues });
-    })
-        .catch((err) => {
-        const error = err.message || "internal server error";
-        res.status(404).send({ error });
-    });
+        ;
+        if (!user) {
+            // failure
+            res.send({ success: false, message: 'Invalid login credentials' });
+        }
+        else {
+            // authentication success case
+            req.login(user, (err) => {
+                if (err) {
+                    throw err;
+                }
+                res.send({ success: true });
+            });
+        }
+    })(req, res, next);
+});
+var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('this is the req.user!!!:', req.user);
+    if (!req.user) {
+        return res.send({ error: "user is not logged in" });
+    }
+    ;
+    try {
+        const user = yield User.findOne({ where: { id: req.user }, attributes: ["id", "username", "email", "photo", "banner_photo", "about", "private"], raw: true });
+        res.send(user);
+    }
+    catch (error) {
+        res.status(400).send({ error: "internal server error" });
+    }
 });
 var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    /**
-     * SO INSTEAD OF WHAT I HAVE HERE CURRENTLY
-     * YOU WOULD GET THE DATA FROM THE REQUEST
-     * I ASSUME THROUGH REQ.BODY
-     *
-     * THEN YOU WILL HASH THE PASSWORD
-     * CREATE THE USER
-     */
-    // testing register
-    // const data = {
-    //   username: "mario",
-    //   email: "mario@gmail.com",
-    //   password: "mario123",
-    //   photo: "https://picsum.photos/900/400",
-    //   about:
-    //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod suscipit dolor. Etiam in risus ante. In convallis sed erat quis elementum. Donec eget augue ac nisl eleifend egestas. Etiam vel nibh felis.",
-    // };
     const { username, email, password, photo, banner_photo, about } = req.body;
     if (!username) {
-        return res.status(404).send({ error: "please enter a username" });
+        return res.status(400).send({ error: "please enter a username" });
     }
     if (!email) {
-        return res.status(404).send({ error: "please enter a email" });
+        return res.status(400).send({ error: "please enter a email" });
     }
     if (!password) {
-        return res.status(404).send({ error: "please enter a password" });
+        return res.status(400).send({ error: "please enter a password" });
     }
-    User.create({ username, email, password, photo, about })
+    const hashedPassword = yield bcrypt.hash(password, 10);
+    console.log(hashedPassword);
+    User.create({ username, email, password: hashedPassword, photo, about })
         .then((user) => {
         res
             .status(201)
-            .send({ mssg: "user successfully registered", user: user.dataValues });
+            .send({ mssg: "user successfully registered", user: user.dataValues, success: true });
     })
         .catch((err) => {
         const error = err.message || "internal server error";
-        res.status(404).send({ error });
+        res.status(400).send({ error });
     });
 });
 var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.params.userId);
     const user_id = req.params.userId;
     yield db
         .query(`
   SELECT w.*, l.name as location_name
-  FROM wishlists w
+  FROM favorites w
   INNER JOIN locations l ON w.location_id = l.place_id
   WHERE w.user_id = ${user_id};
 `, { type: db.QueryTypes.SELECT })
         .then((wishlist) => {
         res.status(200).send({
-            mssg: "wishlist successfully fetched",
+            mssg: "favorites successfully fetched",
             wishlist,
         });
     })
@@ -150,4 +139,45 @@ var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     });
 });
-module.exports = { login, register, getWishlist, getUserReviews, getFriends };
+// PATCH REQ
+var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { user_id, location_id, name } = req.body;
+    if (!user_id || !location_id) {
+        return res.status(400).send({ error: "Missing user_id or location_id" });
+    }
+    try {
+        const [existingLocation] = yield db.query(`SELECT * FROM locations WHERE place_id = ?`, {
+            replacements: [location_id],
+            type: db.QueryTypes.SELECT,
+        });
+        if (!existingLocation) {
+            yield db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
+                replacements: [location_id, name],
+                type: db.QueryTypes.INSERT,
+            });
+        }
+        const [existingRows] = yield db.query(`SELECT * FROM favorites WHERE user_id = ? AND location_id = ?`, {
+            replacements: [user_id, location_id],
+            type: db.QueryTypes.SELECT,
+        });
+        if (existingRows) {
+            yield db.query(`DELETE FROM favorites WHERE user_id = ? AND location_id = ?`, {
+                replacements: [user_id, location_id],
+                type: db.QueryTypes.DELETE,
+            });
+        }
+        else {
+            yield db.query(`INSERT INTO favorites (user_id, location_id) VALUES (?, ?)`, {
+                replacements: [user_id, location_id],
+                type: db.QueryTypes.INSERT,
+            });
+        }
+        res.status(200).send({ message: "Wishlist updated successfully." });
+    }
+    catch (err) {
+        console.error("Error:", err);
+        const error = err.message || "Internal server error";
+        res.status(500).send({ error });
+    }
+});
+module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };

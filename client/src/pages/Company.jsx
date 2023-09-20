@@ -4,10 +4,20 @@ import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
 import BeanRating from '../components/CompanyPage/BeanRating';
 import Carousel from '../components/CompanyPage/Carousel';
+import axios from "axios"
+import { useState, useEffect } from 'react';
 
-import { useState } from 'react';
 
 export default function Company() {
+  const [reviews, updateReviews] = useState([])
+
+  useEffect(() => {
+    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/900/reviews`).then((res) => {
+      console.log(res)
+    updateReviews(res.data.reviews)
+    }).catch((err) => console.error)
+  },[])
+
   let mockBusiness = {
     business_status: "OPERATIONAL",
     geometry: {
@@ -77,7 +87,8 @@ export default function Company() {
   const [business, setBusiness] = useState(mockBusiness);
 
   return (
-    <div className="flex justify-center bg-primary">
+    <div className="bg-combined h-full relative darkening">
+    <div className="flex justify-center items-center h-full">
       <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
         {/* Title and Ratings */}
         <div className="flex flex-col items-center">
@@ -112,10 +123,10 @@ export default function Company() {
             <div className="col-span-2 sm:col-span-2">
               <div className="flex-col">
                 <div id="tool-bar" className="w-full h-[4rem] mt-2">
-                  <Toolbar />
+                  <Toolbar place_id={business.place_id} place_name={business.name}/>
                 </div>
                 <div id="reviews" className="h-full overflow-auto">
-                  <Reviews />
+                  <Reviews reviews={reviews} rating={business.rating}/>
                 </div>
               </div>
             </div>
@@ -127,6 +138,7 @@ export default function Company() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 

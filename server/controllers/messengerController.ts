@@ -7,6 +7,7 @@ var { User } = require("../models/userModel");
 
 var db = require("../db/database");
 
+// get rooms for user based on a userId
 var getRooms = async (req: Request, res: Response) => {
   /**
    * send userId as a param or (or some other way)
@@ -63,6 +64,7 @@ var getRooms = async (req: Request, res: Response) => {
   }
 };
 
+// get messages for a room based on a roomId
 var getMessages = async (req: Request, res: Response) => {
   /**
    * send roomId with request somehow (params, etc...)
@@ -88,6 +90,7 @@ var getMessages = async (req: Request, res: Response) => {
     });
 };
 
+// add a room for a user based on their user_name and associated members
 var addRoom = async (req: Request, res: Response) => {
   /** send a list of users via req.body and a chatname
    *  create a new room => grab that room id
@@ -156,6 +159,7 @@ var addRoom = async (req: Request, res: Response) => {
     });
 };
 
+// add a messaged based on a room_id and a message object
 var addMessage = async (req: Request, res: Response) => {
   /**
    * send roomId, in params
