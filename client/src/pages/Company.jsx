@@ -8,17 +8,10 @@ import axios from "axios"
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search)
-}
-
 export default function Company() {
   const [reviews, updateReviews] = useState([])
-
-  const query = useQuery();
-  const encodedData = query.get("data");
-  const decodedData = decodeURIComponent(encodedData);
-  const data = JSON.parse(decodedData);
+  const location = useLocation();
+  const data = location.state?.data;
   console.log(data);
 
   useEffect(() => {
