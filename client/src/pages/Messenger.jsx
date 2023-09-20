@@ -13,7 +13,6 @@ export default function Messenger() {
 
   var getChats = (id, data) => axios.post(url + `rooms/${id}/messages/`, data);
 
-
   var handleSend = () => {
     console.log('try send');
     getChats(room.id,
@@ -34,7 +33,9 @@ export default function Messenger() {
   return loading ? (<>Loading chats...</>) : (
     <div className="flex w-full  h-screen">
       <div className="w-4/12 h-full overflow-auto max-w-[250px] min-w-[240px] bg-neutral border-r-2 border-accent">
-        <ChatGroups id={USER_ID} setRoom={setRoom}/>
+        <div className="grid pt-5 grid-cols-1 justify-items-center">
+          <ChatGroups id={USER_ID} setRoom={setRoom}/>
+        </div>
       </div>
       <div className="w-full h-full flex flex-items-end justify-end flex-col bg-primary">
         {room !== null? (
