@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { subDays, formatRelative } from 'date-fns';
 
 const testChat = (userId, message, userMap, key) => {
@@ -40,11 +40,18 @@ var Messages = ({ userId, room, chatUsers }) => {
   const [userMap, setUserMap] = useState({});
   var loading = messages === null;
 
+  const divRef = useRef(null);
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      divRef.current?.scrollIntoView()
+    }, 3)
+  }
+
   var getMessages = (id) => axios.get(url + `rooms/${id}/messages/`);
 
   useEffect(() => {
     setUserMap(buildUserMap(chatUsers))
-
     getMessages(room.id).then(result => {
       var msgs = result.data.messages;
       setMessages(msgs.map((m) => ({
@@ -52,6 +59,8 @@ var Messages = ({ userId, room, chatUsers }) => {
         message_text: m.message_text,
         message_user: m.message_user,
       })));
+      scrollToBottom()
+      console.log('scroll')
     }).catch(err => {
       console.log(err);
     })
@@ -64,6 +73,7 @@ var Messages = ({ userId, room, chatUsers }) => {
           {messages.map((m, i) => (
             testChat(userId, m, userMap, i)
           ))}
+          <div  ref={divRef}></div>
         </>
       )}
     </div>
