@@ -4,7 +4,6 @@ import InfoPanel from '../components/CompanyPage/InfoPanel';
 import BeanRating from '../components/CompanyPage/BeanRating';
 import Carousel from '../components/CompanyPage/Carousel';
 import axios from "axios"
-import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Company() {
@@ -23,15 +22,15 @@ export default function Company() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPlaceDetails = async () => {
+    const fetchPlaceDetails = async (placeId) => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${data.place_id}/details`);
+        const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${placeId}/details`);
         if (response.status === 200 && response.data.status === 'OK') {
           setBusiness(response.data.result);
-          console.log(response.data.result);
+          console.log("Success:", response.data.result);
         } else {
-          console.log('Error:', response.data.status);
+          console.log('Server responded but not OK:', response.data.status);
         }
       } catch (error) {
         console.log('Fetch Error:', error);
@@ -39,8 +38,13 @@ export default function Company() {
         setIsLoading(false);
       }
     };
-
-    fetchPlaceDetails();
+    const urlParams = new URLSearchParams(window.location.search);
+    const placeId = urlParams.get('placeId');
+    if (placeId) {
+      fetchPlaceDetails(placeId);
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   const mockImages = [
