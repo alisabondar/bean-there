@@ -38,18 +38,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
 dotenv.config();
-var getLocations = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+var getCurrent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const lat = req.params.lat;
     const long = req.params.long;
-    // params for zipcode -> lat and long coords
-    console.log('server', lat, long);
-    axios_1.default.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${req.params.lat},${req.params.long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
+    axios_1.default.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
         .then(result => {
-        console.log(result.data);
+        res.json(result.data.results);
     })
         .catch(err => {
         console.error('Cannot fetch nearby locations', err);
     });
-    // res.status(200).send({ mssg: "reached getLocations controller" });
 });
-module.exports = { getLocations };
+var getLocations = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const zipcode = req.params.zipcode;
+    axios_1.default.get(`${process.env.GEOCODE_URL}?address=${zipcode}&key=${process.env.GOOGLEAPI_KEY}`)
+        .then(result => {
+        res.json(result.data.results);
+    })
+        .catch(err => {
+        console.error('Cannot fetch zipcode results', err);
+    });
+});
+var getMap = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
+    //   .then(result => {
+    //     res.json(result.data.results)
+    //   })
+    //   .catch(err => {
+    //     console.error('Cannot fetch nearby locations', err)
+    //   })
+});
+module.exports = { getCurrent, getLocations, getMap };
