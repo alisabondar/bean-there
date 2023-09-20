@@ -19,7 +19,7 @@ export default function Location() {
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.long;
 
-    axios.get(`http://localhost:5002/location/search/${lat.toString()}/${long.toString()}`)
+    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
       .then(res => {
         setCafeList(res.data);
       })
@@ -32,7 +32,7 @@ export default function Location() {
   }
 
   const fetchZip = (code) => {
-    axios.get(`http://localhost:5002/location/search/${code}`)
+    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${code}`)
       .then(res => {
         console.log(res.data[0].geometry.location)
         fetchCafeList(res.data[0].geometry.location)

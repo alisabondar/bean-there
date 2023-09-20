@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ShareForm from './ShareModal';
 import axios from 'axios';
+import WriteReview from './WriteReview';
 
 export default function Toolbar({ place_id, place_name }) {
   const [favorite, setFavorite] = useState(false);
@@ -50,11 +51,7 @@ export default function Toolbar({ place_id, place_name }) {
   return (
     <div className="bg-neutral rounded-md shadow-lg">
       <div className="flex flex-row justify-evenly flex-wrap">
-        <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
-        >
-          Write Review
-        </button>
+          <WriteReview />
         <button
           className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
           onClick={()=>document.getElementById('share_modal').showModal()}

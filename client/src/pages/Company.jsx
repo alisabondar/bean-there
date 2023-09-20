@@ -19,10 +19,10 @@ export default function Company() {
   const encodedData = query.get("data");
   const decodedData = decodeURIComponent(encodedData);
   const data = JSON.parse(decodedData);
-  console.log(data);
+  const placeholder = 900
 
   useEffect(() => {
-    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/900/reviews`).then((res) => {
+    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${placeholder}/reviews`).then((res) => {
       console.log(res)
       updateReviews(res.data.reviews)
     }).catch((err) => console.error)

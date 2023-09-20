@@ -125,7 +125,10 @@ body {
   text-decoration: underline;
 }
 
-.btn {
+
+/* please fix this, it is messing with buttons on all other pages of the app.
+
+/* .btn {
   width: 100%;
   height: 100%;
   background: #A98E77;
@@ -135,7 +138,7 @@ body {
   cursor: pointer;
   font-size: 1em;
   font-weight: 500px ;
-}
+} */
 
 .login-register {
   font-size: .9em;
@@ -192,14 +195,4 @@ font-weight: 600;
   z-index: -3;
 }
 
-.bg-combined.darkening::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.315);
-  z-index: -1;
-}
 
