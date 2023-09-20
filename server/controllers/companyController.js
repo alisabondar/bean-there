@@ -8,7 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const axios_1 = __importDefault(require("axios"));
 const { Review, ReviewPhoto } = require("../models/reviewModel");
 const { LocationModel } = require("../models/locationModel");
 var { User } = require("../models/userModel");
@@ -95,4 +99,22 @@ var addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(404).send({ error });
     });
 });
-module.exports = { getReviews, addReview };
+const getPlaceDetails = (req, res) => {
+    const { placeId } = req.params;
+    console.log(placeId);
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?&place_id=${placeId}&key=${process.env.GOOGLEAPI_KEY}`;
+    axios_1.default.get(url)
+        .then(response => {
+        if (response.data.status === 'OK') {
+            res.status(200).json(response.data);
+        }
+        else {
+            res.status(400).json({ status: 'Error', message: response.data.status });
+        }
+    })
+        .catch(error => {
+        console.error('Error fetching place details:', error);
+        res.status(500).json({ status: 'Error', message: 'Internal Server Error' });
+    });
+};
+module.exports = { getReviews, addReview, getPlaceDetails };

@@ -1,4 +1,3 @@
-import PhotoCarousel from '../components/CompanyPage/PhotoCarousel'
 import Reviews from '../components/CompanyPage/Reviews';
 import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
@@ -8,81 +7,41 @@ import axios from "axios"
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search)
-}
-
 export default function Company() {
   const [reviews, updateReviews] = useState([])
-
-  const query = useQuery();
-  const encodedData = query.get("data");
-  const decodedData = decodeURIComponent(encodedData);
-  const data = JSON.parse(decodedData);
-  const placeholder = 900
+  const location = useLocation();
+  const data = location.state?.data;
 
   useEffect(() => {
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${placeholder}/reviews`).then((res) => {
       console.log(res)
       updateReviews(res.data.reviews)
     }).catch((err) => console.error)
-  }, [])
+  }, []);
 
-  let mockBusiness = {
-    business_status: "OPERATIONAL",
-    geometry: {
-      location: {
-        lat: 30.5164997,
-        lng: -97.6892709
-      },
-      viewport: {
-        northeast: {
-          lat: 30.51789122989272,
-          lng: -97.68786802010729
-        },
-        southwest: {
-          lat: 30.51519157010728,
-          lng: -97.69056767989272
+  const [business, setBusiness] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlaceDetails = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${data.place_id}/details`);
+        if (response.status === 200 && response.data.status === 'OK') {
+          setBusiness(response.data.result);
+          console.log(response.data.result);
+        } else {
+          console.log('Error:', response.data.status);
         }
+      } catch (error) {
+        console.log('Fetch Error:', error);
+      } finally {
+        setIsLoading(false);
       }
-    },
-    icon: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
-    icon_background_color: "#FF9E67",
-    icon_mask_base_uri: "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
-    name: "Starbucks",
-    opening_hours: {
-      open_now: false
-    },
-    photos: [
-      {
-        height: 1080,
-        html_attributions: [
-          "<a href=\"https://maps.google.com/maps/contrib/110230165512752560617\">Rachel Dornfeld</a>"
-        ],
-        photo_reference: "ATJ83zgAlZyOIVYznn2FwriMY3EL-mauD2Ra6kWqiH5MYPwfNlUhrpg-sGeuGlu99it5QbkEs4-eLRx6nVy8XnqnaGuGEuiS8k9zrjXIFfnqKsvNNwoAWbLdEwIKevTMQia-NrNPZmWEF_f27UdwzrwVkdm_oaLfKk6euuZOxidM4eY-KMYK",
-        width: 1920
-      }
-    ],
-    place_id: "ChIJowE4NI7RRIYRXV77fvWtKLU",
-    plus_code: {
-      compound_code: "G886+H7 Round Rock, Texas",
-      global_code: "8624G886+H7"
-    },
-    price_level: 2,
-    rating: 4.3,
-    reference: "ChIJowE4NI7RRIYRXV77fvWtKLU",
-    scope: "GOOGLE",
-    types: [
-      "cafe",
-      "restaurant",
-      "food",
-      "point_of_interest",
-      "store",
-      "establishment"
-    ],
-    user_ratings_total: 678,
-    vicinity: "1010 S I-35 Frontage Rd, Round Rock"
-  };
+    };
+
+    fetchPlaceDetails();
+  }, []);
 
   const mockImages = [
     '/assets/coffee-mock-1.jpeg',
@@ -94,10 +53,12 @@ export default function Company() {
     '/assets/coffee-mock-7.jpeg',
   ];
 
-  const [business, setBusiness] = useState(mockBusiness);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="bg-combined h-full relative darkening">
+    <div className="h-full relative">
       <div className="flex justify-center items-center h-full">
         <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
           {/* Title and Ratings */}
@@ -124,7 +85,7 @@ export default function Company() {
           </div>
           {/* PhotoCarousel */}
           <div className="mx-auto w-full max-w-[95%]">
-            <Carousel photos={mockImages} />
+            <Carousel photos={business.photos} />
           </div>
 
           {/* ToolBar and Reviews */}
@@ -143,7 +104,7 @@ export default function Company() {
 
               {/* InfoPanel */}
               <div id="info-cards" className="sticky top-0 z-10 h-[200px]">
-                <InfoPanel />
+                <InfoPanel business={business}/>
               </div>
             </div>
           </div>

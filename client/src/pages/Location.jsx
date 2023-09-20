@@ -12,7 +12,6 @@ export default function Location() {
   const [loc, setLoc] = useState({ lat: '41.881832', long: '-87.623177' })
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const photos = [one, two, three, four, five];
 
   const fetchCafeList = (param) => {
