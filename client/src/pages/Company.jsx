@@ -12,7 +12,9 @@ export default function Company() {
   const [reviews, updateReviews] = useState([])
 
   useEffect(() => {
+
     axios.get("http://localhost:5001/company/900/reviews").then((res) => {
+
       console.log(res)
     updateReviews(res.data.reviews)
     }).catch((err) => console.error)
@@ -87,7 +89,8 @@ export default function Company() {
   const [business, setBusiness] = useState(mockBusiness);
 
   return (
-    <div className="flex justify-center bg-primary">
+    <div className="bg-combined h-full relative darkening">
+    <div className="flex justify-center items-center h-full">
       <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
         {/* Title and Ratings */}
         <div className="flex flex-col items-center">
@@ -137,6 +140,7 @@ export default function Company() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 

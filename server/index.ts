@@ -44,7 +44,7 @@ app.use("/messenger", messengerRoutes);
 app.use("/company", companyRoutes);
 app.use("/location", locationRoutes);
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 var db = require("./db/database");
 //test

@@ -1,9 +1,11 @@
 var express = require("express");
 var router = express.Router();
-var { getLocations } = require("../controllers/locationController");
+var { getCurrent, getLocations, getMap } = require("../controllers/locationController");
 
-// all these endpoints start with /company*
+// all these endpoints start with /location*
 
-router.get("/search/:query", getLocations);
+router.get("/search/:lat/:long", getCurrent);
+router.get("/search/:zipcode", getLocations);
+router.get("/search/map", getMap);
 
 module.exports = router;
