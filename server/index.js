@@ -4,6 +4,7 @@ require("dotenv").config();
 var morgan = require("morgan");
 var colors = require("colors");
 var express = require("express");
+var cors = require('cors');
 var userRoutes = require("./routes/user");
 var messengerRoutes = require("./routes/messenger");
 var companyRoutes = require("./routes/company");
