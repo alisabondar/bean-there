@@ -80,7 +80,7 @@ var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield db
         .query(`
   SELECT w.*, l.name as location_name
-  FROM favorites w
+  FROM wishlists w
   INNER JOIN locations l ON w.location_id = l.place_id
   WHERE w.user_id = ${user_id};
 `, { type: db.QueryTypes.SELECT })
@@ -147,10 +147,12 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     try {
         const [existingLocation] = yield db.query(`SELECT * FROM locations WHERE place_id = ?`, {
+        const [existingLocation] = yield db.query(`SELECT * FROM locations WHERE place_id = ?`, {
             replacements: [location_id],
             type: db.QueryTypes.SELECT,
         });
         if (!existingLocation) {
+            yield db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
             yield db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
                 replacements: [location_id, name],
                 type: db.QueryTypes.INSERT,
