@@ -64,11 +64,11 @@ export default function Company() {
   return (
     <div className="h-full relative">
       <NavBar/>
-      <div className="flex justify-center items-center h-full">
+      <div className="flex justify-center items-center h-full px-4 md:px-0">
 
-        <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
+        <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl">
           {/* Title and Ratings */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center w-full">
             <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
             <div className="flex justify-center my-2">
               <div className="flex space-x-4">
@@ -90,12 +90,12 @@ export default function Company() {
             </div>
           </div>
           {/* PhotoCarousel */}
-          <div className="mx-auto w-full max-w-[95%]">
+          <div className="mx-auto w-full max-w-[95%] sm:max-w-full">
             <Carousel photos={business.photos} />
           </div>
 
           {/* ToolBar and Reviews */}
-          <div className="flex flex-wrap justify-center pt-12">
+          <div className="flex flex-wrap justify-center pt-12 w-full">
             <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
               <div className="col-span-2 sm:col-span-2">
                 <div className="flex-col">
@@ -109,7 +109,7 @@ export default function Company() {
               </div>
 
               {/* InfoPanel */}
-              <div id="info-cards" className="sticky top-0 z-10 h-[200px]">
+              <div id="info-cards" className="sticky top-0 z-10 h-[20vh] md:h-[30vh] lg:h-[40vh] xl:h-[50vh]">
                 <InfoPanel business={business}/>
               </div>
             </div>
