@@ -12,7 +12,9 @@ export default function Company() {
   const [reviews, updateReviews] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:5000/company/900/reviews").then((res) => {
+
+    axios.get("http://localhost:5001/company/900/reviews").then((res) => {
+
       console.log(res)
     updateReviews(res.data.reviews)
     }).catch((err) => console.error)
