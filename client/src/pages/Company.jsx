@@ -29,6 +29,7 @@ export default function Company() {
         const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${data.place_id}/details`);
         if (response.status === 200 && response.data.status === 'OK') {
           setBusiness(response.data.result);
+          console.log(response.data.result);
         } else {
           console.log('Error:', response.data.status);
         }
@@ -84,7 +85,7 @@ export default function Company() {
           </div>
           {/* PhotoCarousel */}
           <div className="mx-auto w-full max-w-[95%]">
-            <Carousel photos={mockImages} />
+            <Carousel photos={business.photos} />
           </div>
 
           {/* ToolBar and Reviews */}
