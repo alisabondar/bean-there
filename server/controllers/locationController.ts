@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ var getCurrent = async (req: Request, res: Response) => {
 
   axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
     .then(result => {
+      console.log(result.data.results);
       res.json(result.data.results)
     })
     .catch(err => {
@@ -26,18 +28,19 @@ var getLocations = async (req: Request, res: Response) => {
     })
     .catch(err => {
       console.error('Cannot fetch zipcode results', err)
+      toast.error('Please try again with a valid zipcode')
     })
 }
 
-var getMap = async (req: Request, res: Response) => {
+// var getMap = async (req: Request, res: Response) => {
 
-  // axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
-  //   .then(result => {
-  //     res.json(result.data.results)
-  //   })
-  //   .catch(err => {
-  //     console.error('Cannot fetch nearby locations', err)
-  //   })
-}
+//   axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
+//     .then(result => {
+//       res.json(result.data.results)
+//     })
+//     .catch(err => {
+//       console.error('Cannot fetch nearby locations', err)
+//     })
+// }
 
-module.exports = { getCurrent, getLocations, getMap };
+module.exports = { getCurrent, getLocations };

@@ -37,12 +37,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
+const react_hot_toast_1 = __importDefault(require("react-hot-toast"));
 dotenv.config();
 var getCurrent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const lat = req.params.lat;
     const long = req.params.long;
     axios_1.default.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
         .then(result => {
+        console.log(result.data.results);
         res.json(result.data.results);
     })
         .catch(err => {
@@ -57,15 +59,16 @@ var getLocations = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     })
         .catch(err => {
         console.error('Cannot fetch zipcode results', err);
+        react_hot_toast_1.default.error('Please try again with a valid zipcode');
     });
 });
-var getMap = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
-    //   .then(result => {
-    //     res.json(result.data.results)
-    //   })
-    //   .catch(err => {
-    //     console.error('Cannot fetch nearby locations', err)
-    //   })
-});
-module.exports = { getCurrent, getLocations, getMap };
+// var getMap = async (req: Request, res: Response) => {
+//   axios.get(`${process.env.GOOGLEAPI_URL}?keyword=coffee&location=${lat},${long}&radius=5000&key=${process.env.GOOGLEAPI_KEY}`)
+//     .then(result => {
+//       res.json(result.data.results)
+//     })
+//     .catch(err => {
+//       console.error('Cannot fetch nearby locations', err)
+//     })
+// }
+module.exports = { getCurrent, getLocations };
