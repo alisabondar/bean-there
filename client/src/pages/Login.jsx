@@ -5,6 +5,9 @@ import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { BsFacebook} from 'react-icons/bs';
+import state from '../store';
+
+
 
 export default function Login() {
   const [logError, setLogError] = useState("");
@@ -30,10 +33,23 @@ export default function Login() {
 
   };
 
+  // login page exit
+  const handleOuterClick = (e) => {
+    const formDiv = document.querySelector(".form-box");
+    if (formDiv && !formDiv.contains(e.target)) {
+      state.login = false;
+    }
+  };
+  const toggleRegisterLink= () => {
+    state.register = true;
+    state.login = false;
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-50"
+    onClick={handleOuterClick}>
       <div className="wrapper ">
-        <div className="form-box login">
+        <div className="form-box ">
           {logError && <div className="error">{logError}</div>}
           <h2>Login</h2>
           <form onSubmit={loginSubmit}>
@@ -41,7 +57,8 @@ export default function Login() {
               <span className="icon">
                 <AiTwotoneMail size={25} />
               </span>
-              <label>Email</label>
+              {
+                email === '' ?   <label >Email:</label> : null            }
               <input
                 type="email"
                 name="email"
@@ -54,13 +71,16 @@ export default function Login() {
               <span className="icon">
                 <RiLockPasswordFill size={25} />
               </span>
-              <label>Password</label>
+
+              {
+                pass === '' ?   <label>Password:</label> : null            }
               <input
                 type="password"
                 name="password"
                 onChange={(e) => changePass(e.target.value)}
                 value={pass}
                 required
+
               />
             </div>
             <div className="remember-forgot">
@@ -74,25 +94,27 @@ export default function Login() {
               Login
             </button>
           </form>
+          <div className="login-register">
+            <p>
+              Don't have an account? <a
+               className="rejister-link"
+               onClick={toggleRegisterLink}>Register</a>
+            </p>
+          </div>
 
           <div >
-          <h3 className="text-center pt-4">Or Sign Up Using</h3>
 
-            <div className="flex justify-around my-2">
-              <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
-                <BsFacebook size={20}/>
+            <div className="flex justify-around my-2 mt-5">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+                <BsFacebook size={35}/>
               </div>
-              <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
-               <AiFillGoogleCircle size={23} />
+              <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+               <AiFillGoogleCircle size={64} />
               </div>
             </div>
           </div>
 
-          <div className="login-register">
-            <p>
-              Don't have an account? <a href="#" className="rejister-link">Register</a>
-            </p>
-          </div>
+
         </div>
       </div>
     </div>

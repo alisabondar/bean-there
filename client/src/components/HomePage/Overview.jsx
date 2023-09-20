@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import meetUp from "../../pages/img/meetUp.avif";
 import coffeeShops from "../../pages/img/coffeeshops.avif";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import state from '../../store';
+
 
 import {
   headContainerAnimation,
@@ -11,6 +13,10 @@ import {
 } from "../../animation/motion";
 
 function Overview() {
+
+  const toggleRegister= () => {
+    state.register = true;
+  };
   return (
     <AnimatePresence>
       <div className="relative">
@@ -30,6 +36,7 @@ function Overview() {
                 <button
                   className=" hover:bg-[#A98E77] border-2 border-[#CFB299]  text-white font-bold mt-4 py-2 px-4 rounded
             hover:scale-105 transition duration-300 ease-in-out"
+            onClick={toggleRegister}
                 >
                   CREATE ACCOUNT
                 </button>
@@ -61,7 +68,8 @@ function Overview() {
               </div>
             </div>
 
-            <div className="w-[188px] h-[188px] relative rounded-lg mx-auto md:mx-0 hover:scale-105 transition duration-300 ease-in-out">
+            <div className="w-[188px] h-[188px] relative rounded-lg mx-auto md:mx-0 hover:scale-105 transition duration-300 ease-in-out"
+                        onClick={toggleRegister}>
               <div className="absolute inset-0 bg-black opacity-20 rounded-lg"></div>
               <img
                 src={meetUp}
