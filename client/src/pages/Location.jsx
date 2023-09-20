@@ -45,7 +45,9 @@ export default function Location() {
   const handleSearch = (e) => {
     e.preventDefault()
     console.log(e.target.value)
-    fetchZip(e.target.value)
+    if (e.target.value.length >= 5) {
+      fetchZip(e.target.value)
+    }
   }
 
   useEffect(() => {
