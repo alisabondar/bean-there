@@ -9,8 +9,6 @@ import { useState, useEffect } from 'react';
 export default function Company() {
   const [reviews, updateReviews] = useState([])
   const [avgRating, updateAvg] = useState(0)
-  const location = useLocation();
-  const data = location.state?.data;
 
   useEffect(() => {
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/900/reviews`).then((res) => {
@@ -101,7 +99,7 @@ export default function Company() {
                     <Toolbar place_id={business.place_id} place_name={business.name} />
                   </div>
                   <div id="reviews" className="h-full overflow-auto">
-                    <Reviews reviews={reviews} updateAvg={updateAvg} />
+                    <Reviews reviews={reviews} updateAvg={updateAvg} name={business.name}/>
                   </div>
                 </div>
               </div>

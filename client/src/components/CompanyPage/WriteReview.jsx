@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import axios from "axios"
+import BeanRating from "./BeanRating";
 
 const WriteReview = (prop) => {
   const [value, updateValue] = useState("")
+  const [ selectedBean, updateBean ] = useState(null)
 
   return (
     <>
@@ -13,8 +15,8 @@ const WriteReview = (prop) => {
             const data = {
               "title" : "test",
               "body" : value,
-              "rating" : 3,
-              "location_name" : "Coffee Shop E",
+              "rating" : selectedBean || 1,
+              "location_name" : prop.name,
               "user_id" : 20,
               "reviews_photos": ["https://picsum.photos/800/400", "https://picsum.photos/800/500", "https://picsum.photos/800/600"],
               "user": {"username": "Java Drinker"}
@@ -31,6 +33,7 @@ const WriteReview = (prop) => {
           <textarea className="textarea textarea-bordered w-full" placeholder="Write a review..." value={value} onChange={(e) => {
             updateValue(e.target.value)
           }}></textarea>
+          <BeanRating updateBean={updateBean} rating={selectedBean}/>
           <input className="btn btn-primary float-right" type="Submit" />
           </form>
         </div>

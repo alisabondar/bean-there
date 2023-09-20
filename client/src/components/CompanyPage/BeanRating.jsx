@@ -1,5 +1,5 @@
 
-export default function BeanRating ({ rating }) {
+export default function BeanRating ({ rating, updateBean  }) {
 
   const beanImagePath = "/assets/uncolored-bean.png";
 
@@ -23,6 +23,9 @@ export default function BeanRating ({ rating }) {
       <div
         key={i}
         className={`relative w-7 h-7 rounded`}
+        onClick={() => {
+          updateBean(i)
+        }}
       >
         {i === fullBeans + 1 && (
           <div
