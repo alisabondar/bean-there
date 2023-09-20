@@ -159,6 +159,28 @@ font-weight: 600;
 .login-register p a:hover {
   text-decoration:  underline;
 }
+
+
+
+.wrapper .icon-close {
+  position: absolute;
+  top:0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  font-size: 2em;
+   color:#bf7852;
+  display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+
+}
+
+
+
+
+
 /*  ====================================================================================== */
 .bg-combined {
   position: relative;

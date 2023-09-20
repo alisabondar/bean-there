@@ -11,7 +11,8 @@ function Favs({ wishlist }) {
           );
         })
       ) : (
-        <span>has no wishlist</span>
+        <span
+        className="lg:p-36">has no wishlist</span>
       )}
     </div>
   );

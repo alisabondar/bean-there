@@ -4,7 +4,11 @@ import axios from "axios";
 import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { BsFacebook} from 'react-icons/bs';
+import { BsFacebook, BsX} from 'react-icons/bs';
+import { useSnapshot } from 'valtio';
+import state from '../store';
+
+
 
 export default function Login() {
   const [logError, setLogError] = useState("");
@@ -30,8 +34,18 @@ export default function Login() {
 
   };
 
+  // login page exit
+  const handleOuterClick = (e) => {
+    const formDiv = document.querySelector(".form-box");
+    if (formDiv && !formDiv.contains(e.target)) {
+      state.login = false;
+    }
+  };
+
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-50"
+    onClick={handleOuterClick}>
       <div className="wrapper ">
         <div className="form-box ">
           {logError && <div className="error">{logError}</div>}
