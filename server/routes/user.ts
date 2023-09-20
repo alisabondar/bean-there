@@ -6,6 +6,7 @@ var {
   getWishlist,
   getUserReviews,
   getFriends,
+  updateWishlist,
   getProfile
 } = require("../controllers/usersController");
 
@@ -19,6 +20,8 @@ router.get("/profile", getProfile);
 router.get("/:userId/wishlist", getWishlist);
 router.get("/:userId/reviews", getUserReviews);
 router.get("/:userId/friends", getFriends);
+
+router.patch("/:userId/wishlist", updateWishlist);
 
 /**
  * FUTURE - 1

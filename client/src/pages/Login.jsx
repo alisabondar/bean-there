@@ -14,6 +14,7 @@ export default function Login() {
 
   const loginSubmit = async (e) => {
     e.preventDefault();
+
     const loginObj = helpers.formParser(e.target.elements);
 
     try {
@@ -26,6 +27,7 @@ export default function Login() {
     } catch (error) {
       console.error(error);
     }
+
   };
 
   return (

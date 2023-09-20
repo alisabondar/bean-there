@@ -23,9 +23,10 @@ body {
   color: rgb(93, 34, 4) !important;
 }
 .progressGrid {
-  width: 35rem;
+  width: 29rem;
   height: 9rem;
 }
+
 
 .wrapper {
   position: relative;
@@ -155,3 +156,50 @@ font-weight: 600;
 .input-box:focus-within label {
   top: -5px;
 }
+=======
+.bg-combined {
+  position: relative;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.bg-combined::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../public/assets/coffeeBackground.png');
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+
+.bg-combined::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../public/assets/coffeebeans.jpg');
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  z-index: -3;
+}
+
+.bg-combined.darkening::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.315);
+  z-index: -1;
+}
+
