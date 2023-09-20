@@ -80,7 +80,7 @@ var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield db
         .query(`
   SELECT w.*, l.name as location_name
-  FROM wishlists w
+  FROM favorites w
   INNER JOIN locations l ON w.location_id = l.place_id
   WHERE w.user_id = ${user_id};
 `, { type: db.QueryTypes.SELECT })
