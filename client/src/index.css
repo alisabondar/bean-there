@@ -30,8 +30,8 @@ body {
 
 .wrapper {
   position: relative;
-  width: 400px;
-  height: 540px;
+  width: 420px;
+  height: 600px;
   background: transparent;
   border: 2px solid rgba(255 255, 255, .5);
   border-radius: 20px;
@@ -137,6 +137,7 @@ body {
   font-size: 1em;
   font-weight: 500px ;
   margin-top: 29px;
+  color: black;
 }
 
 .btn:hover {
@@ -158,24 +159,10 @@ font-weight: 600;
 }
 .login-register p a:hover {
   text-decoration:  underline;
+  cursor: pointer;
 }
 
 
-
-.wrapper .icon-close {
-  position: absolute;
-  top:0;
-  right: 0;
-  width: 45px;
-  height: 45px;
-  font-size: 2em;
-   color:#bf7852;
-  display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-
-}
 
 
 

@@ -4,8 +4,7 @@ import axios from "axios";
 import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { BsFacebook, BsX} from 'react-icons/bs';
-import { useSnapshot } from 'valtio';
+import { BsFacebook} from 'react-icons/bs';
 import state from '../store';
 
 
@@ -41,7 +40,10 @@ export default function Login() {
       state.login = false;
     }
   };
-
+  const toggleRegisterLink= () => {
+    state.register = true;
+    state.login = false;
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50"
@@ -94,18 +96,20 @@ export default function Login() {
           </form>
           <div className="login-register">
             <p>
-              Don't have an account? <a href="#" className="rejister-link">Register</a>
+              Don't have an account? <a
+               className="rejister-link"
+               onClick={toggleRegisterLink}>Register</a>
             </p>
           </div>
 
           <div >
 
             <div className="flex justify-around my-2 mt-5">
-              <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
-                <BsFacebook size={20}/>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+                <BsFacebook size={35}/>
               </div>
-              <div className="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
-               <AiFillGoogleCircle size={23} />
+              <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+               <AiFillGoogleCircle size={64} />
               </div>
             </div>
           </div>

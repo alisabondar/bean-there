@@ -1,7 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import helpers from "../helpers";
+import { AiTwotoneMail, AiFillGoogleCircle } from "react-icons/ai";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { BsFacebook } from "react-icons/bs";
+import { FaGrin } from "react-icons/fa";
+
+import state from '../store';
 
 export default function Register() {
   const [registerError, setRegisterError] = useState("");
@@ -25,57 +31,97 @@ export default function Register() {
       })
       .catch((err) => console.error(err));
   };
+
+  const handleOuterClick = (e) => {
+    const formDiv = document.querySelector(".form-box");
+    if (formDiv && !formDiv.contains(e.target)) {
+      state.register = false;
+    }
+  };
+
+  const toggleLoginLink= () => {
+    state.register = false;
+    state.login = true;
+  };
+
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-primary">
-      {registerError.length ? registerError : null}
-      <h1 className="text-2xl">Sign Up</h1>
-      <form
-        onSubmit={registerSubmit}
-        className="flex flex-col items-start px-2 py-4 w-[25rem] bg-neutral rounded-md"
-      >
-        <label className="py-1">Display Name: </label>
-        <input
-          type="text"
-          className="text-white register-name px-2 py-1 mt-1 mb-2 bg-neutral/[0.5] border-b-2 focus:bg-[black]/[0.1] focus:outline-none w-[100%]"
-          name="username"
-          onChange={(e) => changeName(e.target.value)}
-          value={name}
-          required
-          placeholder="Choose a display name"
-        />
-        <label className="py-1">Email: </label>
-        <input
-          type="email"
-          className="text-white register-email px-2 py-1 mt-1 mb-2 bg-neutral/[0.2] border-b-2 focus:bg-[black]/[0.1] focus:outline-none w-[100%]"
-          name="email"
-          onChange={(e) => changeEmail(e.target.value)}
-          value={email}
-          required
-          placeholder="Enter a valid email"
-        />
-        <label className="py-1">Password: </label>
-        <input
-          type="password"
-          className="text-white register-password px-2 py-1 mt-1 mb-2 bg-neutral/[0.2] border-b-2 focus:bg-[black]/[0.1] focus:outline-none w-[100%]"
-          name="password"
-          onChange={(e) => changePass(e.target.value)}
-          value={pass}
-          required
-          placeholder="Enter a password"
-        />
-        <button
-          className="self-center mt-5 mb-1 w-[75%] border px-4 py-2 rounded-md hover:bg-base-100/[0.8]"
-          type="submit"
-        >
-          Register
-        </button>
-      </form>
-      <a
-        className="self-center mt-4 border px-4 py-1 rounded-md hover:bg-base-100/[0.8]"
-        href="/login"
-      >
-        Already a Member? Login Here
-      </a>
+    <div
+      className="fixed inset-0 flex items-center justify-center z-50"
+      onClick={handleOuterClick}
+    >
+      <div className="wrapper">
+        <div className="form-box">
+          {registerError && <div className="error">{registerError}</div>}
+          <h2 >Register</h2>
+          <form onSubmit={registerSubmit}>
+            <div className="input-box">
+              <span className="icon">
+                <AiTwotoneMail size={25} />
+              </span>
+              {
+                email === '' ?   <label >Email:</label> : null            }
+              <input
+                type="email"
+                name="email"
+                onChange={(e) => changeEmail(e.target.value)}
+                value={email}
+                required
+              />
+            </div>
+            <div className="input-box">
+              <span className="icon">
+                <RiLockPasswordFill size={25} />
+              </span>
+              {
+                pass === '' ?   <label>Password:</label> : null            }
+              <input
+                type="password"
+                name="password"
+                onChange={(e) => changePass(e.target.value)}
+                value={pass}
+                required
+              />
+            </div>
+            <div className="input-box">
+            <span className="icon">
+                <FaGrin  size={22} />
+              </span>
+              {
+                name === '' ?   <label >Display name:</label> : null            }
+              <input
+                type="text"
+                name="username"
+                onChange={(e) => changeName(e.target.value)}
+                value={name}
+                required
+              />
+            </div>
+            <button type="submit" className="btn">
+              Register
+            </button>
+          </form>
+          <div className="login-register">
+            <p>
+              Already have an account?{" "}
+              <a
+              onClick={toggleLoginLink} className="rejister-link">
+                Login
+              </a>
+            </p>
+          </div>
+
+          <div>
+          <div className="flex justify-around my-2 mt-5">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+                <BsFacebook size={35}/>
+              </div>
+              <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+               <AiFillGoogleCircle size={64} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
