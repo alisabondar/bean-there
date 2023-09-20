@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import logoImage from '../../pages/img/logo.png';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { useSnapshot } from 'valtio';
+import state from '../../store';
+
+
 
 function Header() {
 
-    // State variable to control navigation menu visibility
+
     const [nav, setNav] = useState(true);
 
     // Function to toggle the navigation menu
     const handleNav = () => {
       setNav(!nav);
     };
+
+    const toggleLogin = () => {
+      state.login = true;
+    };
+
   return (
     <header className="container flex  justify-between items-center p-4 md:p-8 relative">
       <div className="flex items-center">
@@ -22,7 +31,9 @@ function Header() {
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">About</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Events</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Contacts</a></li>
-          <li className='text-[#CFB299] hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="/login">Login</a></li>
+          <li className='text-[#CFB299] hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="#"
+          onClick={toggleLogin }
+          >Login</a></li>
         </ul>
       </nav>
 
