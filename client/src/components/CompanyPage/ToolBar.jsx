@@ -9,7 +9,7 @@ export default function Toolbar({ place_id, place_name }) {
   const fetchFavorite = async () => {
     try {
       const userId = 1;
-      const res = await axios.get(`http://localhost:5000/user/${userId}/wishlist`);
+      const res = await axios.get(`http://localhost:3001/user/${userId}/wishlist`);
       const { wishlist } = res.data;
       const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
       console.log(filtered)
@@ -30,7 +30,7 @@ export default function Toolbar({ place_id, place_name }) {
     const newStatus = !favorite;
 
     try {
-      await axios.patch(`http://localhost:5000/user/${userId}/wishlist`, {
+      await axios.patch(`http://localhost:3001/user/${userId}/wishlist`, {
         user_id: userId,
         favorite: newStatus,
         location_id: currentPageLocationId,
