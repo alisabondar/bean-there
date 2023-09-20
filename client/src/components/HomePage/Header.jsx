@@ -21,12 +21,12 @@ function Header() {
     };
 
   return (
-    <header className="container flex  justify-between items-center p-4 md:p-8 relative">
+    <div className="container flex justify-between items-center p-4  mx-auto max-w-full relative ">
       <div className="flex items-center">
         <img src={logoImage} alt="MyCompany Logo" className="h-16 md:h-32 w-auto mr-2 rounded-lg"/>
       </div>
       <nav>
-        <ul className="flex space-x-8 text-white text-lg font-bold hidden md:flex">
+        <ul className="space-x-8 text-white text-lg font-bold hidden md:flex">
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Home</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">About</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Events</a></li>
@@ -49,10 +49,11 @@ function Header() {
             <li className='p-4 border-b-2 border-[#9F643D]  text-[#CFB299]'><a href="/">About</a></li>
             <li className='p-4 border-b-2 border-[#9F643D]  text-[#CFB299]'><a>Events</a></li>
             <li className='p-4 border-b-2 border-[#9F643D]  text-[#CFB299]'><a href="/">Contact</a></li>
-            <li className='p-4 border-b-2 border-[#9F643D]  text-[#CFB299]'><a href="/">login</a></li>
+            <li className='p-4 border-b-2 border-[#9F643D]  text-[#CFB299]'><a  onClick={toggleLogin }>login</a></li>
           </ul>
         </div>
-    </header>
+    </div>
+
   );
 }
 

@@ -4,6 +4,7 @@ import Bio from "../components/profilePage/Bio.jsx";
 import Calendar from "../components/profilePage/Calendar.jsx";
 import Favs from "../components/profilePage/Favs.jsx";
 import Friends from "../components/profilePage/Friends.jsx";
+import NavBar from "./NavBar.jsx";
 
 import {
   BsFillStarFill,
@@ -114,8 +115,13 @@ function Profile() {
       />
 
       <main className="profile-page">
+      <NavBar/>
+
         {/* Banner section */}
         <section className="relative block h-500-px">
+
+
+
           {/* Banner background */}
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
@@ -130,7 +136,7 @@ function Profile() {
             <span
               id="blackOverlay"
               className="w-full h-full absolute opacity-30 bg-black"
-            ></span>
+            >       </span>
           </div>
           {/* Banner shape */}
           <div
