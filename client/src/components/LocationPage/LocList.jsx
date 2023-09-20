@@ -1,12 +1,14 @@
 import BeanRating from '../CompanyPage/BeanRating';
+import { useNavigate } from "react-router-dom";
 
 const Location = ({ data, photos }) => {
+  const navigate = useNavigate();
 
   const getImage = () => {
     const randomInd = Math.floor(5 * Math.random())
 
     return (
-      <figure className='w-1/4'><img src={photos[randomInd]} alt="Picture" className='w-full h-auto'/></figure>
+      <figure className='w-1/4'><img src={photos[randomInd]} alt="Picture" className='w-full h-auto' /></figure>
     )
   }
 
@@ -15,6 +17,15 @@ const Location = ({ data, photos }) => {
       return <span>Open Now: Yes</span>
     }
     return <span>Open Now: No</span>
+  }
+
+  const handleRedirect = (data) => {
+    // e.preventDefault();
+    console.log(data);
+    const business = { details: data };
+    const stringifiedData = JSON.stringify(business);
+    const encodedData = encodeURIComponent(stringifiedData);
+    navigate(`/company?data=${encodedData}`);
   }
 
   return (
@@ -29,7 +40,7 @@ const Location = ({ data, photos }) => {
               {open(shop.opening_hours.open_now)}
               <BeanRating rating={shop.rating} />
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View Details</button>
+                <button onClick={() => handleRedirect(shop)} className="btn btn-primary">View Details</button>
               </div>
             </div>
           </div>
