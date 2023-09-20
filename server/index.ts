@@ -9,11 +9,33 @@ var messengerRoutes = require("./routes/messenger");
 var companyRoutes = require("./routes/company");
 var locationRoutes = require("./routes/location");
 var cors = require("cors");
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+var passport = require("passport");
 
 const app = express();
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    // origin: '*',
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
-app.use(cors());
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser("secret"));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req: Request, res: Response) => res.send("bean-there"));
 

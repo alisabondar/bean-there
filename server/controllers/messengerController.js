@@ -14,6 +14,7 @@ const { Op } = Sequelize;
 var { ChatRoom, ChatMember, Message } = require("../models/messengerModel");
 var { User } = require("../models/userModel");
 var db = require("../db/database");
+// get rooms for user based on a userId
 var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * send userId as a param or (or some other way)
@@ -62,6 +63,7 @@ var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(404).send({ error: "unable to login user" });
     }
 });
+// get messages for a room based on a roomId
 var getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * send roomId with request somehow (params, etc...)
@@ -84,6 +86,7 @@ var getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(404).send({ error: "unable to get messages" });
     });
 });
+// add a room for a user based on their user_name and associated members
 var addRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /** send a list of users via req.body and a chatname
      *  create a new room => grab that room id
@@ -145,6 +148,7 @@ var addRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(404).send({ error });
     });
 });
+// add a messaged based on a room_id and a message object
 var addMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /**
      * send roomId, in params

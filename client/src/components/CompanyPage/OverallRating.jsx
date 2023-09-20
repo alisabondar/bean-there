@@ -1,19 +1,18 @@
 import React from "react";
+import CompanyRatings from "./Progress";
+import BeanRating from "./BeanRating";
 
-const OverallRating = () => {
+const OverallRating = (prop) => {
+
 return (
-  <div className="pt-3 mt-4 flex justify-between ">
-    <div className="self-center">
-      <h1>OverallRating</h1>
-      <h2>★★★★★</h2>
-      <p className="text-xs">420 reviews</p>
+  <div className="pt-3 mt-4 flex justify-between px-2">
+    <div className="self-center text-left">
+      <h1 className=" py-1">Overall Rating</h1>
+      <h2 className=" py-1"><BeanRating rating={prop.rating} /></h2>
+      <p className="text-xs py-1">{`${prop.total} reviews`}</p>
     </div>
     <div className="p-4">
-      <h3> 5 star   ⬛  ⬛  ⬛  ⬛  ⬜  </h3>
-      <h3> 4 star   ⬛  ⬛  ⬛  ⬜  ⬜  </h3>
-      <h3> 3 star   ⬛  ⬛  ⬜  ⬜  ⬜  </h3>
-      <h3> 2 star   ⬛  ⬜  ⬜  ⬜  ⬜  </h3>
-      <h3> 1 star   ⬛  ⬜  ⬜  ⬜  ⬜  </h3>
+      <CompanyRatings rating={prop.ratings}/>
     </div>
   </div>
 )

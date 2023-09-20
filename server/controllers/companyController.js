@@ -11,12 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const { Review, ReviewPhoto } = require("../models/reviewModel");
 const { LocationModel } = require("../models/locationModel");
+var { User } = require("../models/userModel");
+var db = require("../db/database");
 var getReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const placeId = req.params.placeId;
     console.log(placeId);
     Review.findAll({
         where: { location_id: placeId },
-        include: [{ model: ReviewPhoto, as: "reviews_photos" }],
+        include: [
+            { model: ReviewPhoto, as: "reviews_photos" },
+            { model: User, as: "users", attributes: ["username"] },
+        ],
     })
         .then((reviews) => {
         res.status(200).send({

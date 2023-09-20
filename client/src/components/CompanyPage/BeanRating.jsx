@@ -22,7 +22,7 @@ export default function BeanRating ({ rating }) {
     beans.push(
       <div
         key={i}
-        className={`relative w-9 h-9 rounded`}
+        className={`relative w-7 h-7 rounded`}
       >
         {i === fullBeans + 1 && (
           <div
@@ -32,7 +32,7 @@ export default function BeanRating ({ rating }) {
         )}
         <div
           style={beanStyle}
-          className={`absolute inset-0 bg-cover bg-center rounded z-20 ${i <= fullBeans ? 'bg-yellow-950' : 'bg-transparent'}`}
+          className={`absolute inset-0 bg-cover bg-center rounded z-20 border-[2px] border-yellow-950 ${i <= fullBeans ? 'bg-yellow-950' : 'bg-transparent'}`}
         ></div>
       </div>
     );
