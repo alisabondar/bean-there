@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { subDays, formatRelative } from 'date-fns';
 
 const testChat = (userId, message, userMap, key) => {
   const user = userMap[message.message_user];
@@ -14,7 +15,7 @@ const testChat = (userId, message, userMap, key) => {
       </div>
       <div className="chat-header">
         {user?.username} |
-        <time className="text-xs opacity-50"> {message.created_at}</time>
+        <time className="text-xs opacity-50"> {formatRelative(subDays(new Date(message.created_at), 3), new Date())}</time>
       </div>
       <div className={`chat-bubble bg-[${sentUser ? 'black' : 'seconfary'}]`}>{message.message_text}</div>
     </div>
