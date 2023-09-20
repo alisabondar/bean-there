@@ -42,7 +42,7 @@ export default function Messenger() {
             <Messages userId={USER_ID} room={room} chatUsers={room.chat_members} />
             <div className="flex w-full h-[50-px] bg-[black] items-center p-3">
               <textarea onChange={handleChange} className="textarea resize-none w-[65%] h-[50%]" placeholder={`Message ${room.chat_name}`}></textarea>
-              <button onClick={handleSend} className="btn btn-primary h-full ml-3 w-[75px] h-[50%]">send</button>
+              <button onClick={handleSend} className="btn btn-primary h-full ml-3 max-w-[75px] h-[50%]">send</button>
             </div>
           </>
         ) : <>Loading Mesages...</>}
