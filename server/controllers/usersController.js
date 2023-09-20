@@ -86,7 +86,7 @@ var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 `, { type: db.QueryTypes.SELECT })
         .then((wishlist) => {
         res.status(200).send({
-            mssg: "wishlist successfully fetched",
+            mssg: "favorites successfully fetched",
             wishlist,
         });
     })
@@ -141,11 +141,9 @@ var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 // PATCH REQ
 var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { user_id, visited, wishlisted, location_id, name } = req.body;
-    console.log('location_id:', location_id);
-    console.log('place_name:', name);
-    if (location_id === undefined || (visited === undefined && wishlisted === undefined)) {
-        return res.status(400).send({ error: "Missing parameters" });
+    const { user_id, location_id, name } = req.body;
+    if (!user_id || !location_id) {
+        return res.status(400).send({ error: "Missing user_id or location_id" });
     }
     try {
         const [existingLocation] = yield db.query(`SELECT * FROM locations WHERE place_id = ?`, {
@@ -158,38 +156,23 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 type: db.QueryTypes.INSERT,
             });
         }
-        const [existingRows] = yield db.query(`SELECT * FROM wishlists WHERE user_id = ? AND location_id = ?`, {
+        const [existingRows] = yield db.query(`SELECT * FROM favorites WHERE user_id = ? AND location_id = ?`, {
             replacements: [user_id, location_id],
             type: db.QueryTypes.SELECT,
         });
         if (existingRows) {
-            let updateQuery = `UPDATE wishlists SET `;
-            const updates = [];
-            const replacements = [];
-            if (visited !== undefined) {
-                updates.push('visited = ?');
-                replacements.push(visited);
-            }
-            if (wishlisted !== undefined) {
-                updates.push('wishlisted = ?');
-                replacements.push(wishlisted);
-            }
-            updateQuery += updates.join(', ') + ` WHERE user_id = ? AND location_id = ?`;
-            replacements.push(user_id, location_id);
-            yield db.query(updateQuery, {
-                replacements,
-                type: db.QueryTypes.UPDATE,
+            yield db.query(`DELETE FROM favorites WHERE user_id = ? AND location_id = ?`, {
+                replacements: [user_id, location_id],
+                type: db.QueryTypes.DELETE,
             });
         }
         else {
-            const visitedDefault = visited !== undefined ? visited : false;
-            const wishlistedDefault = wishlisted !== undefined ? wishlisted : false;
-            yield db.query(`INSERT INTO wishlists (user_id, location_id, visited, wishlisted) VALUES (?, ?, ?, ?)`, {
-                replacements: [user_id, location_id, visitedDefault, wishlistedDefault],
+            yield db.query(`INSERT INTO favorites (user_id, location_id) VALUES (?, ?)`, {
+                replacements: [user_id, location_id],
                 type: db.QueryTypes.INSERT,
             });
         }
-        res.status(200).send({ message: "Wishlist status updated" });
+        res.status(200).send({ message: "Wishlist updated successfully." });
     }
     catch (err) {
         console.error("Error:", err);
@@ -197,4 +180,4 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(500).send({ error });
     }
 });
-module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist };
+module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
