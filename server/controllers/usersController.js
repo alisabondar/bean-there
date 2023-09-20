@@ -75,11 +75,12 @@ var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.params.userId);
     const user_id = req.params.userId;
     yield db
         .query(`
   SELECT w.*, l.name as location_name
-  FROM wishlists w
+  FROM favorites w
   INNER JOIN locations l ON w.location_id = l.place_id
   WHERE w.user_id = ${user_id};
 `, { type: db.QueryTypes.SELECT })
@@ -138,4 +139,53 @@ var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     });
 });
-module.exports = { login, register, getWishlist, getUserReviews, getFriends, getProfile };
+// PATCH REQ
+
+var updateWishlist = async (req, res) => {
+    const { user_id, location_id, name } = req.body;
+
+    if (!user_id || !location_id) {
+        return res.status(400).send({ error: "Missing user_id or location_id" });
+    }
+
+    try {
+        const [existingLocation] = await db.query(
+            `SELECT * FROM locations WHERE place_id = ?`, {
+            replacements: [location_id],
+            type: db.QueryTypes.SELECT,
+        });
+        if (!existingLocation) {
+            await db.query(`INSERT INTO locations (place_id, name) VALUES (?, ?)`, {
+                replacements: [location_id, name],
+                type: db.QueryTypes.INSERT,
+            });
+        }
+        const [existingRows] = await db.query(
+            `SELECT * FROM favorites WHERE user_id = ? AND location_id = ?`, {
+            replacements: [user_id, location_id],
+            type: db.QueryTypes.SELECT,
+        });
+        if (existingRows) {
+            await db.query(
+                `DELETE FROM favorites WHERE user_id = ? AND location_id = ?`, {
+                replacements: [user_id, location_id],
+                type: db.QueryTypes.DELETE,
+            });
+        }
+        else {
+            await db.query(
+                `INSERT INTO favorites (user_id, location_id) VALUES (?, ?)`, {
+                replacements: [user_id, location_id],
+                type: db.QueryTypes.INSERT,
+            });
+        }
+        res.status(200).send({ message: "Wishlist updated successfully." });
+    } catch (err) {
+        console.error("Error:", err);
+        const error = err.message || "Internal server error";
+        res.status(500).send({ error });
+    }
+};
+
+
+module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
