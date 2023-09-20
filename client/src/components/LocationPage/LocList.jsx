@@ -28,8 +28,9 @@ const Location = ({ data, photos }) => {
     navigate(`/company?data=${encodedData}`);
   }
 
+  // add conditionals for undefined data
   return (
-    <div className='basis-1/2' >
+    <div className='basis-1/2 max-h-screen overflow-y-auto'>
       {data.length > 0 &&
         data.map(shop => (
           <div className="card lg:card-side bg-base-100 shadow-xl" key={shop.place_id}>
@@ -37,7 +38,11 @@ const Location = ({ data, photos }) => {
             <div className="card-body">
               <h2 className="card-title">{shop.vicinity}</h2>
               <span>{shop.name}</span>
-              {open(shop.opening_hours.open_now)}
+              {shop.opening_hours && shop.opening_hours.open_now !== undefined ?
+                open(shop.opening_hours.open_now
+              ) : (
+                <span>Open Now: n/a</span>
+              )}
               <BeanRating rating={shop.rating} />
               <div className="card-actions justify-end">
                 <button onClick={() => handleRedirect(shop)} className="btn btn-primary">View Details</button>

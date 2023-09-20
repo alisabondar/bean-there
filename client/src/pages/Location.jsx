@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import LocList from '../components/LocationPage/LocList'
 import Map from '../components/LocationPage/Map'
+import toast, { Toaster } from 'react-hot-toast';
 import one from './img/loc1.jpeg';
 import two from './img/loc2.jpeg';
 import three from './img/loc3.jpeg';
@@ -21,6 +22,7 @@ export default function Location() {
 
     axios.get(`http://localhost:5002/location/search/${lat.toString()}/${long.toString()}`)
       .then(res => {
+        console.log(res.data);
         setCafeList(res.data);
       })
       .then(() => {
@@ -63,9 +65,14 @@ export default function Location() {
     })
   }, [])
 
+  // useEffect(() => {
+
+  // }, [cafeList])
+
   return (
     <div className='bg-primary'>
       <div className='text-center p-4'>
+        <Toaster />
         <div className='text-3xl'>Find your next brew with SipSearcher!</div>
         <div>Get details and directions for a coffee shop near you.</div>
         <label className='block mx-auto p-10'>Search:
@@ -78,8 +85,8 @@ export default function Location() {
         </div>
       ) : (
         <div className='flex flex-row'>
-          <LocList data={cafeList} photos={photos}/>
-          <Map data={cafeList} />
+          <LocList data={cafeList} photos={photos} />
+          {/* <Map data={cafeList} /> */}
         </div>
       )}
     </div>
