@@ -13,8 +13,11 @@ import {
 } from "react-icons/bs";
 import { FaUserFriends, FaHome } from "react-icons/fa";
 import { GiCoffeeCup } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+  const navigate = useNavigate();
+
   const [profile, setProfile] = useState({});
   const [reviews, setReviews] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -119,23 +122,23 @@ function Profile() {
 
         {/* Banner section */}
         <section className="relative block h-500-px">
-
-
-
           {/* Banner background */}
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: `url(${profile.banner_photo ||
+              backgroundImage: `url(${
+                profile.banner_photo ||
                 "https://images.unsplash.com/photo-1459755486867-b55449bb39ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
-                })`,
+              })`,
             }}
           >
             {/* Overlay */}
             <span
               id="blackOverlay"
               className="w-full h-full absolute opacity-30 bg-black"
-            >       </span>
+            >
+              {" "}
+            </span>
           </div>
           {/* Banner shape */}
           <div
@@ -184,8 +187,6 @@ function Profile() {
                   </div>
                   {/* Buttons */}
 
-
-
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
                       {/* Button: Add Post */}
@@ -195,82 +196,90 @@ function Profile() {
                         onClick={() => handleButtonClick("bio")}
                         className="hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
                         hover:px-6"
-                        style={{ backgroundColor: "#A98E77", position: 'relative' }}
+                        style={{
+                          backgroundColor: "#A98E77",
+                          position: "relative",
+                        }}
                         type="button"
                       >
                         <FaHome size={23} />
                       </button>
 
-
-
-
-
                       {/* Button: Friends */}
-   {/* Button: Friends */}
-<button
-  onClick={() => handleButtonClick("friends")}
-  className="friends-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                      {/* Button: Friends */}
+                      <button
+                        onClick={() => handleButtonClick("friends")}
+                        className="friends-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
-  style={{ backgroundColor: "#A98E77", position: 'relative' }}
-  type="button"
->
-  <FaUserFriends size={23} />
-</button>
-
-
+                        style={{
+                          backgroundColor: "#A98E77",
+                          position: "relative",
+                        }}
+                        type="button"
+                      >
+                        <FaUserFriends size={23} />
+                      </button>
 
                       {/* Button: Chat */}
-{/* Button: Chat */}
-<button
-  onClick={() => handleButtonClick("location")}
-  className="chat-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                      {/* Button: Chat */}
+                      <button
+                        onClick={() => navigate("/messenger")}
+                        // handleButtonClick("location")}
+                        className="chat-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
-  style={{ backgroundColor: "#A98E77", position: 'relative' }}
-  type="button"
->
-  <BsFillChatDotsFill size={23} />
-</button>
-
-
-
+                        style={{
+                          backgroundColor: "#A98E77",
+                          position: "relative",
+                        }}
+                        type="button"
+                      >
+                        <BsFillChatDotsFill size={23} />
+                      </button>
                     </div>
                   </div>
                   {/* Buttons */}
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
-
-{/* Button: Coffee */}
-<button
-  onClick={() => handleButtonClick("location")}
-  className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                      {/* Button: Coffee */}
+                      <button
+                        onClick={() => handleButtonClick("location")}
+                        className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
-  style={{ backgroundColor: "#A98E77", position: 'relative' }}
-  type="button"
->
-  <GiCoffeeCup size={28} />
-</button>
+                        style={{
+                          backgroundColor: "#A98E77",
+                          position: "relative",
+                        }}
+                        type="button"
+                      >
+                        <GiCoffeeCup size={28} />
+                      </button>
 
-{/* Button: Calendar */}
-<button
-  onClick={() => handleButtonClick("calendar")}
-  className="calendar-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                      {/* Button: Calendar */}
+                      <button
+                        onClick={() => handleButtonClick("calendar")}
+                        className="calendar-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-7"
-  style={{ backgroundColor: "#A98E77", position: 'relative' }}
-  type="button"
->
-  <BsFillCalendarCheckFill size={23} />
-</button>
-{/* Button: Favorites */}
-<button
-  onClick={() => handleButtonClick("favs")}
-  className="favorites-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                        style={{
+                          backgroundColor: "#A98E77",
+                          position: "relative",
+                        }}
+                        type="button"
+                      >
+                        <BsFillCalendarCheckFill size={23} />
+                      </button>
+                      {/* Button: Favorites */}
+                      <button
+                        onClick={() => handleButtonClick("favs")}
+                        className="favorites-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-7"
-  style={{ backgroundColor: "#A98E77", position: 'relative' }}
-  type="button"
->
-  <BsFillStarFill size={23} />
-</button>
-
+                        style={{
+                          backgroundColor: "#A98E77",
+                          position: "relative",
+                        }}
+                        type="button"
+                      >
+                        <BsFillStarFill size={23} />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -287,7 +296,9 @@ function Profile() {
                 {/* Render selected component */}
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">{renderComponent()}</div>
+                    <div className="w-full lg:w-9/12 px-4">
+                      {renderComponent()}
+                    </div>
                   </div>
                 </div>
               </div>
