@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Bio from "../components/profilePage/Bio.jsx";
 import Calendar from "../components/profilePage/Calendar.jsx";
@@ -114,8 +114,8 @@ function Profile() {
         href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
       />
 
-      <main className="profile-page">
-      <NavBar/>
+      <main className="profile-page ">
+        <NavBar />
 
         {/* Banner section */}
         <section className="relative block h-500-px">
@@ -126,10 +126,9 @@ function Profile() {
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: `url(${
-                profile.banner_photo ||
+              backgroundImage: `url(${profile.banner_photo ||
                 "https://images.unsplash.com/photo-1459755486867-b55449bb39ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
-              })`,
+                })`,
             }}
           >
             {/* Overlay */}
@@ -184,67 +183,94 @@ function Profile() {
                     </div>
                   </div>
                   {/* Buttons */}
+
+
+
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
                       {/* Button: Add Post */}
+
+                      {/* Button: Add Post */}
                       <button
-                        style={{ backgroundColor: "#A98E77" }}
                         onClick={() => handleButtonClick("bio")}
-                        className="uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out"
+                        className="hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                        hover:px-6"
+                        style={{ backgroundColor: "#A98E77", position: 'relative' }}
                         type="button"
                       >
                         <FaHome size={23} />
                       </button>
+
+
+
+
+
                       {/* Button: Friends */}
-                      <button
-                        style={{ backgroundColor: "#A98E77" }}
-                        onClick={() => handleButtonClick("friends")}
-                        className="uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out"
-                        type="button"
-                      >
-                        <FaUserFriends size={23} />
-                      </button>
+   {/* Button: Friends */}
+<button
+  onClick={() => handleButtonClick("friends")}
+  className="friends-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+  hover:px-6"
+  style={{ backgroundColor: "#A98E77", position: 'relative' }}
+  type="button"
+>
+  <FaUserFriends size={23} />
+</button>
+
+
+
                       {/* Button: Chat */}
-                      <button
-                        style={{ backgroundColor: "#A98E77" }}
-                        onClick={() => handleButtonClick("location")}
-                        className="uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out"
-                        type="button"
-                      >
-                        <BsFillChatDotsFill size={23} />
-                      </button>
+{/* Button: Chat */}
+<button
+  onClick={() => handleButtonClick("location")}
+  className="chat-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+  hover:px-6"
+  style={{ backgroundColor: "#A98E77", position: 'relative' }}
+  type="button"
+>
+  <BsFillChatDotsFill size={23} />
+</button>
+
+
+
                     </div>
                   </div>
                   {/* Buttons */}
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      {/* Button: Coffee */}
-                      <button
-                        style={{ backgroundColor: "#A98E77" }}
-                        onClick={() => handleButtonClick("location")}
-                        className="uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out"
-                        type="button"
-                      >
-                        <GiCoffeeCup size={28} />
-                      </button>
-                      {/* Button: Calendar */}
-                      <button
-                        style={{ backgroundColor: "#A98E77" }}
-                        onClick={() => handleButtonClick("calendar")}
-                        className="uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out"
-                        type="button"
-                      >
-                        <BsFillCalendarCheckFill size={23} />
-                      </button>
-                      {/* Button: Favorites */}
-                      <button
-                        style={{ backgroundColor: "#A98E77" }}
-                        onClick={() => handleButtonClick("favs")}
-                        className="uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out"
-                        type="button"
-                      >
-                        <BsFillStarFill size={23} />
-                      </button>
+
+{/* Button: Coffee */}
+<button
+  onClick={() => handleButtonClick("location")}
+  className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+  hover:px-6"
+  style={{ backgroundColor: "#A98E77", position: 'relative' }}
+  type="button"
+>
+  <GiCoffeeCup size={28} />
+</button>
+
+{/* Button: Calendar */}
+<button
+  onClick={() => handleButtonClick("calendar")}
+  className="calendar-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+  hover:px-7"
+  style={{ backgroundColor: "#A98E77", position: 'relative' }}
+  type="button"
+>
+  <BsFillCalendarCheckFill size={23} />
+</button>
+{/* Button: Favorites */}
+<button
+  onClick={() => handleButtonClick("favs")}
+  className="favorites-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+  hover:px-7"
+  style={{ backgroundColor: "#A98E77", position: 'relative' }}
+  type="button"
+>
+  <BsFillStarFill size={23} />
+</button>
+
                     </div>
                   </div>
                 </div>
