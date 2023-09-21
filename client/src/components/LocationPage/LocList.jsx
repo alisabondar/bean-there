@@ -28,7 +28,7 @@ const Location = ({ data, photos, address }) => {
     <div className='basis-1/2 max-h-screen overflow-y-auto rounded-xl'>
       {data.length > 0 &&
         data.map(shop => (
-          <div className="card lg:card-side bg-base-100 shadow-xl mb-4" key={shop.place_id}>
+          <div className="card lg:card-side bg-base-100 shadow-xl mb-4 max-h-64" key={shop.place_id}>
             {getImage()}
             <div className="card-body">
               {address(shop.vicinity)}
