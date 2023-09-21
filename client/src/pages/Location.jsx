@@ -8,6 +8,7 @@ import two from './img/loc2.jpeg';
 import three from './img/loc3.jpeg';
 import four from './img/loc4.jpeg';
 import five from './img/loc5.jpeg';
+import state from '../store';
 
 export default function Location() {
   const [loc, setLoc] = useState({ lat: '41.881832', long: '-87.623177' })
@@ -77,26 +78,56 @@ export default function Location() {
     return <h2 className="card-title">{count}: {name}</h2>
   }
 
+
+    const handleOuterClick = (e) => {
+      const formDiv = document.querySelector(".locationWrapper");
+      if (formDiv && !formDiv.contains(e.target)) {
+        state.location = false;
+      }
+    };
+
+
   return (
-    <div className='bg-primary'>
-      <div className='text-center p-4'>
-        <Toaster />
-        <div className='text-3xl'>Find your next brew with SipSearcher!</div>
-        <div>Get details and directions for a coffee shop near you.</div>
-        <label className='block mx-auto p-10'>
-          <input type="text" placeholder="Type in a zipcode..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />
-        </label>
-      </div>
-      {loading ? (
-        <div className='flex justify-center bg-primary'>
-          <span className="loading loading-dots loading-lg"></span>
-        </div>
-      ) : (
-        <div className='flex space-x-3'>
-          <LocList data={cafeList} photos={photos} address={address}/>
-          <Map user={loc} zip={zip} count={count} cafeList={cafeList}/>
-        </div>
-      )}
+
+
+    <div  onClick={handleOuterClick}>
+
+    <div className='locationWrapper fixed inset-0 flex-col items-center justify-center z-50'>
+<div className='top flex flex-col items-center justify-center'>
+    <Toaster />
+    <div className='text-3xl font-bold text-[#e7b14d] mb-4 mt-5'>Find your next brew with SipSearcher!</div>
+    <div className='text-[#e7b14d] mb-6'>Get details and directions for a coffee shop nearest to you!</div>
+    <div className='flex justify-center space-x-4'>
+        <input
+            type="text"
+            placeholder="Type in a zipcode..."
+            className="input w-full max-w-sm p-2 border border-gray-300 rounded"
+            onChange={handleSearch}
+        />
+        <button className="bg-[#A98E77] text-white p-2 rounded hover:bg-[#61493C] focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            Search
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+{loading ? (
+    <div className='flex justify-center items-center'>
+        <span className="loading loading-dots loading-lg mt-10"></span>
+    </div>
+) : (
+    <div className='flex space-x-3 p-5 mt-5'>
+        <LocList data={cafeList} photos={photos} address={address} />
+        <Map user={loc} zip={zip} count={count} cafeList={cafeList}  />
+    </div>
+)}
+
+
+    </div>
     </div>
   );
 }
