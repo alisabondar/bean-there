@@ -310,7 +310,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../public/assets/coffeeBackground.png');
+  background-image: url('../assets/coffeeBackground.png');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -324,7 +324,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../public/assets/coffeebeans.jpg');
+  background-image: url('../assets/coffeebeans.jpg');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -334,7 +334,7 @@ font-weight: 600;
 
 .shadow-float {
   box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.2);
-  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%), url(../public/assets/coffeebeans.jpg);
+  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%), url(../assets/coffeebeans.jpg);
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
