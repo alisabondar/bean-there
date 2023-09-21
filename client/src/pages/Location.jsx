@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import LocList from '../components/LocationPage/LocList'
 import Map from '../components/LocationPage/Map'
+import toast, { Toaster } from 'react-hot-toast';
 import one from './img/loc1.jpeg';
 import two from './img/loc2.jpeg';
 import three from './img/loc3.jpeg';
@@ -10,6 +11,7 @@ import five from './img/loc5.jpeg';
 
 export default function Location() {
   const [loc, setLoc] = useState({ lat: '41.881832', long: '-87.623177' })
+  const [zip, setZip] = useState({})
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
   const photos = [one, two, three, four, five];
@@ -20,6 +22,7 @@ export default function Location() {
 
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
       .then(res => {
+        console.log(res.data);
         setCafeList(res.data);
       })
       .then(() => {
@@ -38,6 +41,7 @@ export default function Location() {
       })
       .catch(err => {
         console.error('Could not fetch location', err);
+        toast.error('Please try again with a valid zipcode')
       })
   }
 
@@ -62,13 +66,18 @@ export default function Location() {
     })
   }, [])
 
+  // useEffect(() => {
+
+  // }, [cafeList])
+
   return (
     <div className='bg-primary'>
       <div className='text-center p-4'>
+        <Toaster />
         <div className='text-3xl'>Find your next brew with SipSearcher!</div>
         <div>Get details and directions for a coffee shop near you.</div>
         <label className='block mx-auto p-10'>Search:
-          <input type="text" placeholder="Type in a zipcode ..." className="input w-full max-w-sm" onChange={handleSearch} />
+          <input type="text" placeholder="Type in a zipcode ..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />
         </label>
       </div>
       {loading ? (
@@ -77,8 +86,8 @@ export default function Location() {
         </div>
       ) : (
         <div className='flex flex-row'>
-          <LocList data={cafeList} photos={photos}/>
-          <Map data={cafeList} />
+          <LocList data={cafeList} photos={photos} />
+          <Map user={loc}/>
         </div>
       )}
     </div>
