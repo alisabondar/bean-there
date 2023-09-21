@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logoImage from "./img/logo.png";
 import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
 
 function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5001/user/profile", { withCredentials: true })
+      .then((res) => {
+        setProfile(res.data);
+      })
+      .catch(() => {
+        console.log("error getting profile");
+      });
+  }, []);
   return (
     <div className="blurred">
       <div className="mx-auto max-w-7xl px-2 py-2 sm:px-6 lg:px-8">
@@ -89,7 +102,10 @@ function NavBar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-10 w- rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src={
+                      profile.photo ||
+                      "https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg"
+                    }
                     alt="User Profile"
                   />
                 </button>

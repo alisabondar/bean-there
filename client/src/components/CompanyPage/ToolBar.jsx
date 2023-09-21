@@ -48,15 +48,17 @@ export default function Toolbar({ place_id, place_name }) {
   }, [currentPageLocationId]);
 
   return (
-    <div className="bg-neutral rounded-md shadow-lg">
-      <div className="flex flex-row justify-evenly flex-wrap">
+
+      <div className="flex flex-row justify-evenly flex-wrap bg-[#f2eada] rounded-xl shadow-inner">
           <WriteReview name={place_name}/>
-        <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
-          onClick={()=>document.getElementById('share_modal').showModal()}
-        >
-          Share
-        </button>
+          <div className=''>
+          <button
+            className="btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] "
+            onClick={()=>document.getElementById('share_modal').showModal()}
+          >
+            Share
+          </button>
+          </div>
 
         <dialog id="share_modal" className="modal">
           <div className="modal-box border border-secondary bg-primary">
@@ -74,13 +76,14 @@ export default function Toolbar({ place_id, place_name }) {
         </dialog>
 
         <button
-          className={`btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${favorite ? 'bg-opacity-40 translate-y-[1px] shadow-inner' : ''}`}
+          className={`btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${favorite ? 'translate-y-[1px] shadow-inner' : ''}`}
           onClick={toggleFavorite}
         >
-          Favorite
+          {favorite ? 'Unfavorite' : 'Favorite'}
         </button>
+
       </div>
-    </div>
+
   );
 
 }

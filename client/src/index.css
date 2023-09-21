@@ -4,11 +4,6 @@
 
 
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
 @font-face {
   font-family: 'Poppins';
   src: url('/path-to-poppins-font/Poppins-Regular.ttf') format('truetype');
@@ -19,9 +14,20 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev::before {
   color: rgb(93, 34, 4) !important;
+  margin-left: 20px;
 }
+
+.slick-prev {
+  z-index: 1;
+}
+
+.slick-next:before {
+  color: rgb(93, 34, 4) !important;
+  margin-right: 20px;
+}
+
 .progressGrid {
   width: 29rem;
   height: 9rem;
@@ -136,25 +142,6 @@ body {
 }
 
 
-/* please fix this, it is messing with buttons on all other pages of the app.
-
-/* .btn {
-  width: 100%;
-  height: 100%;
-  background: #A98E77;
-  border: none;
-  outline: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 500px ;
-  margin-top: 29px;
-  color: black;
-} */
-
-.btn:hover {
-  background: #61493C
-}
 
 .login-register {
   font-size: .9em;
@@ -292,6 +279,10 @@ font-weight: 600;
 
 
 /*  ====================================================================================== */
+.shadow-crawl {
+  box-shadow: inset 15px 0px 20px -10px rgba(0,0,0,0.25), inset -15px 0px 20px -10px rgba(0,0,0,0.25);
+}
+
 .bg-combined {
   position: relative;
   background-position: center;
@@ -306,7 +297,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../public/assets/coffeeBackground.png');
+  background-image: url('../assets/coffeeBackground.png');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -320,7 +311,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../public/assets/coffeebeans.jpg');
+  background-image: url('../assets/coffeebeans.jpg');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -328,3 +319,29 @@ font-weight: 600;
 }
 
 
+.shadow-float {
+  box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.2);
+  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%), url(../assets/coffeebeans.jpg);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  padding: .5rem;
+  height: auto;
+}
+
+.carousel-float {
+  margin-bottom: .5rem;
+}
+
+.toolbar-bg {
+  position: relative;
+  overflow: visible;
+}
+
+.shadow-inner {
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.128);
+}
+
+#tool-bar, #reviews {
+  width: 100%;
+}

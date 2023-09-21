@@ -8,7 +8,6 @@ import {
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Messenger from "./pages/Messenger";
-import Location from "./pages/Location";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
 import Company from "./pages/Company";
@@ -19,7 +18,6 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/messenger" element={<Messenger />} />
-      <Route path="/location" element={<Location />} />
       <Route path="/search" element={<Search />} />
       <Route path="/company" element={<Company />} />
       <Route path="*" element={<NotFound />} />
