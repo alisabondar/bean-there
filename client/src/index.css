@@ -217,3 +217,21 @@ font-weight: 600;
 }
 
 
+.shadow-float {
+  box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.2);
+  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%), url(../public/assets/coffeebeans.jpg);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  padding: .5rem;
+  height: auto;
+}
+
+.carousel-float {
+  margin-bottom: .5rem;
+}
+
+
+
+
+

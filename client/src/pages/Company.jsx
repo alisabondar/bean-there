@@ -80,9 +80,13 @@ export default function Company() {
             </div>
           </div>
           {/* PhotoCarousel */}
-          <div className="mx-auto w-full max-w-[95%] sm:max-w-full">
-            <Carousel photos={business.photos} />
+
+          <div className="mx-auto w-full max-w-[95%] sm:max-w-full shadow-float rounded-2xl">
+            <div className="carousel-float">
+              <Carousel photos={business.photos} />
+            </div>
           </div>
+
 
           {/* ToolBar and Reviews */}
           <div className="flex flex-wrap justify-center pt-12 w-3/4">

@@ -27,7 +27,7 @@ export default function SimpleSlider( {photos} ) {
 
 
   return (
-    <div className="min-w-full mx-auto bg-neutral rounded-box border-accent border-4">
+    <div className="min-w-full mx-auto">
       <Slider {...settings}>
         {imageURLs.map((image, index) => (
           <div key={index} className="px-2 py-2 h-full flex items-center justify-center">
