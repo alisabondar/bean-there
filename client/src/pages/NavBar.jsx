@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logoImage from './img/logo.png';
+import { Link } from 'react-router-dom';
 
 
 function NavBar() {
@@ -17,8 +18,8 @@ function NavBar() {
 
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                <a href="#" className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]" aria-current="page">Home</a>
+
+                <Link to='/' className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]" aria-current="page">Home</Link>
                 <a href="#" className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]">Locations</a>
                 <a href="#" className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]">Massenger</a>
                 <a href="#" className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]">Calendar</a>
@@ -54,7 +55,7 @@ function NavBar() {
               </div>
               {isDropdownOpen && (
                 <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700">Your Profile</a>
+                  <Link to='/profile' className="block px-4 py-2 text-sm text-gray-700">Your Profile</Link>
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700">Settings</a>
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700">Sign out</a>
                 </div>
