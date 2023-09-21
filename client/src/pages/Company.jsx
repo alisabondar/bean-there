@@ -94,13 +94,7 @@ export default function Company() {
               <div className="col-span-2 sm:col-span-2">
                 <div className="flex-col">
                 <div id="tool-bar" className="toolbar-bg w-full h-[8rem] mt-2 relative z-[2]">
-                <div className="larger-bg absolute inset-y-[-10%] inset-x-[-5%] rounded-lg flex justify-center bg-[#f2eada]">
-                    <div className="smaller-bg rounded-lg"></div>
-                    <div className="smaller-bg rounded-lg"></div>
-                    <div className="smaller-bg rounded-lg"></div>
-                    <div className="smaller-bg rounded-lg"></div>
-                    <div className="smaller-bg rounded-lg"></div>
-                </div>
+
                   <div className="absolute inset-0 flex justify-center items-end rounded-lg bg-opacity-50">
                     <div className="w-8/12 h-full flex justify-center items-center z-[2]">
                       <Toolbar place_id={business.place_id} place_name={business.name} />
@@ -112,7 +106,6 @@ export default function Company() {
                   </div>
                 </div>
               </div>
-
               {/* InfoPanel */}
               <div id="info-cards" className="sticky top-0 z-10 h-[20vh] md:h-[30vh] lg:h-[40vh] xl:h-[50vh]">
                 <InfoPanel business={business}/>
