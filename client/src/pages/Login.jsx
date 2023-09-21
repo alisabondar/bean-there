@@ -90,9 +90,15 @@ export default function Login() {
               </label>
               <a href="#">Forgot Password?</a>
             </div>
-            <button type="submit" className="btn">
-              Login
-            </button>
+
+            <button
+    type="submit"
+    className="w-full h-full bg-[#A98E77] py-3 border-none outline-none rounded-md cursor-pointer text-lg font-semibold mt-7 text-black hover:bg-[#61493C]"
+>
+    LOGIN
+</button>
+
+
           </form>
           <div className="login-register">
             <p>
