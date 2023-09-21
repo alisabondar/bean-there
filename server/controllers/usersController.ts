@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 var passport = require('passport');
-var initializeLocal = require('../passports/passport-local-config.js');
-var initializeGoogle = require('../passports/passport-google-config.js');
-var initializeFacebook = require('../passports/passport-facebook-config.js');
+require('../passports/passport-external-config');
+var initializeLocal = require('../passports/passport-local-config');
 var db = require("../db/database");
 var { User, Friend } = require("../models/userModel");
 var bcrypt = require("bcrypt");
@@ -28,57 +27,23 @@ var login = async (req: any, res: Response, next: NextFunction) => {
   })(req, res, next)
 };
 
-var googleLogin = async (req: any, res: Response, next: NextFunction) => {
-  initializeGoogle(passport);
-  passport.authenticate('google', { scope: ["profile"]});
-};
+var githubLogin = passport.authenticate('github', { scope: ["profile"]});
 
-var googleCB = async (req: any, res: Response, next: NextFunction) => {
-  initializeGoogle(passport);
-  passport.authenticate('google', {
-    successRedirect: 'http://localhost:5001/user/google/success',
-    failureRedirect: 'http://localhost:5001/user/google/failure'
-  })
-};
+var githubCB = passport.authenticate('github', {
+    successRedirect: 'http://localhost:5173/profile',
+    failureRedirect: 'http://localhost:5173/'
+  });
 
-var googleSuccess = async (req: any, res: Response, next: NextFunction) => {
-  if (req.user) {
-    res.status(200).send({
-      success: true
-    })
-  }
-};
+var googleLogin = passport.authenticate('google', { scope: ["profile", "email"]});
 
-var googleFailure = async (req: any, res: Response, next: NextFunction) => {
-  res.send({
-    success: false,
-    message: 'Invalid login credentials'
-  })
-};
-
-var facebookLogin = async (req: any, res: Response, next: NextFunction) => {
-  initializeFacebook(passport);
-  passport.authenticate('local', (err: any, user: any, info: any) => {
-    if (err) {
-      throw err
-    };
-    if (!user) {
-      // failure
-      res.send({ success: false, message: 'Invalid login credentials' });
-    } else {
-      // authentication success case
-      req.login(user, (err: any) => {
-        if (err) {
-          throw err
-        }
-        res.send({ success: true });
-      })
-    }
-  })(req, res, next)
-};
+var googleCB = passport.authenticate('google', {
+    successRedirect: 'http://localhost:5173/profile',
+    failureRedirect: 'http://localhost:5173/'
+  });
 
 var getProfile = async (req: any, res: Response) => {
   if (!req.user) { return res.send({ error: "user is not logged in"})};
+  console.log('this is the active user: ', req.user);
 
   try {
     const user = await User.findOne({ where: { id: req.user }, attributes: ["id", "username", "email", "photo", "banner_photo", "about", "private"], raw: true});
@@ -254,5 +219,4 @@ var updateWishlist = async (req: Request, res: Response) => {
 
 
 
-module.exports = { login, googleLogin, googleCB, googleSuccess, googleFailure, facebookLogin, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
-
+module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };

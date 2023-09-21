@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import axios from "../axios-config";
 import Bio from "../components/profilePage/Bio.jsx";
 import Calendar from "../components/profilePage/Calendar.jsx";
 import Favs from "../components/profilePage/Favs.jsx";

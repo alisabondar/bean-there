@@ -21,7 +21,7 @@ export default function Login() {
     const loginObj = helpers.formParser(e.target.elements);
 
     try {
-      const response = await axios.post("http://localhost:5001/user/login", loginObj, { withCredentials: true });
+      const response = await axios.post("/user/login", loginObj, { withCredentials: true });
       if (response.data.success) {
         navigate("/profile");
       } else {
@@ -43,6 +43,16 @@ export default function Login() {
   const toggleRegisterLink= () => {
     state.register = true;
     state.login = false;
+  };
+
+  const googleSubmit = async (e) => {
+    e.preventDefault();
+    window.open("/user/google", "_self");
+  };
+
+  const githubSubmit = async (e) => {
+    e.preventDefault();
+    window.open("http://localhost:5001/user/github", "_self");
   };
 
   return (
@@ -111,10 +121,10 @@ export default function Login() {
           <div >
 
             <div className="flex justify-around my-2 mt-5">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer" onClick={githubSubmit}>
                 <BsFacebook size={35}/>
               </div>
-              <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer">
+              <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer" onClick={googleSubmit}>
                <AiFillGoogleCircle size={64} />
               </div>
             </div>

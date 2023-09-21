@@ -5,7 +5,8 @@ var {
   register,
   googleLogin,
   googleCB,
-  facebookLogin,
+  githubLogin,
+  githubCB,
   getWishlist,
   getUserReviews,
   getFriends,
@@ -17,9 +18,10 @@ var {
 
 router.post("/login", login);
 router.post("/register", register);
-router.post("/google", googleLogin);
+router.get("/google", googleLogin);
 router.get("/google/callback", googleCB);
-router.post("/facebook", facebookLogin);
+router.get("/github", githubLogin);
+router.get("/github/callback", githubCB);
 
 router.get("/profile", getProfile);
 
