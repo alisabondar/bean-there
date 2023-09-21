@@ -1,14 +1,14 @@
 import BeanRating from '../CompanyPage/BeanRating';
 import { useNavigate } from 'react-router-dom';
 
-const Location = ({ data, photos }) => {
+const Location = ({ data, photos, address }) => {
   const navigate = useNavigate();
 
   const getImage = () => {
     const randomInd = Math.floor(5 * Math.random())
 
     return (
-      <figure className='w-1/4'><img src={photos[randomInd]} alt="Picture" className='w-full h-auto' /></figure>
+      <figure className='w-1/3'><img src={photos[randomInd]} alt="Picture" className='w-full h-auto' /></figure>
     )
   }
 
@@ -25,13 +25,13 @@ const Location = ({ data, photos }) => {
 
   // add conditionals for undefined data
   return (
-    <div className='basis-1/2 max-h-screen overflow-y-auto'>
+    <div className='basis-1/2 max-h-screen overflow-y-auto rounded-xl'>
       {data.length > 0 &&
         data.map(shop => (
-          <div className="card lg:card-side bg-base-100 shadow-xl" key={shop.place_id}>
+          <div className="card lg:card-side bg-base-100 shadow-xl mb-4 max-h-64" key={shop.place_id}>
             {getImage()}
             <div className="card-body">
-              <h2 className="card-title">{shop.vicinity}</h2>
+              {address(shop.vicinity)}
               <span>{shop.name}</span>
               {shop.opening_hours && shop.opening_hours.open_now !== undefined ?
                 open(shop.opening_hours.open_now
@@ -40,7 +40,7 @@ const Location = ({ data, photos }) => {
               )}
               <BeanRating rating={shop.rating} />
               <div className="card-actions justify-end">
-                <button onClick={() => handleRedirect(shop)} className="btn btn-primary">View Details</button>
+                <button onClick={() => handleRedirect(shop)} className="btn btn-primary w-full">View Details</button>
               </div>
             </div>
           </div>

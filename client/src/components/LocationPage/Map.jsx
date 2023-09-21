@@ -1,102 +1,46 @@
 import { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
+import bean from '../../pages/img/icons8-coffee-40.png';
 
-const Map = ({ user }) => {
+
+const Map = ({ user, zip, count, cafeList }) => {
   const key = import.meta.env.VITE_GOOGLE_KEY;
+  console.log(count)
 
   useEffect(() => {
+    let lat = zip.lat || user.lat;
+    let long = zip.lng || user.lng;
+
     const loader = new Loader({
       apiKey: key,
       version: "weekly",
     });
 
-    loader.load().then(async () => {
-      const { Map } = await google.maps.importLibrary("maps");
+    loader
+      .load()
+      .then(async () => {
+        const { Map } = await google.maps.importLibrary("maps");
 
-      const map = new Map(document.getElementById("map"), {
-        center: { lat: user.lat, lng: user.long },
-        zoom: 11,
+        const map = new Map(document.getElementById("map"), {
+          center: { lat: lat, lng: long },
+          zoom: 11,
+        });
+
+        for (let i = 0; i < 10; i++) {
+          let count = i + 1;
+          let marker = new google.maps.Marker({
+            position: { lat: cafeList[i].geometry.location.lat, lng: cafeList[i].geometry.location.lng },
+            map: map,
+            icon: bean,
+            label: count.toString()
+          });
+        }
+
       });
-    });
-  }, [key]);
 
-  return <div id="map" className="basis-1/2" style={{ height: "500px" }}></div>;
+  }, [zip, cafeList]);
+
+  return <div id="map" className="basis-1/2 rounded-xl shadow-xl" style={{ height: "500px" }}></div>;
 };
 
 export default Map;
-
-
-
-
-
-// const Map = () => {
-//   const key = import.meta.env.VITE_GOOGLE_KEY;
-
-//   const loader = new Loader({
-//     apiKey: key,
-//     version: "weekly",
-//   });
-
-//   loader.load().then(async () => {
-//     const { Map } = await google.maps.importLibrary("maps");
-
-//     map = new Map(document.getElementById("map"), {
-//       center: { lat: -34.397, lng: 150.644 },
-//       zoom: 8,
-//     });
-//   });
-
-//   // let map;
-//   // const chicago = { lat: 41.85, lng: -87.65 };
-
-//   // /**
-//   //  * Creates a control that recenters the map on Chicago.
-//   //  */
-//   // function createCenterControl(map) {
-//   //   const controlButton = document.createElement("button");
-
-//   //   // Set CSS for the control.
-//   //   controlButton.classList.add('buttonStyle');
-
-//   //   controlButton.textContent = "Center Map";
-//   //   controlButton.title = "Click to recenter the map";
-//   //   controlButton.type = "button";
-//   //   // Setup the click event listeners: simply set the map to Chicago.
-//   //   controlButton.addEventListener("click", () => {
-//   //     map.setCenter(chicago);
-//   //   });
-//   //   return controlButton;
-//   // }
-
-//   function initMap() {
-//     map = new google.maps.Map(document.getElementById("map"), {
-//       zoom: 7,
-//       center: { lat: 49.496675, lng: -102.65625 },
-//     });
-
-//     //   var georssLayer = new google.maps.KmlLayer({
-//     //     url: "http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss",
-//     //   });
-//     //   georssLayer.setMap(map);
-
-//     //   // Create the DIV to hold the control.
-//     //   const centerControlDiv = document.createElement("div");
-//     //   // Create the control.
-//     //   const centerControl = createCenterControl(map);
-
-//     //   // Append the control to the DIV.
-//     //   centerControlDiv.appendChild(centerControl);
-//     //   map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-//     //     centerControlDiv
-//     //   );
-//   }
-
-//   initMap();
-
-
-//   return (
-//       <div id="map" className='basis-1/2'></div>
-//   );
-// }
-
-// export default Map;
