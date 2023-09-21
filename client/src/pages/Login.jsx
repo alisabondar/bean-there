@@ -39,6 +39,8 @@ export default function Login() {
       const response = await axios.post("/user/verifyotp", data, { withCredentials: true});
       if (response.data.success) {
         toggleOtp(false);
+        state.login = false;
+        state.active = true;
         setData({ email: '', password: ''});
         navigate("/profile");
       } else {

@@ -9,8 +9,7 @@ var sendOTPVerificationEmail = require("../utils/nodemailer");
 
 var login = async (req: any, res: Response, next: NextFunction) => {
   const user = await User.findOne({ where: { email: req.body.email }, raw: true});
-  console.log(user);
-  if (user.otp === true) {
+  if (user && user.otp === true) {
     // verify user and pass
     const { id, otp } = user;
 
@@ -53,6 +52,7 @@ var login = async (req: any, res: Response, next: NextFunction) => {
 var logout = async (req: Request, res: Response, next: NextFunction) => {
   req.logout((err) => {
     if (err) { return next(err); }
+    res.clearCookie('user');
     res.send({ success: true });
   });
 };

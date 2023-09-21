@@ -18,8 +18,7 @@ var bcrypt = require("bcrypt");
 var sendOTPVerificationEmail = require("../utils/nodemailer");
 var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield User.findOne({ where: { email: req.body.email }, raw: true });
-    console.log(user);
-    if (user.otp === true) {
+    if (user && user.otp === true) {
         // verify user and pass
         const { id, otp } = user;
         // we want to check if the user has an entry in the otp table
@@ -64,6 +63,7 @@ var logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
         if (err) {
             return next(err);
         }
+        res.clearCookie('user');
         res.send({ success: true });
     });
 });
