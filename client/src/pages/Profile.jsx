@@ -127,7 +127,7 @@ function Profile() {
         href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
       />
 
-      <main className="profile-page ">
+      <main className="profile-page  ">
         <NavBar />
 
         {/* Banner section */}
@@ -150,6 +150,8 @@ function Profile() {
               {" "}
             </span>
           </div>
+
+
           {/* Banner shape */}
           <div
             className=" top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
@@ -170,6 +172,8 @@ function Profile() {
               ></polygon>
             </svg>
           </div>
+
+
         </section>
 
         <motion.div {...headContainerAnimation}>
@@ -182,7 +186,7 @@ function Profile() {
                 {/* Buttons */}
                 <div className="flex flex-wrap justify-center">
                   {/* Button: Add Post */}
-                  <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                  <div className="w-full  lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div
                       className="relative hover:scale-110 transition duration-300 ease-in-out cursor-pointer"
                       onClick={() => handleButtonClick("bio")}
@@ -200,7 +204,7 @@ function Profile() {
                   {/* Buttons */}
 
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                    <div className="py-6 px-3 mt-32 sm:mt-0">
+                    <div className="py-6 px-3  flex justify-center mt-32 sm:mt-0">
                       {/* Button: Add Post */}
 
                       {/* Button: Add Post */}
@@ -249,9 +253,10 @@ function Profile() {
                       </button>
                     </div>
                   </div>
+
                   {/* Buttons */}
-                  <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                  <div className="w-full py-4 lg:w-4/12 px-4 lg:order-1">
+                    <div className="flex justify-center py-6 lg:pt-4 pt-8">
                       {/* Button: Coffee */}
                       <button
                         onClick={() => handleButtonClick("location")}
