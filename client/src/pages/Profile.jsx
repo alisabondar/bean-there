@@ -243,16 +243,6 @@ function Profile() {
                         // handleButtonClick("location")}
                         className="chat-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
-                        style={{
-                          backgroundColor: "#A98E77",
-                          position: "relative",
-                        }}
-                        type="button"
-                      >
-                        <BsFillChatDotsFill size={23} />
-                      </button>
-                    </div>
-                  </div>
 
                   {/* Buttons */}
                   <div className="w-full py-4 lg:w-4/12 px-4 lg:order-1">
