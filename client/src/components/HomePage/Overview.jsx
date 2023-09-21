@@ -17,6 +17,10 @@ function Overview() {
   const toggleRegister= () => {
     state.register = true;
   };
+
+  const toggleLocation= () => {
+    state.location = true;
+  };
   return (
     <AnimatePresence>
       <div className="relative ">
@@ -48,7 +52,9 @@ function Overview() {
             className="flex flex-col md:flex-row p-10  space-y-4 md:space-x-8 md:space-y-0 md:ml-auto relative hover:cursor-pointer md:mt-[-50px]"
             {...slideAnimation("right")}
           >
-            <div className="w-[188px] h-[188px] relative mx-auto md:mx-0 hover:scale-105 transition duration-300 ease-in-out rounded-lg">
+            <div className="w-[188px] h-[188px] relative mx-auto md:mx-0 hover:scale-105 transition duration-300 ease-in-out rounded-lg"
+            onClick={toggleLocation}>
+
               <div className="absolute inset-0 bg-black opacity-20 rounded-lg"></div>
               <img
                 src={coffeeShops}
