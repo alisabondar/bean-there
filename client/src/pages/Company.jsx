@@ -47,24 +47,14 @@ export default function Company() {
     }
   }, []);
 
-  const mockImages = [
-    '/assets/coffee-mock-1.jpeg',
-    '/assets/coffee-mock-2.jpeg',
-    '/assets/coffee-mock-3.jpeg',
-    '/assets/coffee-mock-4.jpeg',
-    '/assets/coffee-mock-5.jpeg',
-    '/assets/coffee-mock-6.jpeg',
-    '/assets/coffee-mock-7.jpeg',
-  ];
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="h-full relative">
+    <div className="h-full relative bg-[#f2eada]">
       <NavBar/>
-      <div className="flex justify-center items-center h-full px-4 md:px-0">
+      <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5">
 
         <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl">
           {/* Title and Ratings */}
@@ -95,7 +85,7 @@ export default function Company() {
           </div>
 
           {/* ToolBar and Reviews */}
-          <div className="flex flex-wrap justify-center pt-12 w-full">
+          <div className="flex flex-wrap justify-center pt-12 w-3/4">
             <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
               <div className="col-span-2 sm:col-span-2">
                 <div className="flex-col">
