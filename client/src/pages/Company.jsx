@@ -52,9 +52,9 @@ export default function Company() {
   }
 
   return (
-    <div className="h-full relative bg-[#f2eada]">
+    <div className="h-full relative bg-[#f2eada] shadow-crawl">
       <NavBar/>
-      <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5">
+      <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5 ">
 
         <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl">
           {/* Title and Ratings */}
@@ -89,13 +89,24 @@ export default function Company() {
 
 
           {/* ToolBar and Reviews */}
-          <div className="flex flex-wrap justify-center pt-12 w-3/4">
+          <div className="flex flex-wrap justify-center pt-12 w-3/4 ">
             <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
               <div className="col-span-2 sm:col-span-2">
                 <div className="flex-col">
-                  <div id="tool-bar" className="w-full h-[4rem] mt-2">
-                    <Toolbar place_id={business.place_id} place_name={business.name} />
+                <div id="tool-bar" className="toolbar-bg w-full h-[8rem] mt-2 relative z-[2]">
+                <div className="larger-bg absolute inset-y-[-10%] inset-x-[-5%] rounded-lg flex justify-center bg-[#f2eada]">
+                    <div className="smaller-bg rounded-lg"></div>
+                    <div className="smaller-bg rounded-lg"></div>
+                    <div className="smaller-bg rounded-lg"></div>
+                    <div className="smaller-bg rounded-lg"></div>
+                    <div className="smaller-bg rounded-lg"></div>
+                </div>
+                  <div className="absolute inset-0 flex justify-center items-end rounded-lg bg-opacity-50">
+                    <div className="w-8/12 h-full flex justify-center items-center z-[2]">
+                      <Toolbar place_id={business.place_id} place_name={business.name} />
+                    </div>
                   </div>
+                </div>
                   <div id="reviews" className="h-full overflow-auto">
                     <Reviews reviews={reviews} updateAvg={updateAvg} name={business.name}/>
                   </div>
