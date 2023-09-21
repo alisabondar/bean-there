@@ -1,7 +1,7 @@
 import BeanRating from '../CompanyPage/BeanRating';
 import { useNavigate } from 'react-router-dom';
 
-const Location = ({ data, photos }) => {
+const Location = ({ data, photos, address }) => {
   const navigate = useNavigate();
 
   const getImage = () => {
@@ -31,7 +31,7 @@ const Location = ({ data, photos }) => {
           <div className="card lg:card-side bg-base-100 shadow-xl" key={shop.place_id}>
             {getImage()}
             <div className="card-body">
-              <h2 className="card-title">{shop.vicinity}</h2>
+              {address(shop.vicinity)}
               <span>{shop.name}</span>
               {shop.opening_hours && shop.opening_hours.open_now !== undefined ?
                 open(shop.opening_hours.open_now
@@ -40,7 +40,7 @@ const Location = ({ data, photos }) => {
               )}
               <BeanRating rating={shop.rating} />
               <div className="card-actions justify-end">
-                <button onClick={() => handleRedirect(shop)} className="btn btn-primary">View Details</button>
+                <button onClick={() => handleRedirect(shop)} className="btn btn-primary w-full">View Details</button>
               </div>
             </div>
           </div>

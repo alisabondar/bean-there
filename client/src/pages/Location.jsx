@@ -17,11 +17,8 @@ export default function Location() {
   const photos = [one, two, three, four, five];
 
   const fetchCafeList = async (param) => {
-    console.log(param);
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.long;
-
-    console.log('client url', `http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
 
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
       .then(res => {
@@ -53,7 +50,6 @@ export default function Location() {
 
   const handleSearch = (e) => {
     e.preventDefault()
-    console.log(e.target.value)
     if (e.target.value.length >= 5) {
       fetchZip(e.target.value)
     }
@@ -62,8 +58,8 @@ export default function Location() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
       const userLoc = {
-        lat: parseFloat(pos.coords.latitude),
-        lng: parseFloat(pos.coords.longitude)
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
       };
       setLoc(userLoc);
       fetchCafeList(userLoc);
@@ -72,14 +68,23 @@ export default function Location() {
     })
   }, [])
 
+  let count = 1;
+  const address = (name) => {
+    count++;
+    if (count === 21) {
+      count = 0;
+    }
+    return <h2 className="card-title">{count}: {name}</h2>
+  }
+
   return (
     <div className='bg-primary'>
       <div className='text-center p-4'>
         <Toaster />
         <div className='text-3xl'>Find your next brew with SipSearcher!</div>
         <div>Get details and directions for a coffee shop near you.</div>
-        <label className='block mx-auto p-10'>Search:
-          <input type="text" placeholder="Type in a zipcode ..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />
+        <label className='block mx-auto p-10'>
+          <input type="text" placeholder="Type in a zipcode..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />
         </label>
       </div>
       {loading ? (
@@ -87,9 +92,9 @@ export default function Location() {
           <span className="loading loading-dots loading-lg"></span>
         </div>
       ) : (
-        <div className='flex flex-row'>
-          <LocList data={cafeList} photos={photos} />
-          <Map user={loc} zip={zip} />
+        <div className='flex space-x-3'>
+          <LocList data={cafeList} photos={photos} address={address}/>
+          <Map user={loc} zip={zip} count={count} cafeList={cafeList}/>
         </div>
       )}
     </div>
