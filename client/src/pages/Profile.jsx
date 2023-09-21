@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import Bio from "../components/profilePage/Bio.jsx";
 import Calendar from "../components/profilePage/Calendar.jsx";
 import Favs from "../components/profilePage/Favs.jsx";
 import Friends from "../components/profilePage/Friends.jsx";
 import NavBar from "./NavBar.jsx";
+
+import {
+  headContainerAnimation,
+  headContentAnimation,
+  headTextAnimation,
+  slideAnimation,
+} from "../animation/motion";
 
 import {
   BsFillStarFill,
@@ -106,6 +114,8 @@ function Profile() {
   };
 
   return (
+
+    <AnimatePresence>
     <div>
       {/* Link to external stylesheets */}
       <link
@@ -161,6 +171,8 @@ function Profile() {
             </svg>
           </div>
         </section>
+
+        <motion.div {...headContainerAnimation}>
 
         {/* Profile information section */}
         <section className="relative py-16 bg-[#f2eada]">
@@ -321,8 +333,10 @@ function Profile() {
             </div>
           </footer>
         </section>
+       </motion.div>
       </main>
     </div>
+    </AnimatePresence>
   );
 }
 
