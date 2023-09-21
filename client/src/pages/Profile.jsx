@@ -6,6 +6,7 @@ import Calendar from "../components/profilePage/Calendar.jsx";
 import Favs from "../components/profilePage/Favs.jsx";
 import Friends from "../components/profilePage/Friends.jsx";
 import NavBar from "./NavBar.jsx";
+import Messenger from "./Messenger.jsx";
 
 import {
   headContainerAnimation,
@@ -104,8 +105,10 @@ function Profile() {
         return <Calendar />;
       case "favs":
         return <Favs wishlist={wishlist} />;
-      case "friends":
-        return <Friends friends={friends} />;
+        case "friends":
+          return <Friends friends={friends} />;
+        case "messenger":
+          return <Messenger id={profile.id} />;
       case "bio":
         return <Bio about={profile.about} reviews={reviews} />;
       default:
@@ -239,7 +242,7 @@ function Profile() {
                       {/* Button: Chat */}
                       {/* Button: Chat */}
                       <button
-                        onClick={() => navigate("/messenger")}
+                        onClick={() => handleButtonClick("messenger")}
                         // handleButtonClick("location")}
                         className="chat-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"

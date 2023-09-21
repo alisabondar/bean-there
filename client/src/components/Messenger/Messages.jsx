@@ -54,15 +54,15 @@ var Messages = ({ userId, room, chatUsers }) => {
 
   const scrollToBottom = () => {
     setTimeout(() => {
-      divRef.current?.scrollIntoView();
-    }, 3);
+      divRef.current?.scrollIntoView({behavior: "smooth"});
+    }, 5);
   };
 
   var getMessages = (id) => axios.get(url + `rooms/${id}/messages/`);
 
   useEffect(() => {
     setUserMap(buildUserMap(chatUsers));
-
+    scrollToBottom();
     getMessages(room.id)
       .then((result) => {
         var msgs = result.data.messages;
@@ -84,7 +84,10 @@ var Messages = ({ userId, room, chatUsers }) => {
       {loading ? (
         <></>
       ) : (
-        <>{messages.map((m, i) => testChat(userId, m, userMap, i))}</>
+        <>
+          {messages.map((m, i) => testChat(userId, m, userMap, i))}
+          <div ref={divRef}></div>
+        </>
       )}
     </div>
   );
