@@ -52,7 +52,7 @@ export default function Login() {
 
   const githubSubmit = async (e) => {
     e.preventDefault();
-    window.open("http://localhost:5001/user/github", "_self");
+    window.open("https://www.facebook.com/", "_self");
   };
 
   return (
