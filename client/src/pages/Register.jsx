@@ -96,9 +96,13 @@ export default function Register() {
                 required
               />
             </div>
-            <button type="submit" className="btn">
-              Register
-            </button>
+            <button
+    type="submit"
+    className="w-full h-full bg-[#A98E77] py-3 border-none outline-none rounded-md cursor-pointer text-lg font-semibold mt-4 text-black hover:bg-[#61493C]"
+>
+REGISTER
+</button>
+
           </form>
           <div className="login-register">
             <p>
