@@ -50,7 +50,7 @@ var login = async (req: any, res: Response, next: NextFunction) => {
 };
 
 var logout = async (req: Request, res: Response, next: NextFunction) => {
-  req.logout((err) => {
+  req.logout((err: any) => {
     if (err) { return next(err); }
     res.clearCookie('user');
     res.send({ success: true });

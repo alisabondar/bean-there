@@ -1,5 +1,5 @@
 
-import React from 'react';
+// import React from 'react';
 import Header from '../components/HomePage/Header.jsx';
 import Overview from '../components/HomePage/Overview.jsx';
 import Middle from '../components/HomePage/Middle.jsx';
@@ -8,7 +8,7 @@ import About from '../components/HomePage/About.jsx';
 import Footer from '../components/HomePage/Footer.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
-import Location from './Location.jsx';
+// import Location from './Location.jsx';
 import backgroundImage from './img/overview.webp';
 import { useSnapshot } from 'valtio';
 import state from '../store';

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logoImage from '../../pages/img/logo.png';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { useSnapshot } from 'valtio';
+// import { useSnapshot } from 'valtio';
 import state from '../../store';
 import { useNavigate } from "react-router-dom";
 import axios from '../../axios-config.js';

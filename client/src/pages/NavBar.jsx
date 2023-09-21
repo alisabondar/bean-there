@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import logoImage from "./img/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "../axios-config.js";

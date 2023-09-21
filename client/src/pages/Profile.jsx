@@ -10,9 +10,9 @@ import Messenger from "./Messenger.jsx";
 
 import {
   headContainerAnimation,
-  headContentAnimation,
-  headTextAnimation,
-  slideAnimation,
+  // headContentAnimation,
+  // headTextAnimation,
+  // slideAnimation,
 } from "../animation/motion";
 
 import {
@@ -22,11 +22,11 @@ import {
 } from "react-icons/bs";
 import { FaUserFriends, FaHome } from "react-icons/fa";
 import { GiCoffeeCup } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import state from '../store';
 
 function Profile() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
   const [reviews, setReviews] = useState([]);
