@@ -150,7 +150,7 @@ body {
 }
 
 .btn:hover {
-  background: #61493C /* Change the background color on hover */
+  background: #61493C
 }
 
 .login-register {
@@ -173,8 +173,119 @@ font-weight: 600;
 
 
 
+.hover-button::before {
+  content: 'Home';
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
+.hover-button:hover::before {
+  opacity: 1;
+  z-index: 10;
+}
 
+.hover-button:hover svg {
+  opacity: 0;
+}
+
+.friends-hover-button::before {
+  content: 'Friends';
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.friends-hover-button:hover::before {
+  opacity: 1;
+  z-index: 10;
+}
+
+.friends-hover-button:hover svg {
+  opacity: 0;
+}
+
+.chat-hover-button::before {
+  content: 'Chat';
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.chat-hover-button:hover::before {
+  opacity: 1;
+  z-index: 10;
+}
+
+.chat-hover-button:hover svg {
+  opacity: 0;
+}
+
+.coffee-hover-button::before {
+  content: 'Coffee';
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;  /* To prevent wrapping of text */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.coffee-hover-button:hover::before {
+  opacity: 1;
+  z-index: 10;
+}
+
+.coffee-hover-button:hover svg {
+  opacity: 0;
+}
+
+.calendar-hover-button::before {
+  content: 'Calendar';
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.calendar-hover-button:hover::before {
+  opacity: 1;
+  z-index: 10;
+}
+
+.calendar-hover-button:hover svg {
+  opacity: 0;
+}
+
+.favorites-hover-button::before {
+  content: 'Favs';
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.favorites-hover-button:hover::before {
+  opacity: 1;
+  z-index: 10;
+}
+
+.favorites-hover-button:hover svg {
+  opacity: 0;
+}
 
 
 /*  ====================================================================================== */
