@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 const testGroup = (room, key, changeRoom) => {
   return (
     <div key={key}>
-      {key !== 0 ? (
-        <div className="divider m-3"></div>
-      ) : (<div></div>)}
+      <div className="divider m-3"></div>
       <div className="w-full text-white flex p-5 items-start justify-center flex-col bg-[black] color-[white] cursor-pointer h-[113px] rounded-[3px]"
         onClick={changeRoom}
        >
@@ -22,9 +20,16 @@ const url = 'http://localhost:5000/messenger/'
 
 var ChatGroups = ({ id, setRoom }) => {
   const [rooms, setRooms] = useState(null);
+  const [roomSearch, setRoomSearch] = useState('');
+
   var loading = rooms === null;
 
   var getChats = (id) => axios.get(url + `rooms/user/${id}`);
+
+  var filteredRooms = rooms?.filter(r => r.chat_name.toLowerCase().includes(roomSearch.toLowerCase()))
+  var handleSearchChange = (e) => {
+    setRoomSearch(e.target.value);
+  }
 
   useEffect(() => {
     getChats(id).then(result => {
@@ -39,16 +44,19 @@ var ChatGroups = ({ id, setRoom }) => {
   }, [id])
 
   return (
-    <div className="grid pt-5 grid-cols-1 justify-items-center">
+    <>
+      <div className ="flex justify-center flex-col bg-[black] color-[white] rounded-[3px]">
+        <input type="text" placeholder="Search Chats" onChange={handleSearchChange}></input>
+      </div>
       {loading ? (<>Loading Chats...</>
       ) : (
         <>
-          {rooms.map((room, i) => (
+          {filteredRooms.map((room, i) => (
             testGroup(room, i, () => {setRoom(room)})
           ))}
         </>
       )}
-    </div>
+    </>
   )
 }
 
