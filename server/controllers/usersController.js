@@ -13,9 +13,63 @@ var passport = require('passport');
 require('../passports/passport-external-config');
 var initializeLocal = require('../passports/passport-local-config');
 var db = require("../db/database");
-var { User, Friend } = require("../models/userModel");
+var { User, Friend, OtpModel } = require("../models/userModel");
 var bcrypt = require("bcrypt");
+var sendOTPVerificationEmail = require("../utils/nodemailer");
 var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield User.findOne({ where: { email: req.body.email }, raw: true });
+    console.log(user);
+    if (user.otp === true) {
+        // verify user and pass
+        const { id, otp } = user;
+        // we want to check if the user has an entry in the otp table
+        const user_id = id;
+        const otpExists = yield OtpModel.findOne({ where: user_id });
+        if (otpExists) {
+            yield OtpModel.destroy({ where: { user_id: id } });
+        }
+        // capture the otp (log it for dev)
+        // email it
+        const otpNumber = yield sendOTPVerificationEmail(user.email);
+        const newOtp = yield OtpModel.create({ user_id: id, otp: otpNumber });
+        console.log('new OTP created: ', newOtp.dataValues);
+        const info = newOtp.toJSON().user_id;
+        // send a response that triggers a otp form ont he front end
+        return res.status(201).send({ mssg: "otp created", otp: true, user_id: info });
+    }
+    // else do normal passport
+    initializeLocal(passport);
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            throw err;
+        }
+        ;
+        if (!user) {
+            // failure
+            res.send({ success: false, message: 'Invalid login credentials' });
+        }
+        else {
+            // authentication success case
+            req.login(user, (err) => {
+                if (err) {
+                    throw err;
+                }
+                res.send({ success: true });
+            });
+        }
+    })(req, res, next);
+});
+var verifyOtp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // they would only come here if they have otp;
+    const { userId, otp } = req.body;
+    // check and delete otp
+    const verifyOtp = yield OtpModel.findOne({ where: { user_id: userId, otp } });
+    if (!verifyOtp) {
+        return res.send({ success: false, message: "Incorrect Passcode" });
+    }
+    const { user_id } = verifyOtp.toJSON();
+    yield OtpModel.destroy({ where: { user_id, otp } });
+    // else do normal passport
     initializeLocal(passport);
     passport.authenticate('local', (err, user, info) => {
         if (err) {
@@ -62,7 +116,7 @@ var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password, photo, banner_photo, about } = req.body;
+    const { username, email, password, photo, banner_photo, about, otp } = req.body;
     const user = yield User.findOne({ where: { email: email } });
     if (user) {
         return res.send({ message: "There is already an account linked to this email." });
@@ -77,7 +131,7 @@ var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(400).send({ message: "Please enter a password" });
     }
     const hashedPassword = yield bcrypt.hash(password, 10);
-    User.create({ username, email, password: hashedPassword, photo, about })
+    User.create({ username, email, password: hashedPassword, photo, about, otp })
         .then((user) => {
         res
             .status(201)
@@ -194,4 +248,4 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(500).send({ error });
     }
 });
-module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
+module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };

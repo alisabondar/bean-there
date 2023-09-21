@@ -1,44 +1,67 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios-config.js";
-import helpers from "../helpers";
+// import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { BsFacebook} from 'react-icons/bs';
 import state from '../store';
 
-
-
 export default function Login() {
-  const [logError, setLogError] = useState("");
-  const [email, changeEmail] = useState("");
-  const [pass, changePass] = useState("");
   const navigate = useNavigate();
+
+  const [logError, setLogError] = useState("");
+  const [otp, toggleOtp] = useState(false);
+  const [data, setData] = useState({ email: '', password: '' });
 
   const loginSubmit = async (e) => {
     e.preventDefault();
 
-    const loginObj = helpers.formParser(e.target.elements);
-
     try {
-      const response = await axios.post("/user/login", loginObj, { withCredentials: true });
+      const response = await axios.post("/user/login", data, { withCredentials: true });
       if (response.data.success) {
         navigate("/profile");
+      } else if (response.data.otp) {
+        setData({...data, userId: response.data.user_id});
+        toggleOtp(true);
       } else {
         setLogError(response.data.message);
       }
     } catch (error) {
       console.error(error);
     }
+  };
 
+  const otpSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/user/verifyotp", data, { withCredentials: true});
+      if (response.data.success) {
+        toggleOtp(false);
+        setData({ email: '', password: ''});
+        navigate("/profile");
+      } else {
+        setLogError(response.data.message);
+      }
+    } catch (error) {
+        console.error(error);
+    }
   };
 
   // login page exit
   const handleOuterClick = (e) => {
     const formDiv = document.querySelector(".form-box");
     if (formDiv && !formDiv.contains(e.target)) {
+      if (!otp) {
+        state.login = false;
+      }
+    } else if (otp) {
+      var formDiv2 = document.querySelector(".form-box2");
+    if (formDiv2 && !formDiv2.contains(e.target)) {
+      toggleOtp(false);
       state.login = false;
     }
+  }
   };
   const toggleRegisterLink= () => {
     state.register = true;
@@ -55,41 +78,42 @@ export default function Login() {
     window.open("https://www.facebook.com/", "_self");
   };
 
-  return (
-    <div className="fixed inset-0 flex items-center justify-center z-50"
-    onClick={handleOuterClick}>
-      <div className="wrapper ">
-        <div className="form-box ">
-          {logError && <div className="error">{logError}</div>}
-          <h2>Login</h2>
-          <form onSubmit={loginSubmit}>
-            <div className="input-box">
-              <span className="icon">
-                <AiTwotoneMail size={25} />
-              </span>
-              {
-                email === '' ?   <label >Email:</label> : null            }
-              <input
-                type="email"
-                name="email"
-                onChange={(e) => changeEmail(e.target.value)}
-                value={email}
-                required
-              />
-            </div>
-            <div className="input-box">
-              <span className="icon">
-                <RiLockPasswordFill size={25} />
-              </span>
+  if (!otp) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center z-50"
+      onClick={handleOuterClick}>
+        <div className="wrapper ">
+          <div className="form-box ">
+            {logError && <div className="error">{logError}</div>}
+            <h2>Login</h2>
+            <form onSubmit={loginSubmit} id="myLoginForm">
+              <div className="input-box">
+                <span className="icon">
+                  <AiTwotoneMail size={25} />
+                </span>
+                {
+                  data.email === '' ?   <label >Email:</label> : null }
+                <input
+                  type="email"
+                  name="email"
+                  onChange={(e) => setData({...data, email: e.target.value})}
+                  value={data.email || ""}
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <span className="icon">
+                  <RiLockPasswordFill size={25} />
+                </span>
 
-              {
-                pass === '' ?   <label>Password:</label> : null            }
-              <input
-                type="password"
-                name="password"
-                onChange={(e) => changePass(e.target.value)}
-                value={pass}
-                required
+                {
+                  data.password === '' ?   <label>Password:</label> : null            }
+                <input
+                  type="password"
+                  name="password"
+                  onChange={(e) => setData({...data, password: e.target.value})}
+                  value={data.password || ""}
+                  required
 
               />
             </div>
@@ -118,21 +142,46 @@ export default function Login() {
             </p>
           </div>
 
-          <div >
+            <div >
 
-            <div className="flex justify-around my-2 mt-5">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer" onClick={githubSubmit}>
-                <BsFacebook size={35}/>
-              </div>
-              <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer" onClick={googleSubmit}>
-               <AiFillGoogleCircle size={64} />
+              <div className="flex justify-around my-2 mt-5">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer" onClick={githubSubmit}>
+                  <BsFacebook size={35}/>
+                </div>
+                <div className="w-10 h-10 rounded-full  flex items-center justify-center hover:bg-accent/[0.5] cursor-pointer" onClick={googleSubmit}>
+                 <AiFillGoogleCircle size={64} />
+                </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center z-50"
+      onClick={handleOuterClick}>
+        <div className="wrapper form-box2">
+          <div className="">
+            {logError && <div className="error">{logError}</div>}
+            <h3>Check your inbox/spam for an OTP code.</h3>
+            <input
+                type="number"
+                min="1000"
+                max="9999"
+                name="otp"
+                onChange={(e) => setData({...data, otp: e.target.value})}
+                value={data.otp || ""}
+                required
+              />
+            <form onSubmit={otpSubmit}>
+              <button type="submit" className="btn">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }

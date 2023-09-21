@@ -21,6 +21,8 @@ DROP TABLE IF EXISTS messages CASCADE;
 DROP TABLE IF EXISTS chat_members CASCADE;
 DROP TABLE IF EXISTS chat_rooms CASCADE;
 
+DROP TABLE IF EXISTS otps CASCADE;
+
 -- Create the 'users' table
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -30,7 +32,8 @@ CREATE TABLE users (
   photo TEXT DEFAULT 'https://i.pinimg.com/736x/c0/c2/16/c0c216b3743c6cb9fd67ab7df6b2c330.jpg',
   banner_photo TEXT DEFAULT 'https://picsum.photos/800/400',
   about TEXT DEFAULT 'Welcome to my coffee adventure! I''m on a never-ending quest to explore the world of coffee. From trying unique beans to experimenting with brewing methods, I''m here to share my passion for all things caffeine. Join me on this aromatic journey, and let''s raise our cups to the wonderful world of coffee!',
-  private BOOLEAN NOT NULL DEFAULT false
+  private BOOLEAN NOT NULL DEFAULT false,
+  otp BOOLEAN NOT NULL DEFAULT false
 );
 
 -- Create the 'locations' table
@@ -93,6 +96,13 @@ CREATE TABLE messages (
   created_at timestamp,
   updated_at timestamp,
   room_id INTEGER
+);
+
+-- Create the 'otps' table
+CREATE TABLE otps (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  otp INTEGER NOT NULL
 );
 
 ------------------------------------------------------

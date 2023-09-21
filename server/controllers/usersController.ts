@@ -3,10 +3,33 @@ var passport = require('passport');
 require('../passports/passport-external-config');
 var initializeLocal = require('../passports/passport-local-config');
 var db = require("../db/database");
-var { User, Friend } = require("../models/userModel");
+var { User, Friend, OtpModel } = require("../models/userModel");
 var bcrypt = require("bcrypt");
+var sendOTPVerificationEmail = require("../utils/nodemailer");
 
 var login = async (req: any, res: Response, next: NextFunction) => {
+  const user = await User.findOne({ where: { email: req.body.email }, raw: true});
+  console.log(user);
+  if (user.otp === true) {
+    // verify user and pass
+    const { id, otp } = user;
+
+    // we want to check if the user has an entry in the otp table
+    const user_id = id;
+    const otpExists = await OtpModel.findOne({ where: user_id });
+    if (otpExists) {
+      await OtpModel.destroy({ where: { user_id: id }});
+    }
+  // capture the otp (log it for dev)
+    // email it
+    const otpNumber = await sendOTPVerificationEmail(user.email);
+    const newOtp = await OtpModel.create({ user_id: id, otp: otpNumber});
+    console.log('new OTP created: ', newOtp.dataValues);
+    const info = newOtp.toJSON().user_id;
+    // send a response that triggers a otp form ont he front end
+    return res.status(201).send({ mssg: "otp created", otp: true, user_id: info });
+  }
+    // else do normal passport
   initializeLocal(passport);
   passport.authenticate('local', (err: any, user: any, info: any) => {
     if (err) {
@@ -25,6 +48,40 @@ var login = async (req: any, res: Response, next: NextFunction) => {
       })
     }
   })(req, res, next)
+};
+
+var verifyOtp = async (req: Request, res: Response, next: NextFunction) => {
+  // they would only come here if they have otp;
+  const { userId, otp } = req.body;
+
+  // check and delete otp
+  const verifyOtp = await OtpModel.findOne({ where: { user_id: userId, otp } });
+
+    if (!verifyOtp) {
+      return res.send({ success: false, message: "Incorrect Passcode"});
+    }
+    const { user_id } = verifyOtp.toJSON();
+    await OtpModel.destroy({ where: { user_id, otp } });
+  // else do normal passport
+  initializeLocal(passport);
+  passport.authenticate('local', (err: any, user: any, info: any) => {
+    if (err) {
+      throw err
+    };
+    if (!user) {
+      // failure
+      res.send({ success: false, message: 'Invalid login credentials' });
+    } else {
+      // authentication success case
+      req.login(user, (err: any) => {
+        if (err) {
+          throw err
+        }
+        res.send({ success: true });
+      })
+    }
+  })(req, res, next)
+
 };
 
 var githubLogin = passport.authenticate('github', { scope: ["profile"]});
@@ -55,7 +112,7 @@ var getProfile = async (req: any, res: Response) => {
 };
 
 var register = async (req: Request, res: Response) => {
-  const { username, email, password, photo, banner_photo, about } = req.body;
+  const { username, email, password, photo, banner_photo, about, otp } = req.body;
 
   const user = await User.findOne({ where: { email: email }});
 
@@ -77,7 +134,7 @@ var register = async (req: Request, res: Response) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  User.create({ username, email, password: hashedPassword, photo, about })
+  User.create({ username, email, password: hashedPassword, photo, about, otp })
     .then((user: { dataValues: object }) => {
       res
         .status(201)
@@ -219,4 +276,4 @@ var updateWishlist = async (req: Request, res: Response) => {
 
 
 
-module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
+module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };

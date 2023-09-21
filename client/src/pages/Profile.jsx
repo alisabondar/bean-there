@@ -38,6 +38,7 @@ function Profile() {
     axios
       .get("/user/profile", { withCredentials: true })
       .then((res) => {
+        // console.table(res.data);
         setProfile(res.data);
       })
       .catch(() => {

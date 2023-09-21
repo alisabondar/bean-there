@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import  { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import axios from "../axios-config.js";
 import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle } from "react-icons/ai";
@@ -14,17 +14,20 @@ export default function Register() {
   const [email, changeEmail] = useState("");
   const [pass, changePass] = useState("");
   const [name, changeName] = useState("");
-  const navigate = useNavigate();
+  const [otp, setOtp] = useState(false);
+  // const navigate = useNavigate();
 
   const registerSubmit = (e) => {
     e.preventDefault();
     let registerObj = helpers.formParser(e.target.elements);
+    registerObj.otp = otp;
     axios
       .post("/user/register", registerObj)
       .then((res) => {
         // console.log(res)
         if (res.data.success) {
-          navigate("/login");
+          state.register = false;
+          state.login = true;
           return;
         }
         setRegisterError(res.data.message);
@@ -96,13 +99,13 @@ export default function Register() {
                 required
               />
             </div>
-            <button
-    type="submit"
-    className="w-full h-full bg-[#A98E77] py-3 border-none outline-none rounded-md cursor-pointer text-lg font-semibold mt-4 text-black hover:bg-[#61493C]"
->
-REGISTER
-</button>
-
+            <label className="text-[black]">
+              <input type="checkbox" onChange={(e) => setOtp(e.target.checked)} />
+              {' '}Enable Two-Factor Authentication
+            </label>
+            <button type="submit" className="w-full h-full bg-[#A98E77] py-3 border-none outline-none rounded-md cursor-pointer text-lg font-semibold mt-4 text-black hover:bg-[#61493C]">
+              Register
+            </button>
           </form>
           <div className="login-register">
             <p>

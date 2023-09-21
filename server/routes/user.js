@@ -1,10 +1,11 @@
 "use strict";
 var express = require("express");
 var router = express.Router();
-var { login, register, googleLogin, googleCB, githubLogin, githubCB, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile } = require("../controllers/usersController");
+var { login, register, googleLogin, googleCB, githubLogin, githubCB, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp } = require("../controllers/usersController");
 // all these endpoints start with /user*
 router.post("/login", login);
 router.post("/register", register);
+router.post("/verifyotp", verifyOtp);
 router.get("/google", googleLogin);
 router.get("/google/callback", googleCB);
 router.get("/github", githubLogin);

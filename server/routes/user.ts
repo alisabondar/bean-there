@@ -11,13 +11,16 @@ var {
   getUserReviews,
   getFriends,
   updateWishlist,
-  getProfile
+  getProfile,
+  verifyOtp
 } = require("../controllers/usersController");
 
 // all these endpoints start with /user*
 
 router.post("/login", login);
 router.post("/register", register);
+router.post("/verifyotp", verifyOtp);
+
 router.get("/google", googleLogin);
 router.get("/google/callback", googleCB);
 router.get("/github", githubLogin);
