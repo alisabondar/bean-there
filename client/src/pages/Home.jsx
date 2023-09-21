@@ -8,6 +8,7 @@ import About from '../components/HomePage/About.jsx';
 import Footer from '../components/HomePage/Footer.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
+import Location from './Location.jsx';
 import backgroundImage from './img/overview.webp';
 import { useSnapshot } from 'valtio';
 import state from '../store';
@@ -25,6 +26,7 @@ const Home = () => {
     {/* login and rejister components */}
       {snap.login && <Login />}
       {snap.register  && <Register />}
+      {snap.location && <Location />}
     <div className={ (snap.login || snap.register) && "blur-md"}>
       <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="absolute inset-0 bg-black opacity-20"></div> {/* Overlay */}
