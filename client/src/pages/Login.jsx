@@ -47,7 +47,7 @@ export default function Login() {
 
   const googleSubmit = async (e) => {
     e.preventDefault();
-    window.open("/user/google", "_self");
+    window.open("http://localhost:5001/user/google", "_self");
   };
 
   const githubSubmit = async (e) => {
