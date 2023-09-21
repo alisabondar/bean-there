@@ -52,11 +52,11 @@ export default function Company() {
   }
 
   return (
-    <div className="h-full relative bg-[#f2eada] shadow-crawl">
+    <div className="h-full relative bg-[#f2eada] shadow-crawl ">
       <NavBar/>
       <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5 ">
 
-        <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl">
+        <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl ">
           {/* Title and Ratings */}
           <div className="flex flex-col items-center w-full">
             <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
