@@ -88,7 +88,7 @@ export default function Location() {
         </label>
       </div>
       {loading ? (
-        <div className='flex justify-center'>
+        <div className='flex justify-center bg-primary'>
           <span className="loading loading-dots loading-lg"></span>
         </div>
       ) : (
