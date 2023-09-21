@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios-config.js";
-// import helpers from "../helpers";
 import { AiTwotoneMail, AiFillGoogleCircle} from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { BsFacebook} from 'react-icons/bs';
@@ -20,6 +19,8 @@ export default function Login() {
     try {
       const response = await axios.post("/user/login", data, { withCredentials: true });
       if (response.data.success) {
+        state.login = false;
+        state.active = true;
         navigate("/profile");
       } else if (response.data.otp) {
         setData({...data, userId: response.data.user_id});
@@ -162,20 +163,22 @@ export default function Login() {
       <div className="fixed inset-0 flex items-center justify-center z-50"
       onClick={handleOuterClick}>
         <div className="wrapper form-box2">
-          <div className="">
+          <div className="justify-center">
             {logError && <div className="error">{logError}</div>}
-            <h3>Check your inbox/spam for an OTP code.</h3>
+            <h2>Enter Passcode</h2>
+            <h3>Check your email inbox or spam for an OTP code.</h3>
             <input
                 type="number"
                 min="1000"
                 max="9999"
                 name="otp"
+                className="ml-[33.5%] mt-[20px] w-[100px]"
                 onChange={(e) => setData({...data, otp: e.target.value})}
                 value={data.otp || ""}
                 required
               />
             <form onSubmit={otpSubmit}>
-              <button type="submit" className="btn">
+              <button type="submit" className="btn ml-[35%] mt-[20px]">
                 Submit
               </button>
             </form>

@@ -69,6 +69,12 @@ body {
   text-align: center;
 }
 
+.form-box2 h2 {
+  font-size: 2rem;
+  color:rgb(243, 192, 129);
+  text-align: center;
+}
+
 .input-box {
   position: relative;
   width: 100%;

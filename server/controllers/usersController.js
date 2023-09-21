@@ -59,6 +59,14 @@ var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         }
     })(req, res, next);
 });
+var logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.send({ success: true });
+    });
+});
 var verifyOtp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // they would only come here if they have otp;
     const { userId, otp } = req.body;
@@ -248,4 +256,4 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(500).send({ error });
     }
 });
-module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };
+module.exports = { login, logout, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };

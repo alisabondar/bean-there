@@ -23,6 +23,7 @@ import {
 import { FaUserFriends, FaHome } from "react-icons/fa";
 import { GiCoffeeCup } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import state from '../store';
 
 function Profile() {
   const navigate = useNavigate();
@@ -39,6 +40,9 @@ function Profile() {
       .get("/user/profile", { withCredentials: true })
       .then((res) => {
         // console.table(res.data);
+        if (!state.active) {
+          state.active = true;
+        }
         setProfile(res.data);
       })
       .catch(() => {

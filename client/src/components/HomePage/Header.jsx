@@ -3,12 +3,12 @@ import logoImage from '../../pages/img/logo.png';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useSnapshot } from 'valtio';
 import state from '../../store';
-
-
+import { useNavigate } from "react-router-dom";
+import axios from '../../axios-config.js';
 
 function Header() {
 
-
+  const navigate = useNavigate();
     const [nav, setNav] = useState(true);
 
     // Function to toggle the navigation menu
@@ -19,6 +19,15 @@ function Header() {
     const toggleLogin = () => {
       state.login = true;
     };
+
+    const handleLogout = async (e) => {
+      e.preventDefault();
+      const response =  await axios.post('/user/logout', 'Logout', { withCredentials: true });
+      if (response.data.success) {
+        state.active = false;
+        navigate('/');
+      }
+    }
 
   return (
     <div className="container flex justify-between items-center p-4  mx-auto max-w-full relative ">
@@ -31,9 +40,11 @@ function Header() {
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">About</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Events</a></li>
           <li className='hover:scale-110 transition duration-300 ease-in-out'><a href="#">Contacts</a></li>
-          <li className='text-[#CFB299] text-xl font-bold hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="#"
-          onClick={toggleLogin }
-          >Login</a></li>
+          {state.active ? <li className='text-[#CFB299] text-xl font-bold hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="#"
+          onClick={handleLogout}
+          >Logout</a></li> : <li className='text-[#CFB299] text-xl font-bold hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out'><a href="#"
+          onClick={toggleLogin}
+          >Login</a></li> }
         </ul>
       </nav>
 

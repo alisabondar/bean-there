@@ -50,6 +50,13 @@ var login = async (req: any, res: Response, next: NextFunction) => {
   })(req, res, next)
 };
 
+var logout = async (req: Request, res: Response, next: NextFunction) => {
+  req.logout((err) => {
+    if (err) { return next(err); }
+    res.send({ success: true });
+  });
+};
+
 var verifyOtp = async (req: Request, res: Response, next: NextFunction) => {
   // they would only come here if they have otp;
   const { userId, otp } = req.body;
@@ -276,4 +283,4 @@ var updateWishlist = async (req: Request, res: Response) => {
 
 
 
-module.exports = { login, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };
+module.exports = { login, logout, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };

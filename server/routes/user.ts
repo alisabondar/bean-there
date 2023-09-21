@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var {
   login,
+  logout,
   register,
   googleLogin,
   googleCB,
@@ -18,6 +19,7 @@ var {
 // all these endpoints start with /user*
 
 router.post("/login", login);
+router.post("/logout", logout);
 router.post("/register", register);
 router.post("/verifyotp", verifyOtp);
 
