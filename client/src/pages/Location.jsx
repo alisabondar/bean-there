@@ -11,6 +11,7 @@ import five from './img/loc5.jpeg';
 
 export default function Location() {
   const [loc, setLoc] = useState({ lat: '41.881832', long: '-87.623177' })
+  const [zip, setZip] = useState({})
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,6 +42,7 @@ export default function Location() {
       })
       .catch(err => {
         console.error('Could not fetch location', err);
+        toast.error('Please try again with a valid zipcode')
       })
   }
 
@@ -76,7 +78,7 @@ export default function Location() {
         <div className='text-3xl'>Find your next brew with SipSearcher!</div>
         <div>Get details and directions for a coffee shop near you.</div>
         <label className='block mx-auto p-10'>Search:
-          <input type="text" placeholder="Type in a zipcode ..." className="input w-full max-w-sm" onChange={handleSearch} />
+          <input type="text" placeholder="Type in a zipcode ..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />
         </label>
       </div>
       {loading ? (
@@ -86,7 +88,7 @@ export default function Location() {
       ) : (
         <div className='flex flex-row'>
           <LocList data={cafeList} photos={photos} />
-          {/* <Map data={cafeList} /> */}
+          <Map user={loc}/>
         </div>
       )}
     </div>

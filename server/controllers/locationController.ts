@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import axios from 'axios';
-import toast from 'react-hot-toast';
 
 dotenv.config();
 
@@ -28,7 +27,6 @@ var getLocations = async (req: Request, res: Response) => {
     })
     .catch(err => {
       console.error('Cannot fetch zipcode results', err)
-      toast.error('Please try again with a valid zipcode')
     })
 }
 
