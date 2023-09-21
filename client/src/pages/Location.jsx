@@ -14,14 +14,13 @@ export default function Location() {
   const [zip, setZip] = useState({})
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const photos = [one, two, three, four, five];
 
   const fetchCafeList = (param) => {
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.long;
 
-    axios.get(`http://localhost:5002/location/search/${lat.toString()}/${long.toString()}`)
+    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
       .then(res => {
         console.log(res.data);
         setCafeList(res.data);
@@ -35,7 +34,7 @@ export default function Location() {
   }
 
   const fetchZip = (code) => {
-    axios.get(`http://localhost:5002/location/search/${code}`)
+    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${code}`)
       .then(res => {
         console.log(res.data[0].geometry.location)
         fetchCafeList(res.data[0].geometry.location)

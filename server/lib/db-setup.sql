@@ -160,8 +160,13 @@ VALUES
 INSERT INTO reviews_photos (photo_url, review_id)
 VALUES
   ('https://picsum.photos/800/400', 1),
+  ('https://picsum.photos/800/500', 1),
+  ('https://picsum.photos/800/600', 1),
   ('https://picsum.photos/800/400', 2),
   ('https://picsum.photos/800/400', 3),
+  ('https://picsum.photos/800/500', 3),
+  ('https://picsum.photos/800/400', 3),
+  ('https://picsum.photos/800/600', 3),
   ('https://picsum.photos/800/400', 4),
   ('https://picsum.photos/800/400', 5),
   ('https://picsum.photos/800/400', 6),

@@ -1,5 +1,5 @@
 import BeanRating from '../CompanyPage/BeanRating';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Location = ({ data, photos }) => {
   const navigate = useNavigate();
@@ -20,13 +20,8 @@ const Location = ({ data, photos }) => {
   }
 
   const handleRedirect = (data) => {
-    // e.preventDefault();
-    console.log(data);
-    const business = { details: data };
-    const stringifiedData = JSON.stringify(business);
-    const encodedData = encodeURIComponent(stringifiedData);
-    navigate(`/company?data=${encodedData}`);
-  }
+    navigate(`/company/?placeId=${data.place_id}`, { state: { data: data } });
+  };
 
   // add conditionals for undefined data
   return (
