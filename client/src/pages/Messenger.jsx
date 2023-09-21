@@ -10,9 +10,9 @@ import { GrReturn } from "react-icons/gr";
 var USER_ID = 1;
 const url = "http://localhost:5001/messenger/";
 
-export default function Messenger() {
+export default function Messenger({ id }) {
   const [room, setRoom] = useState(null);
-  const loading = USER_ID === undefined;
+  const loading = id === undefined;
   const [message, setMessage] = useState("");
 
   const [search, setSearch] = useState("");
@@ -39,21 +39,7 @@ export default function Messenger() {
   return loading ? (
     <>Loading chats...</>
   ) : (
-    <div className="flex w-full h-screen bg-secondary/[0.7]">
-      <nav className="w-[65px] bg-secondary border-r border-accent flex flex-col items-center  bg-stripes">
-        <NavLink
-          to="/"
-          className="text-3xl my-4 shadow-xl p-1 bg-primary hover:bg-base-100"
-        >
-          <FaHome />
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className="text-3xl my-4 shadow-xl p-1 bg-primary hover:bg-base-100"
-        >
-          <GrReturn />
-        </NavLink>
-      </nav>
+    <div className="flex w-full h-[80vh] bg-secondary/[0.7]">
       <div className="w-4/12 h-full overflow-auto max-w-[250px] min-w-[240px] border-r border-accent  bg-stripes">
         <div className="flex justify-between mt-2 mx-1 items-center bg-secondary p-2 rounded-md  shadow ">
           <input
@@ -65,13 +51,13 @@ export default function Messenger() {
           />
           <FaSearch className="text-base-100 text-lg" />
         </div>
-        <ChatGroups id={USER_ID} setRoom={setRoom} search={search} />
+        <ChatGroups id={id} setRoom={setRoom} search={search} />
       </div>
       <div className="w-full h-full flex flex-items-end justify-end flex-col bg-primary bg-stripes">
         {room !== null ? (
           <>
             <Messages
-              userId={USER_ID}
+              userId={id}
               room={room}
               chatUsers={room.chat_members}
             />
