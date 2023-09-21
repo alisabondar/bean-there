@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-size: 75%;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
 
 
 @font-face {
