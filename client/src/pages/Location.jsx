@@ -16,27 +16,33 @@ export default function Location() {
   const [loading, setLoading] = useState(true);
   const photos = [one, two, three, four, five];
 
-  const fetchCafeList = (param) => {
+  const fetchCafeList = async (param) => {
+    console.log(param);
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.long;
 
+    console.log('client url', `http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
+
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
       .then(res => {
-        console.log(res.data);
-        setCafeList(res.data);
+        if (res.data.length < 1) {
+          fetchCafeList('defaultData')
+        } else {
+          setCafeList(res.data);
+        }
       })
       .then(() => {
         setLoading(false);
       })
       .catch(err => {
-        console.error('Could not fetch location', err);
+        console.error('Could not fetch user location', err);
       })
   }
 
-  const fetchZip = (code) => {
+  const fetchZip = async (code) => {
     axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${code}`)
       .then(res => {
-        console.log(res.data[0].geometry.location)
+        setZip(res.data[0].geometry.location)
         fetchCafeList(res.data[0].geometry.location)
       })
       .catch(err => {
@@ -56,8 +62,8 @@ export default function Location() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
       const userLoc = {
-        lat: pos.coords.latitude,
-        long: pos.coords.longitude,
+        lat: parseFloat(pos.coords.latitude),
+        lng: parseFloat(pos.coords.longitude)
       };
       setLoc(userLoc);
       fetchCafeList(userLoc);
@@ -65,10 +71,6 @@ export default function Location() {
       console.error('Cannot find location', err)
     })
   }, [])
-
-  // useEffect(() => {
-
-  // }, [cafeList])
 
   return (
     <div className='bg-primary'>
@@ -87,7 +89,7 @@ export default function Location() {
       ) : (
         <div className='flex flex-row'>
           <LocList data={cafeList} photos={photos} />
-          <Map user={loc}/>
+          <Map user={loc} zip={zip} />
         </div>
       )}
     </div>

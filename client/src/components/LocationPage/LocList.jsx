@@ -8,7 +8,7 @@ const Location = ({ data, photos }) => {
     const randomInd = Math.floor(5 * Math.random())
 
     return (
-      <figure className='w-1/4'><img src={photos[randomInd]} alt="Picture" className='w-full h-auto' /></figure>
+      <figure className='w-1/3'><img src={photos[randomInd]} alt="Picture" className='w-full h-auto' /></figure>
     )
   }
 

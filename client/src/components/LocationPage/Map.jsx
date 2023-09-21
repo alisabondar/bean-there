@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
-const Map = ({ user }) => {
+const Map = ({ user, zip }) => {
   const key = import.meta.env.VITE_GOOGLE_KEY;
 
   useEffect(() => {
@@ -11,92 +11,20 @@ const Map = ({ user }) => {
     });
 
     loader.load().then(async () => {
+      let lat = zip.lat || user.lat;
+      let long = zip.lng || user.long;
+      console.log('map', lat, long)
+
       const { Map } = await google.maps.importLibrary("maps");
 
       const map = new Map(document.getElementById("map"), {
-        center: { lat: user.lat, lng: user.long },
+        center: { lat: lat, lng: long },
         zoom: 11,
       });
     });
-  }, [key]);
+  }, [key, zip]);
 
   return <div id="map" className="basis-1/2" style={{ height: "500px" }}></div>;
 };
 
 export default Map;
-
-
-
-
-
-// const Map = () => {
-//   const key = import.meta.env.VITE_GOOGLE_KEY;
-
-//   const loader = new Loader({
-//     apiKey: key,
-//     version: "weekly",
-//   });
-
-//   loader.load().then(async () => {
-//     const { Map } = await google.maps.importLibrary("maps");
-
-//     map = new Map(document.getElementById("map"), {
-//       center: { lat: -34.397, lng: 150.644 },
-//       zoom: 8,
-//     });
-//   });
-
-//   // let map;
-//   // const chicago = { lat: 41.85, lng: -87.65 };
-
-//   // /**
-//   //  * Creates a control that recenters the map on Chicago.
-//   //  */
-//   // function createCenterControl(map) {
-//   //   const controlButton = document.createElement("button");
-
-//   //   // Set CSS for the control.
-//   //   controlButton.classList.add('buttonStyle');
-
-//   //   controlButton.textContent = "Center Map";
-//   //   controlButton.title = "Click to recenter the map";
-//   //   controlButton.type = "button";
-//   //   // Setup the click event listeners: simply set the map to Chicago.
-//   //   controlButton.addEventListener("click", () => {
-//   //     map.setCenter(chicago);
-//   //   });
-//   //   return controlButton;
-//   // }
-
-//   function initMap() {
-//     map = new google.maps.Map(document.getElementById("map"), {
-//       zoom: 7,
-//       center: { lat: 49.496675, lng: -102.65625 },
-//     });
-
-//     //   var georssLayer = new google.maps.KmlLayer({
-//     //     url: "http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss",
-//     //   });
-//     //   georssLayer.setMap(map);
-
-//     //   // Create the DIV to hold the control.
-//     //   const centerControlDiv = document.createElement("div");
-//     //   // Create the control.
-//     //   const centerControl = createCenterControl(map);
-
-//     //   // Append the control to the DIV.
-//     //   centerControlDiv.appendChild(centerControl);
-//     //   map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-//     //     centerControlDiv
-//     //   );
-//   }
-
-//   initMap();
-
-
-//   return (
-//       <div id="map" className='basis-1/2'></div>
-//   );
-// }
-
-// export default Map;
