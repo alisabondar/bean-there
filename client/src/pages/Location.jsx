@@ -83,18 +83,25 @@ export default function Location() {
         <Toaster />
         <div className='text-3xl'>Find your next brew with SipSearcher!</div>
         <div>Get details and directions for a coffee shop near you.</div>
-        <label className='block mx-auto p-10'>
+        <div className='block mx-auto p-10'>
+          <div className="dropdown">
+            <label tabIndex={0} className="btn m-1">Filters</label>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a>Item 1</a></li>
+              <li><a>Item 2</a></li>
+            </ul>
+          </div>
           <input type="text" placeholder="Type in a zipcode..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />
-        </label>
+        </div>
       </div>
       {loading ? (
-        <div className='flex justify-center bg-primary'>
+        <div className='flex justify-center'>
           <span className="loading loading-dots loading-lg"></span>
         </div>
       ) : (
         <div className='flex space-x-3'>
-          <LocList data={cafeList} photos={photos} address={address}/>
-          <Map user={loc} zip={zip} count={count} cafeList={cafeList}/>
+          <LocList data={cafeList} photos={photos} address={address} />
+          <Map user={loc} zip={zip} count={count} cafeList={cafeList} />
         </div>
       )}
     </div>

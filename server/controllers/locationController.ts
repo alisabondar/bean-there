@@ -11,11 +11,13 @@ var getCurrent = async (req: Request, res: Response) => {
   const location = `${lat},${long}`;
   const radius = 5000;
   const keyword = 'coffee';
+  const type = 'cafe';
   const apiKey = process.env.GOOGLEAPI_KEY;
-  const requestUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&radius=${radius}&keyword=${keyword}&key=${apiKey}`;
+  const requestUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&radius=${radius}&keyword=${keyword}&type=${type}&key=${apiKey}`;
 
   axios.get(requestUrl)
    .then(result => {
+      console.log(result.data.results)
       res.json(result.data.results);
    })
    .catch(err => {

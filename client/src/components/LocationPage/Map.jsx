@@ -5,7 +5,6 @@ import bean from '../../pages/img/icons8-coffee-40.png';
 
 const Map = ({ user, zip, count, cafeList }) => {
   const key = import.meta.env.VITE_GOOGLE_KEY;
-  console.log(count)
 
   useEffect(() => {
     let lat = zip.lat || user.lat;
