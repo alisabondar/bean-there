@@ -122,12 +122,6 @@ export default function Location() {
   };
 
 
-  const handleOuterClick = (e) => {
-    const formDiv = document.querySelector(".locationWrapper");
-    if (formDiv && !formDiv.contains(e.target)) {
-      state.location = false;
-    }
-  };
 
   const handleFilter = (e) => {
     const filter = e.currentTarget.getAttribute("data-name");
@@ -151,24 +145,30 @@ export default function Location() {
 
 
 
+
+
   useEffect(() => {
     document.addEventListener('mousedown', handleOuterClick);
+
     return () => {
       document.removeEventListener('mousedown', handleOuterClick);
     };
   }, []);
+
   const handleOuterClick = (e) => {
     if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
       state.location = false;
     }
   };
 
+
+
   return (
 
 
-    <div onClick={handleOuterClick}>
+    <div >
 
-      <div className='locationWrapper fixed inset-0 flex-col items-center justify-center z-50'>
+      <div ref={wrapperRef} className='locationWrapper fixed inset-0 flex-col items-center justify-center z-50'>
         <div className='top flex flex-col items-center justify-center'>
           <Toaster />
           <div className="text-3xl font-bold text-[#e7b14d] mb-4 mt-5">
