@@ -6,20 +6,20 @@ var { User } = require('../models/userModel.js');
 const initialize = (passport) => {
   // fn to check email and password matches user in db
   const authenticate = async (email, password, done) => {
-    console.log('KHURRAM', email, password);
+    // console.log('KHURRAM', email, password);
 
-    const user = await User.findOne({ where: { email: email }, raw: true})
+    const user = await User.findOne({ where: { email: email }, raw: true })
 
     // if no user
     if (!user) {
       return done(null, false);
     }
 
-      try {
-        await bcrypt.compare(password, user.password) ? done(null, user) : done(null, false);
-      } catch (err) {
-        return done(err, false);
-      }
+    try {
+      await bcrypt.compare(password, user.password) ? done(null, user) : done(null, false);
+    } catch (err) {
+      return done(err, false);
+    }
   };
 
   // local strategy
@@ -32,7 +32,7 @@ const initialize = (passport) => {
   })
 
   passport.deserializeUser(async (id, done) => {
-    const user = await User.findOne({ where: { id: id }, raw: true});
+    const user = await User.findOne({ where: { id: id }, raw: true });
     return done(null, user.id);
   })
 }

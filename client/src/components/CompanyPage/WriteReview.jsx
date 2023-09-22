@@ -1,14 +1,20 @@
-import React, {useState} from "react";
-import axios from "axios"
+import React, { useState } from "react";
+// import axios from "axios"
+import axios from "../../axios-config";
 import BeanRating from "./BeanRating";
 
 const WriteReview = (prop) => {
-  const [value, updateValue] = useState("")
-  const [ selectedBean, updateBean ] = useState(null)
+  const [value, updateValue] = useState("");
+  const [selectedBean, updateBean] = useState(null);
 
   return (
     <>
-      <button className="btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]" onClick={() => document.getElementById('write_review').showModal()}>WRITE REVIEW</button>
+      <button
+        className="btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
+        onClick={() => document.getElementById("write_review").showModal()}
+      >
+        WRITE REVIEW
+      </button>
       <dialog id="write_review" className="modal">
         <div className="modal-box relative">
           <form method="dialog" onSubmit={(e) => {
@@ -38,13 +44,11 @@ const WriteReview = (prop) => {
         </div>
       </dialog>
     </>
-  )
-}
+  );
+};
 
-<button
-className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]"
->
-Write Review
-</button>
+<button className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]">
+  Write Review
+</button>;
 
 export default WriteReview;

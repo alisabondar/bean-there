@@ -4,7 +4,8 @@ import InfoPanel from "../components/CompanyPage/InfoPanel";
 import BeanRating from "../components/CompanyPage/BeanRating";
 import Carousel from "../components/CompanyPage/Carousel";
 import NavBar from "./NavBar.jsx";
-import axios from "axios";
+import axios from "../axios-config";
+// import axios from "axios";
 import { useState, useEffect } from "react";
 import state from "../store";
 
@@ -15,9 +16,10 @@ export default function Company() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${import.meta.env.VITE_PORT}/user/profile`, { withCredentials: true })
+      .get(`/user/profile`, {
+        withCredentials: true,
+      })
       .then((res) => {
-
         if (!state.active) {
           state.active = true;
         }
@@ -32,11 +34,7 @@ export default function Company() {
     const urlParams = new URLSearchParams(window.location.search);
     const placeId = urlParams.get("placeId");
     axios
-      .get(
-        `http://localhost:${
-          import.meta.env.VITE_PORT
-        }/company/${placeId}/reviews`, { withCredentials: true }
-      )
+      .get(`/company/${placeId}/reviews`, { withCredentials: true })
       .then((res) => {
         updateReviews(res.data.reviews);
       })
@@ -50,11 +48,9 @@ export default function Company() {
     const fetchPlaceDetails = async (placeId) => {
       try {
         setIsLoading(true);
-        const response = await axios.get(
-          `http://localhost:${
-            import.meta.env.VITE_PORT
-          }/company/${placeId}/details`, { withCredentials: true }
-        );
+        const response = await axios.get(`/company/${placeId}/details`, {
+          withCredentials: true,
+        });
         if (response.status === 200 && response.data.status === "OK") {
           setBusiness(response.data.result);
           console.log("Success:", response.data.result);
@@ -82,7 +78,7 @@ export default function Company() {
 
   return (
     <div className="h-full relative bg-[#f2eada] shadow-crawl ">
-      <NavBar/>
+      <NavBar />
       <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5 ">
         <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl ">
           {/* Title and Ratings */}
@@ -148,8 +144,8 @@ export default function Company() {
               </div>
               {/* InfoPanel */}
               <div
-                  id="info-cards"
-                  className=" h-full sticky top-0 z-10 max-w-[32rem]"
+                id="info-cards"
+                className=" h-full sticky top-0 z-10 max-w-[32rem]"
               >
                   <InfoPanel business={business} profile={profile}/>
               </div>
