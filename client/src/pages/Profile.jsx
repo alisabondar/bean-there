@@ -7,6 +7,9 @@ import Favs from "../components/profilePage/Favs.jsx";
 import Friends from "../components/profilePage/Friends.jsx";
 import NavBar from "./NavBar.jsx";
 import Messenger from "./Messenger.jsx";
+import state from "../store";
+import Location from "./Location.jsx";
+import { useSnapshot } from "valtio";
 
 import {
   headContainerAnimation,
@@ -23,7 +26,6 @@ import {
 import { FaUserFriends, FaHome } from "react-icons/fa";
 import { GiCoffeeCup } from "react-icons/gi";
 // import { useNavigate } from "react-router-dom";
-import state from "../store";
 
 function Profile() {
   // const navigate = useNavigate();
@@ -34,6 +36,7 @@ function Profile() {
   const [friends, setFriends] = useState([]);
   const [selectedComponent, setSelectedComponent] = useState("bio");
 
+  const snap = useSnapshot(state);
   // Fetch user profile data
   useEffect(() => {
     axios
@@ -131,6 +134,7 @@ function Profile() {
     <AnimatePresence>
       <div>
         {/* Link to external stylesheets */}
+        {snap.location && <Location />}
         <link
           rel="stylesheet"
           href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"

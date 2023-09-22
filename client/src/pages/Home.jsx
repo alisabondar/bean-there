@@ -21,7 +21,7 @@ const Home = () => {
       {snap.location && <Location />}
       {snap.login && <Login />}
       {snap.register  && <Register />}
-    <div className={ ((snap.login || snap.register) && "blur-md") || ""}>
+    <div className={ ((snap.login || snap.register || snap.location ) && "blur-md") || ""}>
       <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="absolute inset-0 bg-black opacity-20"></div> {/* Overlay */}
         <div className="mx-4 md:mx-28">
