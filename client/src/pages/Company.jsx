@@ -7,6 +7,7 @@ import NavBar from "./NavBar.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import state from "../store";
+
 export default function Company() {
   const [reviews, updateReviews] = useState([]);
   const [avgRating, updateAvg] = useState(0);
@@ -16,7 +17,7 @@ export default function Company() {
     axios
       .get(`http://localhost:${import.meta.env.VITE_PORT}/user/profile`, { withCredentials: true })
       .then((res) => {
-        console.table(res.data);
+
         if (!state.active) {
           state.active = true;
         }
@@ -81,7 +82,7 @@ export default function Company() {
 
   return (
     <div className="h-full relative bg-[#f2eada] shadow-crawl ">
-      <NavBar />
+      <NavBar/>
       <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5 ">
         <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl ">
           {/* Title and Ratings */}
@@ -98,7 +99,7 @@ export default function Company() {
             </div>
             <div className="inline-flex items-center mb-2">
               <span
-                className={`text-md rounded-full px-4 py-2 ${
+                className={`text-md rounded-full px-4 py-2  ${
                   business.opening_hours.open_now
                     ? "bg-green-400"
                     : "bg-red-400"
@@ -117,8 +118,8 @@ export default function Company() {
           </div>
 
           {/* ToolBar and Reviews */}
-          <div className="flex flex-wrap justify-center pt-12 w-3/4 ">
-            <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
+          <div className="flex justify-center pt-12 w-3/4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8 testGrid justify-center items-center">
               <div className="col-span-2 sm:col-span-2">
                 <div className="flex-col">
                   <div
@@ -146,10 +147,10 @@ export default function Company() {
               </div>
               {/* InfoPanel */}
               <div
-                id="info-cards"
-                className="sticky top-0 z-10 h-[20vh] md:h-[30vh] lg:h-[40vh] xl:h-[50vh]"
+                  id="info-cards"
+                  className=" h-full sticky top-0 z-10 max-w-[32rem]"
               >
-                <InfoPanel business={business} />
+                  <InfoPanel business={business} />
               </div>
             </div>
           </div>
