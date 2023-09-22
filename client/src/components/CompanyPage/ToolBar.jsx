@@ -48,31 +48,32 @@ export default function Toolbar({ place_id, place_name, profile }) {
   }, [currentPageLocationId]);
 
   return (
-    <div className="flex flex-row justify-evenly flex-wrap bg-[#f2eada] rounded-xl shadow-inner">
-      <WriteReview name={place_name} />
-      <div className="">
-        <button
-          className="btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] "
-          onClick={() => document.getElementById("share_modal").showModal()}
-        >
-          Share
-        </button>
-      </div>
 
-      <dialog id="share_modal" className="modal">
-        <div className="modal-box border border-secondary bg-primary">
-          <ShareForm />
+      <div className="flex flex-row justify-evenly flex-wrap bg-[#f2eada] rounded-xl shadow-inner">
+          <WriteReview name={place_name} place_id={place_id} profile={profile}/>
+          <div className=''>
           <button
-            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-            onClick={() => document.getElementById("share_modal").close()}
+            className="btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] "
+            onClick={()=>document.getElementById('share_modal').showModal()}
           >
-            ✕
+            Share
           </button>
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
+          </div>
+
+        <dialog id="share_modal" className="modal">
+          <div className="modal-box border border-secondary bg-white">
+            <ShareForm/>
+            <button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => document.getElementById('share_modal').close()}
+            >
+                ✕
+            </button>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
 
       <button
         className={`btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem] ${

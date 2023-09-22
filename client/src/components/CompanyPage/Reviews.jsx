@@ -11,7 +11,6 @@ export default function Reviews(prop) {
   const endIndex = (curIndex + reviewsPerPage)
   const reviewsRendered = prop.reviews.slice(curIndex,endIndex)
 
-
   const ratings = (reviewData) => {
     var ratings = {5:0, 4:0, 3:0, 2:0, 1:0}
     for ( var i =0; i < reviewData.length; i ++) {
@@ -22,12 +21,13 @@ export default function Reviews(prop) {
   return (
     <div className=' mt-4 col-span-2 mb-16  text-center overflow-x-hidden bg-secondary/[.1] rounded'>
       <div className="divide-y-[1px] divide-neutral/[.5]">
-      <UserSection />
+      <UserSection name={prop.name} profile={prop.profile}/>
       <OverallRating ratings={ratings(prop.reviews)} total={prop.reviews.length} rating={prop.rating} updateAvg={prop.updateAvg}/>
       {reviewsRendered.map((elem, index) => {
+        console.log(elem)
             return (
               <div key={index} className="text-left px-2">
-              <CompanyReviews key={index} reviewData={elem}/>
+              <CompanyReviews key={index} reviewData={elem} profile={prop.profile}/>
               </div>
             )
       })}

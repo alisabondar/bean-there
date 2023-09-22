@@ -388,5 +388,12 @@ body {
   #info-cards {
     width: 100%;
   }
+  .smallScreen {
+    width: 90%;
+    justify-self: center;
+  }
+  .outerRatings {
+    display: inline-table;
+  }
 }
 
