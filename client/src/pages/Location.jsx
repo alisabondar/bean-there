@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-// import axios from 'axios';
-import axios from "../axios-config";
+import axios from "axios";
 import LocList from "../components/LocationPage/LocList";
 import Map from "../components/LocationPage/Map";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,6 +9,7 @@ import three from "./img/loc3.jpeg";
 import four from "./img/loc4.jpeg";
 import five from "./img/loc5.jpeg";
 import state from "../store";
+import filterIcon from "./img/filter.png";
 
 export default function Location() {
   const [loc, setLoc] = useState({ lat: "41.881832", long: "-87.623177" });
@@ -26,7 +26,10 @@ export default function Location() {
 
     if (filter === undefined) {
       axios
-        .get(`/location/search/${lat.toString()}/${long.toString()}`)
+        .get(
+          `http://localhost:${import.meta.env.VITE_PORT
+          }/location/search/${lat.toString()}/${long.toString()}`
+        )
         .then((res) => {
           if (res.data.length < 1) {
             fetchCafeList(loc);
@@ -42,7 +45,10 @@ export default function Location() {
         });
     } else {
       axios
-        .get(`/location/search/${lat.toString()}/${long.toString()}/${filter}`)
+        .get(
+          `http://localhost:${import.meta.env.VITE_PORT
+          }/location/search/${lat.toString()}/${long.toString()}/${filter}`
+        )
         .then((res) => {
           if (res.data.length < 1) {
             fetchCafeList(loc);
@@ -61,14 +67,16 @@ export default function Location() {
 
   const fetchZip = async (code) => {
     axios
-      .get(`/location/search/${code}`)
+      .get(
+        `http://localhost:${import.meta.env.VITE_PORT}/location/search/${code}`
+      )
       .then((res) => {
         setZip(res.data[0].geometry.location);
         fetchCafeList(res.data[0].geometry.location);
       })
       .catch((err) => {
         console.error("Could not fetch location", err);
-        toast.error("Please try again with a valid zipcode.");
+        toast.error("Please try again with a valid zipcode");
       });
   };
 
@@ -104,6 +112,8 @@ export default function Location() {
       </h2>
     );
   };
+
+
 
   const handleFilter = async (e) => {
     const filter = e.currentTarget.getAttribute("data-name");
@@ -149,17 +159,44 @@ export default function Location() {
     }
   };
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOuterClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOuterClick);
+    };
+  }, []);
+
   const handleOuterClick = (e) => {
-    const formDiv = document.querySelector(".locationWrapper");
-    if (formDiv && !formDiv.contains(e.target)) {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
       state.location = false;
     }
   };
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handlepopClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handlepopClick);
+    };
+  }, []);
+
+  const handlepopClick = (e) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+      setFilterOpen(false);
+    }
+  };
+
+
+
+
   return (
-    <div onClick={handleOuterClick}>
-      <div className="locationWrapper fixed inset-0 flex-col items-center justify-center z-50">
-        <div className="top flex flex-col items-center justify-center">
+
+
+    <div >
+
+      <div ref={wrapperRef} className='locationWrapper fixed inset-0 flex-col items-center justify-center z-50'>
+        <div className='top flex flex-col items-center justify-center'>
           <Toaster />
           <div className="text-3xl font-bold text-[#e7b14d] mb-4 mt-5">
             Find your next brew with SipSearcher!
@@ -168,13 +205,28 @@ export default function Location() {
             Get details and directions for a coffee shop nearest to you!
           </div>
           <div className="flex justify-center space-x-4">
+            <input
+              type="text"
+              placeholder="Type in a zipcode..."
+              className="input w-full max-w-sm p-2 border border-gray-300 rounded"
+              onChange={handleSearch}
+            />
             <div className="dropdown">
-              <label tabIndex={0} className="btn m-1">
-                Filters
-              </label>
+
+              <button tabIndex={0}
+                style={{ display: "flex", alignItems: "center" }}
+                className=" bg-[#A98E77] text-white  font-bold py-3 px-5 pr-7 rounded hover:bg-[#61493C]   hover:scale-110 transition duration-300 ease-in-out">
+                <img
+                  src={filterIcon}
+                  alt="Filter Icon"
+                  className="mr-3 h-4 w-4"
+                />
+                Filter
+              </button>
+
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52"
+                className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52 ${filterOpen ? 'open' : ''} "
               >
                 <li>
                   <a
@@ -208,13 +260,9 @@ export default function Location() {
                 </li>
               </ul>
             </div>
-            <input
-              type="text"
-              placeholder="Type in a zipcode..."
-              className="input w-full max-w-sm p-2 border border-gray-300 rounded"
-              onChange={handleSearch}
-            />
-            <button className="bg-[#A98E77] text-white p-2 rounded hover:bg-[#61493C] focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            <button className="bg-[#A98E77] text-white font-bold py-2 px-6 rounded hover:bg-[#61493C]  hover:scale-110 transition duration-300 ease-in-out
+            "
+              style={{ outline: 'none' }}>
               Search
             </button>
           </div>
@@ -227,7 +275,7 @@ export default function Location() {
         ) : (
           <div className="flex space-x-3 p-5 mt-5">
             <LocList data={cafeList} photos={photos} address={address} />
-            <Map user={loc} zip={zip} cafeList={cafeList} wishlist={wishlist} />
+            <Map user={loc} zip={zip} cafeList={cafeList} wishlist={wishlist}/>
           </div>
         )}
       </div>
