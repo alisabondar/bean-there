@@ -1,4 +1,4 @@
-import { useEffect, useState,  useRef} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import LocList from '../components/LocationPage/LocList'
 import Map from '../components/LocationPage/Map'
@@ -16,6 +16,7 @@ export default function Location() {
   const [zip, setZip] = useState({})
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [wishlist, setWishlist] = useState(false);
   const photos = [one, two, three, four, five];
   const wrapperRef = useRef(null);
 
@@ -88,12 +89,13 @@ export default function Location() {
     })
   }, [])
 
-  const address = (name, ind) => {
+  const address = (shop, ind) => {
     ind += 1;
+    let name = shop.vicinity || shop.formatted_address;
     return <h2 className="card-title">{ind}: {name}</h2>
   }
 
-  const handleFilter = (e) => {
+  const handleFilter = async (e) => {
     const filter = e.currentTarget.getAttribute('data-name');
     if (filter === 'relevance') {
       if (zip) {
@@ -110,17 +112,27 @@ export default function Location() {
     } else {
       // wishlist
       const userId = state.active;
-      if (userId === 0) {
+      if (userId === 0 || userId === undefined) {
         toast.error('Please login to see your wishlist.')
       } else {
-        axios.get(`http://localhost:${import.meta.env.VITE_PORT}/user/${userId}/wishlist`)
-        .then(res => {
-          console.log('wishlist', res.data)
-          // setCafeList(res.data.results);
-        })
-        .catch(err => {
+        setWishlist(true)
+        try {
+          const wishlistRes = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/user/${userId}/wishlist`)
+          const data = wishlistRes.data.wishlist;
+          const places = [];
+
+          for (let i = 0; i < data.length; i++) {
+            try {
+              const placeRes = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${data[i].location_id}/details`);
+              places.push(placeRes.data.result);
+            } catch (err) {
+              console.error('Cannot fetch place ids', err)
+            }
+          }
+          setCafeList(places.filter(place => place !== null));
+        } catch (err) {
           console.error('Cannot fetch wishlist', err)
-        })
+        }
       }
     }
   }
@@ -167,7 +179,7 @@ export default function Location() {
         ) : (
           <div className='flex space-x-3 p-5 mt-5'>
             <LocList data={cafeList} photos={photos} address={address} />
-            <Map user={loc} zip={zip} cafeList={cafeList} />
+            <Map user={loc} zip={zip} cafeList={cafeList} wishlist={wishlist}/>
           </div>
         )}
 

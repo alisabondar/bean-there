@@ -10,7 +10,7 @@ const ShopCard = ({ shop, index, address, photos, handleRedirect }) => {
         <img src={photos[randomInd]} alt="Picture" className='w-full h-full rounded-lg' />
       </figure>
       <div className="flex-grow pl-4">
-        <div className="mb-2">{address(shop.vicinity, index)}</div>
+        <div className="mb-2">{address(shop, index)}</div>
         <div className="mb-2"><span>{shop.name}</span></div>
         <div className="mb-2">{shop.opening_hours && shop.opening_hours.open_now !== undefined ?
             shop.opening_hours.open_now ? "Open Now: Yes" : "Open Now: No" : "Open Now: n/a"}</div>
