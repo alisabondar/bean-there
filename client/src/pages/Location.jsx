@@ -16,14 +16,30 @@ export default function Location() {
   const [loading, setLoading] = useState(true);
   const photos = [one, two, three, four, five];
 
-  const fetchCafeList = async (param) => {
+  const fetchCafeList = async (param, filter) => {
     const lat = param.lat || loc.lat;
-    const long = param.lng || loc.long;
+    const long = param.lng || loc.lng;
 
-    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
+    if (filter === undefined) {
+      axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
+        .then(res => {
+          if (res.data.length < 1) {
+            fetchCafeList(loc)
+          } else {
+            setCafeList(res.data);
+          }
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Could not fetch user location', err);
+        })
+    } else {
+      axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}/${filter}`)
       .then(res => {
         if (res.data.length < 1) {
-          fetchCafeList('defaultData')
+          fetchCafeList(loc)
         } else {
           setCafeList(res.data);
         }
@@ -34,6 +50,7 @@ export default function Location() {
       .catch(err => {
         console.error('Could not fetch user location', err);
       })
+    }
   }
 
   const fetchZip = async (code) => {
@@ -77,6 +94,24 @@ export default function Location() {
     return <h2 className="card-title">{count}: {name}</h2>
   }
 
+  const handleFilter = (e) => {
+    const filter = e.currentTarget.getAttribute('data-name');
+    if (filter === 'rating') {
+
+    } else if (filter === 'review') {
+
+    } else if (filter === 'distance') {
+      if (zip) {
+        fetchCafeList(zip, 'distance');
+      } else {
+        fetchCafeList(loc, 'distance');
+      }
+    } else {
+      // wishlist
+      axios.get()
+    }
+  }
+
   return (
     <div className='bg-primary'>
       <div className='text-center p-4'>
@@ -86,9 +121,11 @@ export default function Location() {
         <div className='block mx-auto p-10'>
           <div className="dropdown">
             <label tabIndex={0} className="btn m-1">Filters</label>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Item 1</a></li>
-              <li><a>Item 2</a></li>
+            <ul tabIndex={0} className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a onClick={(e) => { handleFilter(e) }} data-name='rating'>Average Rating</a></li>
+              <li><a onClick={(e) => { handleFilter(e) }} data-name='review'>Number of Reviews</a></li>
+              <li><a onClick={(e) => { handleFilter(e) }} data-name='distance'>Proximity</a></li>
+              <li><a onClick={(e) => { handleFilter(e) }} data-name='wishlist'>Wishlist</a></li>
             </ul>
           </div>
           <input type="text" placeholder="Type in a zipcode..." className="input w-full max-w-sm ml-2" onChange={handleSearch} />

@@ -46,16 +46,28 @@ var getCurrent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const radius = 5000;
     const keyword = 'coffee';
     const type = 'cafe';
+    const rankby = req.params.filter;
     const apiKey = process.env.GOOGLEAPI_KEY;
     const requestUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&radius=${radius}&keyword=${keyword}&type=${type}&key=${apiKey}`;
-    axios_1.default.get(requestUrl)
-        .then(result => {
-        console.log(result.data.results);
-        res.json(result.data.results);
-    })
-        .catch(err => {
-        console.error('Cannot fetch nearby locations', err);
-    });
+    const filterUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&keyword=${keyword}&type=${type}&rankby=${rankby}&key=${apiKey}`;
+    if (rankby) {
+        axios_1.default.get(filterUrl)
+            .then(result => {
+            res.json(result.data.results);
+        })
+            .catch(err => {
+            console.error('Cannot fetch nearby locations', err);
+        });
+    }
+    else {
+        axios_1.default.get(requestUrl)
+            .then(result => {
+            res.json(result.data.results);
+        })
+            .catch(err => {
+            console.error('Cannot fetch nearby locations', err);
+        });
+    }
 });
 var getLocations = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const zipcode = req.params.zipcode;
