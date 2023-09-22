@@ -64,7 +64,7 @@ export default function Location() {
       })
       .catch(err => {
         console.error('Could not fetch location', err);
-        toast.error('Please try again with a valid zipcode')
+        toast.error('Please try again with a valid zipcode.')
       })
   }
 
@@ -109,8 +109,11 @@ export default function Location() {
       }
     } else {
       // wishlist
-      // const userId = user.userId;
-      axios.get(`http://localhost:${import.meta.env.VITE_PORT}/user/${userId}/wishlist`)
+      const userId = state.active;
+      if (userId === 0) {
+        toast.error('Please login to see your wishlist.')
+      } else {
+        axios.get(`http://localhost:${import.meta.env.VITE_PORT}/user/${userId}/wishlist`)
         .then(res => {
           console.log('wishlist', res.data)
           // setCafeList(res.data.results);
@@ -118,6 +121,7 @@ export default function Location() {
         .catch(err => {
           console.error('Cannot fetch wishlist', err)
         })
+      }
     }
   }
 
