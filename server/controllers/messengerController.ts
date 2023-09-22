@@ -53,7 +53,7 @@ var getRooms = async (req: Request, res: Response) => {
         },
       ],
     });
-    console.log(roomsWithMembers);
+    // console.log(roomsWithMembers);
     res.status(200).send({
       mssg: "you have reached the getRooms controller",
       rooms: roomsWithMembers,

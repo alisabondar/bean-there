@@ -34,7 +34,7 @@ var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         // email it
         const otpNumber = yield sendOTPVerificationEmail(user.email);
         const newOtp = yield OtpModel.create({ user_id: id, otp: otpNumber });
-        console.log("new OTP created: ", newOtp.dataValues);
+        // console.log("new OTP created: ", newOtp.dataValues);
         const info = newOtp.toJSON().user_id;
         // send a response that triggers a otp form ont he front end
         return res
@@ -118,7 +118,7 @@ var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return res.send({ error: "user is not logged in" });
     }
-    console.log("this is the active user: ", req.user);
+    // console.log("this is the active user: ", req.user);
     try {
         const user = yield User.findOne({
             where: { id: req.user },
@@ -159,16 +159,16 @@ var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const hashedPassword = yield bcrypt.hash(password, 10);
     User.create({ username, email, password: hashedPassword, photo, about, otp })
         .then((user) => {
-        res.status(201).send({
-            mssg: "user successfully registered",
-            user: user.dataValues,
-            success: true,
-        });
-    })
+            res.status(201).send({
+                mssg: "user successfully registered",
+                user: user.dataValues,
+                success: true,
+            });
+        })
         .catch((err) => {
-        const error = err.message || "internal server error";
-        res.status(400).send({ error });
-    });
+            const error = err.message || "internal server error";
+            res.status(400).send({ error });
+        });
 });
 var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('user', req.params.userId);
@@ -181,15 +181,15 @@ var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
   WHERE w.user_id = ${user_id};
 `, { type: db.QueryTypes.SELECT })
         .then((wishlist) => {
-        res.status(200).send({
-            mssg: "favorites successfully fetched",
-            wishlist,
-        });
-    })
+            res.status(200).send({
+                mssg: "favorites successfully fetched",
+                wishlist,
+            });
+        })
         .catch((err) => {
-        const error = err.message || "internal server error";
-        res.status(404).send({ error });
-    });
+            const error = err.message || "internal server error";
+            res.status(404).send({ error });
+        });
 });
 var getUserReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user_id = req.params.userId;
@@ -202,15 +202,15 @@ INNER JOIN locations l ON r.location_id = l.place_id
 WHERE r.user_id = ${user_id};
 `, { type: db.QueryTypes.SELECT })
         .then((reviews) => {
-        res.status(200).send({
-            mssg: "reviews successfully fetched",
-            reviews,
-        });
-    })
+            res.status(200).send({
+                mssg: "reviews successfully fetched",
+                reviews,
+            });
+        })
         .catch((err) => {
-        const error = err.message || "internal server error";
-        res.status(404).send({ error });
-    });
+            const error = err.message || "internal server error";
+            res.status(404).send({ error });
+        });
 });
 var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.params.userId;

@@ -26,7 +26,7 @@ var login = async (req: any, res: Response, next: NextFunction) => {
     // email it
     const otpNumber = await sendOTPVerificationEmail(user.email);
     const newOtp = await OtpModel.create({ user_id: id, otp: otpNumber });
-    console.log("new OTP created: ", newOtp.dataValues);
+    // console.log("new OTP created: ", newOtp.dataValues);
     const info = newOtp.toJSON().user_id;
     // send a response that triggers a otp form ont he front end
     return res
@@ -117,7 +117,7 @@ var getProfile = async (req: any, res: Response) => {
   if (!req.user) {
     return res.send({ error: "user is not logged in" });
   }
-  console.log("this is the active user: ", req.user);
+  // console.log("this is the active user: ", req.user);
 
   try {
     const user = await User.findOne({
@@ -180,7 +180,7 @@ var register = async (req: Request, res: Response) => {
 };
 
 var getWishlist = async (req: Request, res: Response) => {
-  console.log('user',req.params.userId);
+  console.log("user", req.params.userId);
   const user_id = req.params.userId;
 
   await db
@@ -262,7 +262,7 @@ var getFriends = async (req: Request, res: Response) => {
 var updateWishlist = async (req: Request, res: Response) => {
   const { location_id, name } = req.body;
   const user_id = req.params.userId;
-  console.log('this is the user', user_id);
+  console.log("this is the user", user_id);
   if (!user_id || !location_id) {
     return res.status(400).send({ error: "Missing user_id or location_id" });
   }
