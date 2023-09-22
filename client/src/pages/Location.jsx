@@ -24,7 +24,9 @@ export default function Location() {
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.lng;
 
+    setCafeList([])
     if (filter === undefined) {
+      setLoading(true);
       axios
         .get(
           `http://localhost:${import.meta.env.VITE_PORT
@@ -44,6 +46,7 @@ export default function Location() {
           console.error("Could not fetch user location", err);
         });
     } else {
+      setLoading(true);
       axios
         .get(
           `http://localhost:${import.meta.env.VITE_PORT
@@ -53,6 +56,7 @@ export default function Location() {
           if (res.data.length < 1) {
             fetchCafeList(loc);
           } else {
+            console.log('hi')
             setCafeList(res.data);
           }
         })
@@ -137,23 +141,21 @@ export default function Location() {
       } else {
         setWishlist(true);
         try {
-          const wishlistRes = await axios.get(`/user/${userId}/wishlist`);
+          const wishlistRes = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/user/${userId}/wishlist`)
           const data = wishlistRes.data.wishlist;
           const places = [];
 
           for (let i = 0; i < data.length; i++) {
             try {
-              const placeRes = await axios.get(
-                `/company/${data[i].location_id}/details`
-              );
+              const placeRes = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/company/${data[i].location_id}/details`);
               places.push(placeRes.data.result);
             } catch (err) {
-              console.error("Cannot fetch place ids", err);
+              console.error('Cannot fetch place ids', err)
             }
           }
-          setCafeList(places.filter((place) => place !== null));
+          setCafeList(places.filter(place => place !== null));
         } catch (err) {
-          console.error("Cannot fetch wishlist", err);
+          console.error('Cannot fetch wishlist', err)
         }
       }
     }
