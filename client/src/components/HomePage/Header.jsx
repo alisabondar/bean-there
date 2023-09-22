@@ -6,6 +6,8 @@ import state from "../../store";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../axios-config.js";
 
+import JSConfetti from "js-confetti";
+
 function Header() {
   const navigate = useNavigate();
   const [nav, setNav] = useState(true);
@@ -13,6 +15,14 @@ function Header() {
   // Function to toggle the navigation menu
   const handleNav = () => {
     setNav(!nav);
+  };
+
+  const confettiHandler = () => {
+    const jsConfetti = new JSConfetti();
+
+    jsConfetti.addConfetti({
+      emojis: ["☕", "🦒"],
+    });
   };
 
   const toggleLogin = () => {
@@ -34,6 +44,8 @@ function Header() {
     <div className="container flex justify-between items-center p-4  mx-auto max-w-full relative ">
       <div className="flex items-center">
         <img
+          id="mainlogoimage"
+          onClick={() => confettiHandler()}
           src={logoImage}
           alt="MyCompany Logo"
           className="h-16 md:h-32 w-auto mr-2 rounded-lg"
