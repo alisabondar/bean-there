@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import logoImage from "./img/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "../axios-config.js";
-import state from '../store';
+import state from "../store";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -22,12 +22,14 @@ function NavBar() {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    const response =  await axios.post('/user/logout', 'Logout', { withCredentials: true });
+    const response = await axios.post("/user/logout", "Logout", {
+      withCredentials: true,
+    });
     if (response.data.success) {
       state.active = false;
-      navigate('/');
+      navigate("/");
     }
-  }
+  };
 
   return (
     <div className="blurred">
@@ -58,7 +60,7 @@ function NavBar() {
                   Locations
                 </a>
                 <NavLink
-                  to="/messenger"
+                  to="#"
                   className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]"
                 >
                   Messenger
@@ -133,7 +135,10 @@ function NavBar() {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700">
                     Settings
                   </a>
-                  <a onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer">
+                  <a
+                    onClick={handleLogout}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer"
+                  >
                     Sign out
                   </a>
                 </div>
