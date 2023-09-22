@@ -9,6 +9,7 @@ import three from "./img/loc3.jpeg";
 import four from "./img/loc4.jpeg";
 import five from "./img/loc5.jpeg";
 import state from "../store";
+import filterIcon from "./img/filter.png";
 
 export default function Location() {
   const [loc, setLoc] = useState({ lat: "41.881832", long: "-87.623177" });
@@ -26,6 +27,8 @@ export default function Location() {
   const fetchCafeList = async (param, filter) => {
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.lng;
+
+    console.log(lat,long)
 
     if (filter === undefined) {
       axios
@@ -178,13 +181,28 @@ export default function Location() {
             Get details and directions for a coffee shop nearest to you!
           </div>
           <div className="flex justify-center space-x-4">
+            <input
+              type="text"
+              placeholder="Type in a zipcode..."
+              className="input w-full max-w-sm p-2 border border-gray-300 rounded"
+              onChange={handleSearch}
+            />
             <div className="dropdown">
-              <label tabIndex={0} className="btn m-1">
-                Filters
-              </label>
+
+            <button tabIndex={0}
+             style={{ display: "flex", alignItems: "center" }}
+             className=" bg-[#A98E77] text-white  font-bold py-3 px-5 pr-7 rounded hover:bg-[#61493C]   hover:scale-110 transition duration-300 ease-in-out">
+          <img
+            src={filterIcon}
+            alt="Filter Icon"
+            className="mr-3 h-4 w-4"
+          />
+              Filter
+            </button>
+
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52"
+                className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52 "
               >
                 <li>
                   <a
@@ -218,13 +236,7 @@ export default function Location() {
                 </li>
               </ul>
             </div>
-            <input
-              type="text"
-              placeholder="Type in a zipcode..."
-              className="input w-full max-w-sm p-2 border border-gray-300 rounded"
-              onChange={handleSearch}
-            />
-            <button className="bg-[#A98E77] text-white p-2 rounded hover:bg-[#61493C] focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            <button className="bg-[#A98E77] text-white font-bold py-2 px-6 rounded hover:bg-[#61493C]  hover:scale-110 transition duration-300 ease-in-out ">
               Search
             </button>
           </div>
