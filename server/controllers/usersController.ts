@@ -48,7 +48,7 @@ var login = async (req: any, res: Response, next: NextFunction) => {
         if (err) {
           throw err;
         }
-        res.send({ success: true });
+        res.send({ success: true, userId: user.id });
       });
     }
   })(req, res, next);
@@ -91,7 +91,7 @@ var verifyOtp = async (req: any, res: Response, next: NextFunction) => {
         if (err) {
           throw err;
         }
-        res.send({ success: true });
+        res.send({ success: true, userId: user.id });
       });
     }
   })(req, res, next);
