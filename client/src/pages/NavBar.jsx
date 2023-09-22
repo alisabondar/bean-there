@@ -54,7 +54,7 @@ function NavBar() {
                   Home
                 </Link>
                 <a
-                  href="#"
+                  onClick={HandleLocation}
                   className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]"
                 >
                   Locations

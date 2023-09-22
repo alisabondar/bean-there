@@ -24,6 +24,7 @@ const Home = () => {
   return (
     <div className="App">
     {/* login and rejister components */}
+    {snap.location && <Location />}
       {snap.login && <Login />}
       {snap.register  && <Register />}
     <div className={ ((snap.login || snap.register) && "blur-md") || ""}>

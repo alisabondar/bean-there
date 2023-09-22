@@ -122,6 +122,11 @@ function Profile() {
     }
   };
 
+  const HandleLocation = () => {
+    state.location = true;
+  }
+
+
   return (
     <AnimatePresence>
       <div>

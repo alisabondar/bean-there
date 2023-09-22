@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,  useRef} from 'react';
 import axios from 'axios';
 import LocList from '../components/LocationPage/LocList'
 import Map from '../components/LocationPage/Map'
@@ -10,12 +10,14 @@ import four from './img/loc4.jpeg';
 import five from './img/loc5.jpeg';
 import state from '../store';
 
+
 export default function Location() {
   const [loc, setLoc] = useState({ lat: '41.881832', long: '-87.623177' })
   const [zip, setZip] = useState({})
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
   const photos = [one, two, three, four, five];
+  const wrapperRef = useRef(null);
 
   const fetchCafeList = async (param, filter) => {
     const lat = param.lat || loc.lat;
