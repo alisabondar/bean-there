@@ -1,7 +1,7 @@
 import BeanRating from '../CompanyPage/BeanRating';
 import { useNavigate } from 'react-router-dom';
 
-const ShopCard = ({ shop, address, photos, handleRedirect }) => {
+const ShopCard = ({ shop, index, address, photos, handleRedirect }) => {
   const randomInd = Math.floor(5 * Math.random());
 
   return (
@@ -10,7 +10,7 @@ const ShopCard = ({ shop, address, photos, handleRedirect }) => {
         <img src={photos[randomInd]} alt="Picture" className='w-full h-full rounded-lg' />
       </figure>
       <div className="flex-grow pl-4">
-        <div className="mb-2">{address(shop.vicinity)}</div>
+        <div className="mb-2">{address(shop.vicinity, index)}</div>
         <div className="mb-2"><span>{shop.name}</span></div>
         <div className="mb-2">{shop.opening_hours && shop.opening_hours.open_now !== undefined ?
             shop.opening_hours.open_now ? "Open Now: Yes" : "Open Now: No" : "Open Now: n/a"}</div>
@@ -38,7 +38,7 @@ const Location = ({ data, photos, address }) => {
 
   return (
     <div className='max-h-[350px] w-2/3 mr-6   overflow-y-auto rounded-xl hide-scrollbar'>
-      {data.map(shop => <ShopCard key={shop.place_id} shop={shop} address={address} photos={photos} handleRedirect={handleRedirect} />)}
+      {data.map((shop, index) => <ShopCard key={shop.place_id} shop={shop} index={index} address={address} photos={photos} handleRedirect={handleRedirect} />)}
     </div>
   );
 }

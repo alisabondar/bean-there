@@ -3,7 +3,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 import bean from '../../pages/img/icons8-coffee-40.png';
 
 
-const Map = ({ user, zip, count, cafeList }) => {
+const Map = ({ user, zip, cafeList }) => {
   const key = import.meta.env.VITE_GOOGLE_KEY;
 
   useEffect(() => {
