@@ -6,10 +6,26 @@ import Carousel from "../components/CompanyPage/Carousel";
 import NavBar from "./NavBar.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import state from "../store";
 export default function Company() {
   const [reviews, updateReviews] = useState([]);
   const [avgRating, updateAvg] = useState(0);
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:${import.meta.env.VITE_PORT}/user/profile`, { withCredentials: true })
+      .then((res) => {
+        console.table(res.data);
+        if (!state.active) {
+          state.active = true;
+        }
+        setProfile(res.data);
+      })
+      .catch(() => {
+        console.log("error getting profile");
+      });
+  }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -18,7 +34,7 @@ export default function Company() {
       .get(
         `http://localhost:${
           import.meta.env.VITE_PORT
-        }/company/${placeId}/reviews`
+        }/company/${placeId}/reviews`, { withCredentials: true }
       )
       .then((res) => {
         updateReviews(res.data.reviews);
@@ -36,7 +52,7 @@ export default function Company() {
         const response = await axios.get(
           `http://localhost:${
             import.meta.env.VITE_PORT
-          }/company/${placeId}/details`
+          }/company/${placeId}/details`, { withCredentials: true }
         );
         if (response.status === 200 && response.data.status === "OK") {
           setBusiness(response.data.result);
@@ -114,6 +130,7 @@ export default function Company() {
                         <Toolbar
                           place_id={business.place_id}
                           place_name={business.name}
+                          profile={profile}
                         />
                       </div>
                     </div>
