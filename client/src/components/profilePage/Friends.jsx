@@ -14,7 +14,7 @@ function Friends({ friends }) {
           return (
             <div
               key={friend.id}
-              className="border bg-accent/[0.2] p-2 m-2 rounded-md shadow-md hover:bg-primary cursor-pointer"
+              className="border bg-accent/[0.2] p-2 m-2 rounded-md shadow-md hover:bg-primary"
             >
               <p>{friend["users.username"]}</p>
             </div>

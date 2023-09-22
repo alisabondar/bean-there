@@ -29,7 +29,7 @@ function Bio({ about, reviews }) {
           </li>
         </ul>
       </div>
-      <div className="w-full lg:w-9/12 px-4 my-8 py-2 border-t border-blueGray-200 mx-auto">
+      <div className="w-full lg:w-9/12 px-4 my-4 py-2 border-t border-blueGray-200 mx-auto">
         <h1 className="text-2xl">
           <span className="flex items-center justify-center gap-4">
             <MdOutlineReviews />
@@ -41,7 +41,7 @@ function Bio({ about, reviews }) {
             return (
               <div
                 key={review.id}
-                className="border bg-accent/[0.2] p-2 m-3 shadow-md flex flex-col items-start cursor-pointer rounded-md hover:scale-105"
+                className="border bg-accent/[0.2] p-2 m-2 shadow-md flex flex-col items-start rounded-md hover:scale-105"
               >
                 <p className="self-start font-bold underline">
                   {review.location_name}
