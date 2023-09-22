@@ -3,6 +3,9 @@ import logoImage from "./img/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "../axios-config.js";
 import state from "../store";
+import Location from "./Location.jsx";
+import { useSnapshot } from "valtio";
+
 
 function NavBar() {
   const navigate = useNavigate();
@@ -31,6 +34,10 @@ function NavBar() {
     }
   };
 
+
+  const HandleLocation = () => {
+    state.location = true;
+  }
   return (
     <div className="blurred">
       <div className="mx-auto max-w-7xl px-2 py-2 sm:px-6 lg:px-8">
@@ -54,8 +61,8 @@ function NavBar() {
                   Home
                 </Link>
                 <a
-                  // onClick={HandleLocation}
-                  className="text-[#747472] rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]"
+                   onClick={HandleLocation}
+                  className="text-[#747472] hover:cursor-pointer rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]"
                 >
                   Locations
                 </a>
