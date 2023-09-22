@@ -43,7 +43,7 @@ const buildUserMap = (chatUsers) => {
   return userMap;
 };
 
-const url = "http://localhost:5001/messenger/";
+const url = `http://localhost:${import.meta.env.VITE_PORT}/messenger/`;
 
 var Messages = ({ userId, room, chatUsers }) => {
   const [messages, setMessages] = useState(null);

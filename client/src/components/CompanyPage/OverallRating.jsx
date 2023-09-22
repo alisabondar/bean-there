@@ -32,7 +32,7 @@ return (
       <h2 className=" py-1"><BeanRating rating={calculateAverage(prop.ratings)} /></h2>
       <p className="text-xs py-1">{`${prop.total} reviews`}</p>
     </div>
-    <div className="p-4">
+    <div className="p-4 outerRatings">
       <CompanyRatings rating={prop.ratings}/>
     </div>
   </div>

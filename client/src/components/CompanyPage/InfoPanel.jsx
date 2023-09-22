@@ -7,7 +7,7 @@ export default function InfoPanel( {business} ) {
   }
 
   return (
-    <div className="info-panel-container">
+    <div className="info-panel-container sticky top-0 z-10 max-w-[32rem] mb-7">
       <div>
           <button
               className="md:hidden block bg-primary py-2 px-4 rounded-box mb-4 ml-10"
@@ -16,7 +16,7 @@ export default function InfoPanel( {business} ) {
               View Business Details
           </button>
 
-          <div className={`business-details mx-auto p-2 sm:p-4 md:p-5 mt-2 bg-primary rounded-box md:block ${showDetails ? 'block' : 'hidden'}`}>
+          <div className={`business-details mx-auto p-2 sm:p-4 md:p-5 mt-2 bg-primary ml-10 rounded-box md:block ${showDetails ? 'block' : 'hidden'}`}>
               <div className="border-b pb-2 sm:pb-4 mb-2 sm:mb-4">
                   <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Business Details</h2>
                   <a

@@ -17,18 +17,17 @@ const WriteReview = (prop) => {
               "body" : value,
               "rating" : selectedBean || 1,
               "location_name" : prop.name,
-              "user_id" : 20,
+              "user_id" : prop.profile.id,
               "reviews_photos": ["https://picsum.photos/800/400", "https://picsum.photos/800/500", "https://picsum.photos/800/600"],
-              "user": {"username": "Java Drinker"}
+              "user": {"username": prop.profile.username}
           }
-            axios.post(`http://localhost:${import.meta.env.VITE_PORT}/company/900/reviews/add`, data).then((res) => {
+            axios.post(`http://localhost:${import.meta.env.VITE_PORT}/company/${prop.place_id}/reviews/add`, data).then((res) => {
               console.log(res)
             }).catch((err) => console.log(err))
             updateValue("")
           }}>
             <button className=" btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          <h3 className="font-bold text-lg">Write a Review for [company Name]</h3>
-
+          <h3 className="font-bold text-lg">Write a Review for {prop.name}</h3>
           <p className="py-4"></p>
           <textarea className="textarea textarea-bordered w-full" placeholder="Write a review..." value={value} onChange={(e) => {
             updateValue(e.target.value)

@@ -14,7 +14,7 @@ function NavBar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/user/profile", { withCredentials: true })
+      .get(`http://localhost:${import.meta.env.VITE_PORT}/user/profile`, { withCredentials: true })
       .then((res) => {
         setProfile(res.data);
       })

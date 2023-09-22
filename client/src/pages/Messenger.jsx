@@ -8,7 +8,7 @@ import { FaHome, FaSearch } from "react-icons/fa";
 import { GrReturn } from "react-icons/gr";
 
 var USER_ID = 1;
-const url = "http://localhost:5001/messenger/";
+const url = `http://localhost:${import.meta.env.VITE_PORT}/messenger/`;
 
 export default function Messenger({ id }) {
   const [room, setRoom] = useState(null);

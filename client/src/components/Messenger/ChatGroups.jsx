@@ -20,7 +20,7 @@ const testGroup = (room, key, changeRoom) => {
     </div>
   );
 };
-const url = "http://localhost:5001/messenger/";
+const url = `http://localhost:${import.meta.env.VITE_PORT}/messenger/`;
 
 var ChatGroups = ({ id, setRoom, search }) => {
   const [rooms, setRooms] = useState(null);
