@@ -8,7 +8,7 @@ var db = require("../db/database");
 
 var getReviews = async (req: Request, res: Response) => {
   const placeId = req.params.placeId;
-  console.log(placeId);
+  // console.log(placeId);
 
   Review.findAll({
     where: { location_id: placeId },
@@ -104,21 +104,26 @@ var addReview = async (req: Request, res: Response) => {
 
 const getPlaceDetails = (req: Request, res: Response): void => {
   const { placeId } = req.params;
-  console.log(placeId)
+  // console.log(placeId);
 
   const url = `https://maps.googleapis.com/maps/api/place/details/json?&place_id=${placeId}&key=${process.env.GOOGLEAPI_KEY}`;
 
-  axios.get(url)
-    .then(response => {
-      if (response.data.status === 'OK') {
+  axios
+    .get(url)
+    .then((response) => {
+      if (response.data.status === "OK") {
         res.status(200).json(response.data);
       } else {
-        res.status(400).json({ status: 'Error', message: response.data.status });
+        res
+          .status(400)
+          .json({ status: "Error", message: response.data.status });
       }
     })
-    .catch(error => {
-      console.error('Error fetching place details:', error);
-      res.status(500).json({ status: 'Error', message: 'Internal Server Error' });
+    .catch((error) => {
+      console.error("Error fetching place details:", error);
+      res
+        .status(500)
+        .json({ status: "Error", message: "Internal Server Error" });
     });
 };
 

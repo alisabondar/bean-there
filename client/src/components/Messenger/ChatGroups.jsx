@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../axios-config";
 import { useEffect, useState } from "react";
 
 const testGroup = (room, key, changeRoom) => {
@@ -20,7 +21,7 @@ const testGroup = (room, key, changeRoom) => {
     </div>
   );
 };
-const url = "http://localhost:5001/messenger/";
+const url = "/messenger/";
 
 var ChatGroups = ({ id, setRoom, search }) => {
   const [rooms, setRooms] = useState(null);
