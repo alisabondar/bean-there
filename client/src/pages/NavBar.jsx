@@ -26,7 +26,7 @@ function NavBar() {
       withCredentials: true,
     });
     if (response.data.success) {
-      state.active = false;
+      state.active = 0;
       navigate("/");
     }
   };

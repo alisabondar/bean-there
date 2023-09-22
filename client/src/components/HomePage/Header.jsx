@@ -25,7 +25,7 @@ function Header() {
       withCredentials: true,
     });
     if (response.data.success) {
-      state.active = false;
+      state.active = 0;
       navigate("/");
     }
   };
@@ -53,7 +53,7 @@ function Header() {
           <li className="hover:scale-110 transition duration-300 ease-in-out">
             <a href="#">Contacts</a>
           </li>
-          {state.active ? (
+          {state.active > 0 ? (
             <>
               <li className="text-xl font-bold hover:text-[#9F643D] hover:scale-110 transition duration-300 ease-in-out">
                 <Link to="/profile">Profile</Link>
