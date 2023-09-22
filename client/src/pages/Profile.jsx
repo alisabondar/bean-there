@@ -43,8 +43,8 @@ function Profile() {
       .get("/user/profile", { withCredentials: true })
       .then((res) => {
         // console.table(res.data);
-        if (!state.active) {
-          state.active = true;
+        if (state.active === 0) {
+          state.active = res.data.id;
         }
         setProfile(res.data);
       })
@@ -127,8 +127,7 @@ function Profile() {
 
   const HandleLocation = () => {
     state.location = true;
-  }
-
+  };
 
   return (
     <AnimatePresence>

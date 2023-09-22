@@ -57,7 +57,7 @@ var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
                 if (err) {
                     throw err;
                 }
-                res.send({ success: true });
+                res.send({ success: true, userId: user.id });
             });
         }
     })(req, res, next);
@@ -97,7 +97,7 @@ var verifyOtp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
                 if (err) {
                     throw err;
                 }
-                res.send({ success: true });
+                res.send({ success: true, userId: user.id });
             });
         }
     })(req, res, next);
