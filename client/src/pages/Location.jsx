@@ -16,6 +16,9 @@ export default function Location() {
   const [zip, setZip] = useState({});
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
+
+
   const photos = [one, two, three, four, five];
   const wrapperRef = useRef(null);
 
@@ -165,6 +168,22 @@ export default function Location() {
   };
 
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handlepopClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handlepopClick);
+    };
+  }, []);
+
+  const handlepopClick = (e) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+      setFilterOpen(false);
+    }
+  };
+
+
+
 
   return (
 
@@ -202,7 +221,7 @@ export default function Location() {
 
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52 "
+                className="dropdown-content z-[100] menu p-2 shadow bg-base-100 rounded-box w-52 ${filterOpen ? 'open' : ''} "
               >
                 <li>
                   <a
@@ -236,7 +255,9 @@ export default function Location() {
                 </li>
               </ul>
             </div>
-            <button className="bg-[#A98E77] text-white font-bold py-2 px-6 rounded hover:bg-[#61493C]  hover:scale-110 transition duration-300 ease-in-out ">
+            <button className="bg-[#A98E77] text-white font-bold py-2 px-6 rounded hover:bg-[#61493C]  hover:scale-110 transition duration-300 ease-in-out
+            "
+            style={{ outline: 'none' }}>
               Search
             </button>
           </div>
