@@ -38,11 +38,30 @@ const User = db.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    otp: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
   },
   {
     timestamps: false,
   }
 );
+
+const OtpModel = db.define('otp', {
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true
+  },
+  otp: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
+},
+{
+  timestamps: false,
+});
 
 const Wishlist = db.define(
   "wishlists",
@@ -84,4 +103,4 @@ const Friend = db.define(
 
 Friend.belongsTo(User, { foreignKey: "friend_id", as: "users" });
 
-module.exports = { User, Wishlist, Friend };
+module.exports = { User, Wishlist, Friend, OtpModel };

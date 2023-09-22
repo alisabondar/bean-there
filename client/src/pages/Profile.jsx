@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import axios from "../axios-config";
 import Bio from "../components/profilePage/Bio.jsx";
 import Calendar from "../components/profilePage/Calendar.jsx";
 import Favs from "../components/profilePage/Favs.jsx";
@@ -10,9 +10,9 @@ import Messenger from "./Messenger.jsx";
 
 import {
   headContainerAnimation,
-  headContentAnimation,
-  headTextAnimation,
-  slideAnimation,
+  // headContentAnimation,
+  // headTextAnimation,
+  // slideAnimation,
 } from "../animation/motion";
 
 import {
@@ -22,10 +22,11 @@ import {
 } from "react-icons/bs";
 import { FaUserFriends, FaHome } from "react-icons/fa";
 import { GiCoffeeCup } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import state from '../store';
 
 function Profile() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -36,8 +37,12 @@ function Profile() {
   // Fetch user profile data
   useEffect(() => {
     axios
-      .get("http://localhost:5001/user/profile", { withCredentials: true })
+      .get("/user/profile", { withCredentials: true })
       .then((res) => {
+        // console.table(res.data);
+        if (!state.active) {
+          state.active = true;
+        }
         setProfile(res.data);
       })
       .catch(() => {
@@ -49,7 +54,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5001/user/${profile.id}/friends`, {
+        .get(`/user/${profile.id}/friends`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -65,7 +70,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5001/user/${profile.id}/reviews`, {
+        .get(`/user/${profile.id}/reviews`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -81,7 +86,7 @@ function Profile() {
   useEffect(() => {
     if (profile.id) {
       axios
-        .get(`http://localhost:5001/user/${profile.id}/wishlist`, {
+        .get(`/user/${profile.id}/wishlist`, {
           withCredentials: true,
         })
         .then((res) => {

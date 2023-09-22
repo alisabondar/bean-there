@@ -2,18 +2,31 @@ var express = require("express");
 var router = express.Router();
 var {
   login,
+  logout,
   register,
+  googleLogin,
+  googleCB,
+  githubLogin,
+  githubCB,
   getWishlist,
   getUserReviews,
   getFriends,
   updateWishlist,
-  getProfile
+  getProfile,
+  verifyOtp
 } = require("../controllers/usersController");
 
 // all these endpoints start with /user*
 
 router.post("/login", login);
+router.post("/logout", logout);
 router.post("/register", register);
+router.post("/verifyotp", verifyOtp);
+
+router.get("/google", googleLogin);
+router.get("/google/callback", googleCB);
+router.get("/github", githubLogin);
+router.get("/github/callback", githubCB);
 
 router.get("/profile", getProfile);
 
