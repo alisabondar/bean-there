@@ -1,7 +1,7 @@
 //state manager
 import { proxy } from 'valtio';
 
-const state = proxy ({
+const state = proxy({
   homePage: true,
   login: false,
   register: false,
@@ -10,7 +10,7 @@ const state = proxy ({
   friendsPage: false,
   favPage: false,
   calendarPage: false,
-  active: false,
+  active: 0,
 });
 
 export default state;
