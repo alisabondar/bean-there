@@ -18,13 +18,17 @@ var getCurrent = async (req: Request, res: Response) => {
   const filterUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&keyword=${keyword}&type=${type}&rankby=${rankby}&key=${apiKey}`
 
   if (rankby) {
-    axios.get(filterUrl)
+    if (rankby === 'distance') {
+      axios.get(filterUrl)
       .then(result => {
         res.json(result.data.results);
       })
       .catch(err => {
         console.error('Cannot fetch nearby locations', err);
       });
+    } else if (rankby === 'reviews') {
+
+    }
   } else {
     axios.get(requestUrl)
       .then(result => {

@@ -51,13 +51,17 @@ var getCurrent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const requestUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&radius=${radius}&keyword=${keyword}&type=${type}&key=${apiKey}`;
     const filterUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&keyword=${keyword}&type=${type}&rankby=${rankby}&key=${apiKey}`;
     if (rankby) {
-        axios_1.default.get(filterUrl)
-            .then(result => {
-            res.json(result.data.results);
-        })
-            .catch(err => {
-            console.error('Cannot fetch nearby locations', err);
-        });
+        if (rankby === 'distance') {
+            axios_1.default.get(filterUrl)
+                .then(result => {
+                res.json(result.data.results);
+            })
+                .catch(err => {
+                console.error('Cannot fetch nearby locations', err);
+            });
+        }
+        else if (rankby === 'reviews') {
+        }
     }
     else {
         axios_1.default.get(requestUrl)
