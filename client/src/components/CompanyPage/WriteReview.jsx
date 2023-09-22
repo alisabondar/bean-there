@@ -8,7 +8,7 @@ const WriteReview = (prop) => {
 
   return (
     <>
-      <button className="btn btn-xs md:btn-sm lg:btn-md btn-primary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]" onClick={() => document.getElementById('write_review').showModal()}>WRITE REVIEW</button>
+      <button className="btn btn-xs md:btn-sm lg:btn-md btn-secondary m-1 md:m-2 transform hover:translate-y-[-2px] hover:shadow-lg min-w-[4rem] md:min-w-[6rem] lg:max-w-[8rem]" onClick={() => document.getElementById('write_review').showModal()}>WRITE REVIEW</button>
       <dialog id="write_review" className="modal">
         <div className="modal-box relative">
           <form method="dialog" onSubmit={(e) => {

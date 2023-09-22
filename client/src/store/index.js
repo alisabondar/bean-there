@@ -6,10 +6,11 @@ const state = proxy ({
   login: false,
   register: false,
   postsPage: false,
+  location: false,
   friendsPage: false,
   favPage: false,
   calendarPage: false,
-
+  active: false,
 });
 
 export default state;

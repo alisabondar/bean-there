@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import logoImage from "./img/logo.png";
-import { Link, NavLink } from "react-router-dom";
-import axios from "axios";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import axios from "../axios-config.js";
+import state from '../store';
 
 function NavBar() {
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [profile, setProfile] = useState({});
 
@@ -17,6 +19,16 @@ function NavBar() {
         console.log("error getting profile");
       });
   }, []);
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const response =  await axios.post('/user/logout', 'Logout', { withCredentials: true });
+    if (response.data.success) {
+      state.active = false;
+      navigate('/');
+    }
+  }
+
   return (
     <div className="blurred">
       <div className="mx-auto max-w-7xl px-2 py-2 sm:px-6 lg:px-8">
@@ -121,7 +133,7 @@ function NavBar() {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700">
                     Settings
                   </a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700">
+                  <a onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer">
                     Sign out
                   </a>
                 </div>

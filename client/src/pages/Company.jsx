@@ -3,8 +3,10 @@ import Toolbar from '../components/CompanyPage/ToolBar';
 import InfoPanel from '../components/CompanyPage/InfoPanel';
 import BeanRating from '../components/CompanyPage/BeanRating';
 import Carousel from '../components/CompanyPage/Carousel';
+import NavBar from "./NavBar.jsx";
 import axios from "axios"
 import { useState, useEffect } from 'react';
+
 
 export default function Company() {
   const [reviews, updateReviews] = useState([])
@@ -45,26 +47,18 @@ export default function Company() {
     }
   }, []);
 
-  const mockImages = [
-    '/assets/coffee-mock-1.jpeg',
-    '/assets/coffee-mock-2.jpeg',
-    '/assets/coffee-mock-3.jpeg',
-    '/assets/coffee-mock-4.jpeg',
-    '/assets/coffee-mock-5.jpeg',
-    '/assets/coffee-mock-6.jpeg',
-    '/assets/coffee-mock-7.jpeg',
-  ];
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="h-full relative">
-      <div className="flex justify-center items-center h-full">
-        <div className="min-h-screen mt-10 m-auto max-w-[67rem] min-w-[30rem] ">
+    <div className="h-full relative bg-[#f2eada] shadow-crawl ">
+      <NavBar/>
+      <div className="flex justify-center items-center h-full px-4 md:px-0 mx-5 ">
+
+        <div className="flex flex-col items-center mt-10 mx-auto w-full max-w-screen-2xl ">
           {/* Title and Ratings */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center w-full">
             <h1 className="text-5xl font-bold mb-2">{business.name}</h1>
             <div className="flex justify-center my-2">
               <div className="flex space-x-4">
@@ -86,26 +80,34 @@ export default function Company() {
             </div>
           </div>
           {/* PhotoCarousel */}
-          <div className="mx-auto w-full max-w-[95%]">
-            <Carousel photos={business.photos} />
+
+          <div className="mx-auto w-full max-w-[95%] sm:max-w-full shadow-float rounded-2xl">
+            <div className="carousel-float">
+              <Carousel photos={business.photos} />
+            </div>
           </div>
 
+
           {/* ToolBar and Reviews */}
-          <div className="flex flex-wrap justify-center pt-12">
+          <div className="flex flex-wrap justify-center pt-12 w-3/4 ">
             <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8">
               <div className="col-span-2 sm:col-span-2">
                 <div className="flex-col">
-                  <div id="tool-bar" className="w-full h-[4rem] mt-2">
-                    <Toolbar place_id={business.place_id} place_name={business.name} />
+                <div id="tool-bar" className="toolbar-bg w-full h-[8rem] mt-2 relative z-[2]">
+
+                  <div className="absolute inset-0 flex justify-center items-end rounded-lg bg-opacity-50">
+                    <div className="w-8/12 h-full flex justify-center items-center z-[2]">
+                      <Toolbar place_id={business.place_id} place_name={business.name} />
+                    </div>
                   </div>
+                </div>
                   <div id="reviews" className="h-full overflow-auto">
                     <Reviews reviews={reviews} updateAvg={updateAvg} name={business.name}/>
                   </div>
                 </div>
               </div>
-
               {/* InfoPanel */}
-              <div id="info-cards" className="sticky top-0 z-10 h-[200px]">
+              <div id="info-cards" className="sticky top-0 z-10 h-[20vh] md:h-[30vh] lg:h-[40vh] xl:h-[50vh]">
                 <InfoPanel business={business}/>
               </div>
             </div>

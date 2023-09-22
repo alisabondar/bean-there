@@ -1,13 +1,35 @@
 import { Request, Response, NextFunction } from "express";
 var passport = require('passport');
-var initializePassport = require('../passport-config.js');
+require('../passports/passport-external-config');
+var initializeLocal = require('../passports/passport-local-config');
 var db = require("../db/database");
-var { User, Friend } = require("../models/userModel");
+var { User, Friend, OtpModel } = require("../models/userModel");
 var bcrypt = require("bcrypt");
-
-initializePassport(passport);
+var sendOTPVerificationEmail = require("../utils/nodemailer");
 
 var login = async (req: any, res: Response, next: NextFunction) => {
+  const user = await User.findOne({ where: { email: req.body.email }, raw: true});
+  if (user && user.otp === true) {
+    // verify user and pass
+    const { id, otp } = user;
+
+    // we want to check if the user has an entry in the otp table
+    const user_id = id;
+    const otpExists = await OtpModel.findOne({ where: user_id });
+    if (otpExists) {
+      await OtpModel.destroy({ where: { user_id: id }});
+    }
+  // capture the otp (log it for dev)
+    // email it
+    const otpNumber = await sendOTPVerificationEmail(user.email);
+    const newOtp = await OtpModel.create({ user_id: id, otp: otpNumber});
+    console.log('new OTP created: ', newOtp.dataValues);
+    const info = newOtp.toJSON().user_id;
+    // send a response that triggers a otp form ont he front end
+    return res.status(201).send({ mssg: "otp created", otp: true, user_id: info });
+  }
+    // else do normal passport
+  initializeLocal(passport);
   passport.authenticate('local', (err: any, user: any, info: any) => {
     if (err) {
       throw err
@@ -27,9 +49,65 @@ var login = async (req: any, res: Response, next: NextFunction) => {
   })(req, res, next)
 };
 
+var logout = async (req: Request, res: Response, next: NextFunction) => {
+  req.logout((err: any) => {
+    if (err) { return next(err); }
+    res.clearCookie('user');
+    res.send({ success: true });
+  });
+};
+
+var verifyOtp = async (req: Request, res: Response, next: NextFunction) => {
+  // they would only come here if they have otp;
+  const { userId, otp } = req.body;
+
+  // check and delete otp
+  const verifyOtp = await OtpModel.findOne({ where: { user_id: userId, otp } });
+
+    if (!verifyOtp) {
+      return res.send({ success: false, message: "Incorrect Passcode"});
+    }
+    const { user_id } = verifyOtp.toJSON();
+    await OtpModel.destroy({ where: { user_id, otp } });
+  // else do normal passport
+  initializeLocal(passport);
+  passport.authenticate('local', (err: any, user: any, info: any) => {
+    if (err) {
+      throw err
+    };
+    if (!user) {
+      // failure
+      res.send({ success: false, message: 'Invalid login credentials' });
+    } else {
+      // authentication success case
+      req.login(user, (err: any) => {
+        if (err) {
+          throw err
+        }
+        res.send({ success: true });
+      })
+    }
+  })(req, res, next)
+
+};
+
+var githubLogin = passport.authenticate('github', { scope: ["profile"]});
+
+var githubCB = passport.authenticate('github', {
+    successRedirect: 'http://localhost:5173/profile',
+    failureRedirect: 'http://localhost:5173/'
+  });
+
+var googleLogin = passport.authenticate('google', { scope: ["profile", "email"]});
+
+var googleCB = passport.authenticate('google', {
+    successRedirect: 'http://localhost:5173/profile',
+    failureRedirect: 'http://localhost:5173/'
+  });
+
 var getProfile = async (req: any, res: Response) => {
-  console.log('this is the req.user!!!:', req.user);
   if (!req.user) { return res.send({ error: "user is not logged in"})};
+  console.log('this is the active user: ', req.user);
 
   try {
     const user = await User.findOne({ where: { id: req.user }, attributes: ["id", "username", "email", "photo", "banner_photo", "about", "private"], raw: true});
@@ -41,23 +119,29 @@ var getProfile = async (req: any, res: Response) => {
 };
 
 var register = async (req: Request, res: Response) => {
-  const { username, email, password, photo, banner_photo, about } = req.body;
+  const { username, email, password, photo, banner_photo, about, otp } = req.body;
+
+  const user = await User.findOne({ where: { email: email }});
+
+  if (user) {
+    return res.send({ message: "There is already an account linked to this email."})
+  }
 
   if (!username) {
-    return res.status(400).send({ error: "please enter a username" });
+    return res.status(400).send({ message: "Please enter a username" });
   }
 
   if (!email) {
-    return res.status(400).send({ error: "please enter a email" });
+    return res.status(400).send({ message: "Please enter a email" });
   }
 
   if (!password) {
-    return res.status(400).send({ error: "please enter a password" });
+    return res.status(400).send({ message: "Please enter a password" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log(hashedPassword);
-  User.create({ username, email, password: hashedPassword, photo, about })
+
+  User.create({ username, email, password: hashedPassword, photo, about, otp })
     .then((user: { dataValues: object }) => {
       res
         .status(201)
@@ -199,4 +283,4 @@ var updateWishlist = async (req: Request, res: Response) => {
 
 
 
-module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
+module.exports = { login, logout, googleLogin, googleCB, githubLogin, githubCB, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile, verifyOtp };

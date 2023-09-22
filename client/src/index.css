@@ -4,13 +4,6 @@
 
 
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-
-
 @font-face {
   font-family: 'Poppins';
   src: url('/path-to-poppins-font/Poppins-Regular.ttf') format('truetype');
@@ -21,9 +14,20 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev::before {
   color: rgb(93, 34, 4) !important;
+  margin-left: 20px;
 }
+
+.slick-prev {
+  z-index: 1;
+}
+
+.slick-next:before {
+  color: rgb(93, 34, 4) !important;
+  margin-right: 20px;
+}
+
 .progressGrid {
   width: 29rem;
   height: 9rem;
@@ -60,6 +64,12 @@ body {
 }
 
 .form-box h2 {
+  font-size: 2rem;
+  color:rgb(243, 192, 129);
+  text-align: center;
+}
+
+.form-box2 h2 {
   font-size: 2rem;
   color:rgb(243, 192, 129);
   text-align: center;
@@ -273,8 +283,37 @@ font-weight: 600;
   opacity: 0;
 }
 
+.locationWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding: 25px;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* Needed for top, left, and transform to work as intended */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Adjust this percentage as needed */
+  min-height: 80%; /* Minimum height */
+  max-width: 1700px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(100px);
+  box-shadow: 0 0 30px rgba(0,0,0, .5);
+  margin: 0 auto;
+  overflow-y: hidden;
+}
+
+
 
 /*  ====================================================================================== */
+.shadow-crawl {
+  box-shadow: inset 15px 0px 20px -10px rgba(0,0,0,0.25), inset -15px 0px 20px -10px rgba(0,0,0,0.25);
+}
+
 .bg-combined {
   position: relative;
   background-position: center;
@@ -289,7 +328,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../public/assets/coffeeBackground.png');
+  background-image: url('../assets/coffeeBackground.png');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -303,7 +342,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../public/assets/coffeebeans.jpg');
+  background-image: url('../assets/coffeebeans.jpg');
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -311,3 +350,38 @@ font-weight: 600;
 }
 
 
+.shadow-float {
+  box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.2);
+  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%), url(../assets/coffeebeans.jpg);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  padding: .5rem;
+  height: auto;
+}
+
+.carousel-float {
+  margin-bottom: .5rem;
+}
+
+.toolbar-bg {
+  position: relative;
+  overflow: visible;
+}
+
+.shadow-inner {
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.128);
+}
+
+#tool-bar, #reviews {
+  width: 100%;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -39,7 +39,8 @@ const Map = ({ user, zip, count, cafeList }) => {
 
   }, [zip, cafeList]);
 
-  return <div id="map" className="basis-1/2 rounded-xl shadow-xl" style={{ height: "500px" }}></div>;
+  return <div id="map" className="w-1/3  basis-1/2 p-5 rounded-xl shadow-xl"></div>;
+
 };
 
 export default Map;

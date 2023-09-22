@@ -30,7 +30,7 @@ var ChatGroups = ({ id, setRoom, search }) => {
 
   var getChats = (id) => {
     axios
-      .get(url + `rooms/user/${id}`)
+      .get(url + `rooms/user/${id}`, {withCredentials: true})
       .then((result) => {
         console.log(result.data);
         var userRooms = result.data.rooms;
