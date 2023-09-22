@@ -40,7 +40,7 @@ const Map = ({ user, zip, count, cafeList }) => {
 
   }, [zip, cafeList]);
 
-  return <div id="map" className="w-1/3  basis-1/2 p-5 rounded-xl shadow-xl"></div>;
+  return <div id="map" className="w-1/3  basis-1/2 p-5 rounded-xl shadow-xl mb-7"></div>;
 
 };
 

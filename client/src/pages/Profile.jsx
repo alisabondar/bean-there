@@ -6,12 +6,13 @@ import Calendar from "../components/profilePage/Calendar.jsx";
 import Favs from "../components/profilePage/Favs.jsx";
 import Friends from "../components/profilePage/Friends.jsx";
 import NavBar from "./NavBar.jsx";
+import Location from "./Location.jsx";
+import { useSnapshot } from 'valtio';
+import state from '../store';
+
 
 import {
   headContainerAnimation,
-  headContentAnimation,
-  headTextAnimation,
-  slideAnimation,
 } from "../animation/motion";
 
 import {
@@ -25,6 +26,8 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
+console.log(state.location)
+  const snap = useSnapshot(state);
 
   const [profile, setProfile] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -113,10 +116,16 @@ function Profile() {
     }
   };
 
+  const HandleLocation = () => {
+    state.location = true;
+  }
+
+
   return (
 
     <AnimatePresence>
     <div>
+    {snap.location && <Location />}
       {/* Link to external stylesheets */}
       <link
         rel="stylesheet"
@@ -252,9 +261,9 @@ function Profile() {
                   {/* Buttons */}
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      {/* Button: Coffee */}
+                      {/* Button: Location */}
                       <button
-                        onClick={() => handleButtonClick("location")}
+                        onClick={HandleLocation}
                         className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
                         style={{
