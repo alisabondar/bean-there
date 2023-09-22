@@ -13,9 +13,6 @@ import { useSnapshot } from "valtio";
 
 import {
   headContainerAnimation,
-  // headContentAnimation,
-  // headTextAnimation,
-  // slideAnimation,
 } from "../animation/motion";
 
 import {
@@ -106,34 +103,103 @@ function Profile() {
   const handleButtonClick = (component) => {
     setSelectedComponent(component);
   };
+  const slideVariants = {
+    hidden: {
+      x: "-100%", // Start off-screen to the left
+      opacity: 0,
+    },
+    visible: {
+      x: "0%", // Slide in to the center
+      opacity: 1,
+      transition: {
+        duration: 0.3, // Adjust the duration as needed
+        ease: "easeInOut", // Use the easing function you prefer
+      },
+    },
+    exit: {
+      x: "100%", // Slide out to the right
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    },
+  };
+
 
   // Render the selected component
   const renderComponent = () => {
-    switch (selectedComponent) {
-      case "calendar":
-        return <Calendar />;
-      case "favs":
-        return <Favs wishlist={wishlist} />;
-      case "friends":
-        return <Friends friends={friends} />;
-      case "messenger":
-        return <Messenger id={profile.id} />;
-      case "bio":
-        return <Bio about={profile.about} reviews={reviews} />;
-      default:
-        return null;
-    }
+    return (
+      <AnimatePresence mode="wait"r>
+        {selectedComponent === "calendar" && (
+          <motion.div
+            key="calendar"
+            variants={slideVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <Calendar />
+          </motion.div>
+        )}
+        {selectedComponent === "favs" && (
+          <motion.div
+            key="favs"
+            variants={slideVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <Favs wishlist={wishlist} />
+          </motion.div>
+        )}
+        {selectedComponent === "friends" && (
+          <motion.div
+            key="friends"
+            variants={slideVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <Friends friends={friends} />
+          </motion.div>
+        )}
+        {selectedComponent === "messenger" && (
+          <motion.div
+            key="messenger"
+            variants={slideVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <Messenger id={profile.id} />
+          </motion.div>
+        )}
+        {selectedComponent === "bio" && (
+          <motion.div
+            key="bio"
+            variants={slideVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <Bio about={profile.about} reviews={reviews} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
   };
+
 
   const HandleLocation = () => {
     state.location = true;
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence >
       <div>
         {/* Link to external stylesheets */}
-        {snap.location && <Location />}
+        {snap.location && <Location  />}
         <link
           rel="stylesheet"
           href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
