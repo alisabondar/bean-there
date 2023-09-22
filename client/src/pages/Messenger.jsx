@@ -39,9 +39,9 @@ export default function Messenger({ id }) {
   return loading ? (
     <>Loading chats...</>
   ) : (
-    <div className="flex w-full h-[80vh] bg-secondary/[0.7]">
-      <div className="w-4fu h-full overflow-auto max-w-[250px] min-w-[240px] border-r border-accent  bg-stripes">
-        <div className="flex justify-between mt-2 mx-1 items-center bg-secondary p-2 rounded-md  shadow ">
+    <div className="flex w-full h-[80vh] bg-secondary/[0.7] ">
+      <div className="w-4fu h-full overflow-auto max-w-[250px] min-w-[240px] border-r border-accent  bg-stripes rounded-lg">
+        <div className="flex justify-between mt-2 mx-1 items-center bg-secondary p-2  shadow rounded-lg ">
           <input
             type="text"
             value={search}
@@ -53,7 +53,7 @@ export default function Messenger({ id }) {
         </div>
         <ChatGroups id={id} setRoom={setRoom} search={search} />
       </div>
-      <div className="w-full h-full flex flex-items-end justify-end flex-col bg-primary bg-stripes">
+      <div className="w-full h-full flex flex-items-end justify-end flex-col bg-primary bg-stripes ">
         {room ? (
           <>
             <Messages userId={id} room={room} chatUsers={room.chat_members} />
