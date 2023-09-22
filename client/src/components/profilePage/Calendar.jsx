@@ -120,7 +120,7 @@ export default function Example() {
     <>
       <div>
         <h1 className="mb-6 text-3xl pb-4 border-b-2 border-accent">
-          BrewBuds and BrewVents
+          BrewVents
         </h1>
         {displayAddEvent && (
           <div className="w-[100%] z-20 bg-secondary/[0.8] mb-4 rounded-md p-4 relative">

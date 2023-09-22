@@ -53,6 +53,7 @@ var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 },
             ],
         });
+        console.log(roomsWithMembers);
         res.status(200).send({
             mssg: "you have reached the getRooms controller",
             rooms: roomsWithMembers,
