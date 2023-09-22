@@ -16,28 +16,18 @@ export default function Location() {
   const [zip, setZip] = useState({});
   const [cafeList, setCafeList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filterOpen, setFilterOpen] = useState(false);
-
-
+  const [wishlist, setWishlist] = useState(false);
   const photos = [one, two, three, four, five];
   const wrapperRef = useRef(null);
-
-  useEffect(() => {
-    // THIS IS USER ID IF THEY LOGGED IN IF 0 then not LOGGED IN
-    console.log(state.active);
-  }, []);
 
   const fetchCafeList = async (param, filter) => {
     const lat = param.lat || loc.lat;
     const long = param.lng || loc.lng;
 
-    console.log(lat,long)
-
     if (filter === undefined) {
       axios
         .get(
-          `http://localhost:${
-            import.meta.env.VITE_PORT
+          `http://localhost:${import.meta.env.VITE_PORT
           }/location/search/${lat.toString()}/${long.toString()}`
         )
         .then((res) => {
@@ -56,8 +46,7 @@ export default function Location() {
     } else {
       axios
         .get(
-          `http://localhost:${
-            import.meta.env.VITE_PORT
+          `http://localhost:${import.meta.env.VITE_PORT
           }/location/search/${lat.toString()}/${long.toString()}/${filter}`
         )
         .then((res) => {
@@ -114,22 +103,19 @@ export default function Location() {
     );
   }, []);
 
-  let count = 1;
-  const address = (name) => {
-    count++;
-    if (count === 21) {
-      count = 0;
-    }
+  const address = (shop, ind) => {
+    ind += 1;
+    let name = shop.vicinity || shop.formatted_address;
     return (
       <h2 className="card-title">
-        {count}: {name}
+        {ind}: {name}
       </h2>
     );
   };
 
 
 
-  const handleFilter = (e) => {
+  const handleFilter = async (e) => {
     const filter = e.currentTarget.getAttribute("data-name");
     if (filter === "relevance") {
       if (zip) {
@@ -145,13 +131,33 @@ export default function Location() {
       }
     } else {
       // wishlist
-      // axios.get(`http://localhost:${import.meta.env.VITE_PORT}/${userId}/wishlist`)
+      const userId = state.active;
+      if (userId === 0 || userId === undefined) {
+        toast.error("Please login to see your wishlist.");
+      } else {
+        setWishlist(true);
+        try {
+          const wishlistRes = await axios.get(`/user/${userId}/wishlist`);
+          const data = wishlistRes.data.wishlist;
+          const places = [];
+
+          for (let i = 0; i < data.length; i++) {
+            try {
+              const placeRes = await axios.get(
+                `/company/${data[i].location_id}/details`
+              );
+              places.push(placeRes.data.result);
+            } catch (err) {
+              console.error("Cannot fetch place ids", err);
+            }
+          }
+          setCafeList(places.filter((place) => place !== null));
+        } catch (err) {
+          console.error("Cannot fetch wishlist", err);
+        }
+      }
     }
   };
-
-
-
-
 
   useEffect(() => {
     document.addEventListener('mousedown', handleOuterClick);
@@ -166,7 +172,6 @@ export default function Location() {
       state.location = false;
     }
   };
-
 
   useEffect(() => {
     document.addEventListener('mousedown', handlepopClick);
@@ -208,16 +213,16 @@ export default function Location() {
             />
             <div className="dropdown">
 
-            <button tabIndex={0}
-             style={{ display: "flex", alignItems: "center" }}
-             className=" bg-[#A98E77] text-white  font-bold py-3 px-5 pr-7 rounded hover:bg-[#61493C]   hover:scale-110 transition duration-300 ease-in-out">
-          <img
-            src={filterIcon}
-            alt="Filter Icon"
-            className="mr-3 h-4 w-4"
-          />
-              Filter
-            </button>
+              <button tabIndex={0}
+                style={{ display: "flex", alignItems: "center" }}
+                className=" bg-[#A98E77] text-white  font-bold py-3 px-5 pr-7 rounded hover:bg-[#61493C]   hover:scale-110 transition duration-300 ease-in-out">
+                <img
+                  src={filterIcon}
+                  alt="Filter Icon"
+                  className="mr-3 h-4 w-4"
+                />
+                Filter
+              </button>
 
               <ul
                 tabIndex={0}
@@ -257,7 +262,7 @@ export default function Location() {
             </div>
             <button className="bg-[#A98E77] text-white font-bold py-2 px-6 rounded hover:bg-[#61493C]  hover:scale-110 transition duration-300 ease-in-out
             "
-            style={{ outline: 'none' }}>
+              style={{ outline: 'none' }}>
               Search
             </button>
           </div>
@@ -270,7 +275,7 @@ export default function Location() {
         ) : (
           <div className="flex space-x-3 p-5 mt-5">
             <LocList data={cafeList} photos={photos} address={address} />
-            <Map user={loc} zip={zip} count={count} cafeList={cafeList} />
+            <Map user={loc} zip={zip} cafeList={cafeList} wishlist={wishlist}/>
           </div>
         )}
       </div>
