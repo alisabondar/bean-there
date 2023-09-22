@@ -268,7 +268,7 @@ function Profile() {
                         <div className="flex justify-center py-6 lg:pt-4 pt-8">
                           {/* Button: Coffee */}
                           <button
-                            onClick={() => handleButtonClick("location")}
+                            onClick={HandleLocation}
                             className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
                             style={{
