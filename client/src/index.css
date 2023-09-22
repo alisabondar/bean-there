@@ -364,3 +364,29 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@media only screen and (max-width: 1250px) {
+  .ratingSection {
+    display: block;
+  }
+  .overAll {
+    text-align: center;
+  }
+  .userSection {
+    display: block;
+  }
+  .userName {
+    justify-content: center;
+    padding-bottom: 6%;
+  }
+  .beanSection {
+    padding-top: 3%;
+  }
+  .testGrid {
+    grid: none !important;
+  }
+  #info-cards {
+    width: 100%;
+  }
+}
+

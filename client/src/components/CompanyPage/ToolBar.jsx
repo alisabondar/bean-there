@@ -3,13 +3,13 @@ import ShareForm from './ShareModal';
 import axios from 'axios';
 import WriteReview from './WriteReview';
 
-export default function Toolbar({ place_id, place_name }) {
+export default function Toolbar({ place_id, place_name, profile }) {
   const [favorite, setFavorite] = useState(false);
   const currentPageLocationId = place_id;
 
   const fetchFavorite = async () => {
     try {
-      const userId = 1;
+      const userId = profile.id;
       const res = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/user/${userId}/wishlist`);
       const { wishlist } = res.data;
       const filtered = wishlist.filter(item => item.location_id === currentPageLocationId);
@@ -26,7 +26,7 @@ export default function Toolbar({ place_id, place_name }) {
   };
 
   const toggleFavorite = async () => {
-    const userId = 1;
+    const userId = profile.id;
     const newStatus = !favorite;
 
     try {
