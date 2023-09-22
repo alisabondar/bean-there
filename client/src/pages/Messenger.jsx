@@ -40,7 +40,7 @@ export default function Messenger({ id }) {
     <>Loading chats...</>
   ) : (
     <div className="flex w-full h-[80vh] bg-secondary/[0.7]">
-      <div className="w-4/12 h-full overflow-auto max-w-[250px] min-w-[240px] border-r border-accent  bg-stripes">
+      <div className="w-4fu h-full overflow-auto max-w-[250px] min-w-[240px] border-r border-accent  bg-stripes">
         <div className="flex justify-between mt-2 mx-1 items-center bg-secondary p-2 rounded-md  shadow ">
           <input
             type="text"
@@ -54,13 +54,9 @@ export default function Messenger({ id }) {
         <ChatGroups id={id} setRoom={setRoom} search={search} />
       </div>
       <div className="w-full h-full flex flex-items-end justify-end flex-col bg-primary bg-stripes">
-        {room !== null ? (
+        {room ? (
           <>
-            <Messages
-              userId={id}
-              room={room}
-              chatUsers={room.chat_members}
-            />
+            <Messages userId={id} room={room} chatUsers={room.chat_members} />
             <div className="flex w-full h-[50-px] bg-primary border-t border-accent bg-stripes items-center py-2 px-3">
               <textarea
                 onChange={handleChange}
@@ -76,7 +72,7 @@ export default function Messenger({ id }) {
             </div>
           </>
         ) : (
-          <>Loading Mesages...</>
+          <>Loading Messages...</>
         )}
       </div>
     </div>

@@ -1,17 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-@font-face {
+/* @font-face {
   font-family: 'Poppins';
   src: url('/path-to-poppins-font/Poppins-Regular.ttf') format('truetype');
 
-}
+} */
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .slick-prev::before {
@@ -35,8 +34,6 @@ body {
 
 .blurred {
   background-color: #f6f4f1;
-
-
 }
 
 .image-h {
@@ -48,15 +45,14 @@ body {
   width: 420px;
   height: 600px;
   background: transparent;
-  border: 2px solid rgba(255 255, 255, .5);
+  border: 2px solid rgba(255 255, 255, 0.5);
   border-radius: 20px;
   backdrop-filter: blur(100px);
-  box-shadow: 0 0 30px rgba(0,0,0, .5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .wrapper .form-box {
   width: 100%;
@@ -65,13 +61,13 @@ body {
 
 .form-box h2 {
   font-size: 2rem;
-  color:rgb(243, 192, 129);
+  color: rgb(243, 192, 129);
   text-align: center;
 }
 
 .form-box2 h2 {
   font-size: 2rem;
-  color:rgb(243, 192, 129);
+  color: rgb(243, 192, 129);
   text-align: center;
 }
 
@@ -79,7 +75,7 @@ body {
   position: relative;
   width: 100%;
   height: 50px;
-  border-bottom: 2px solid #9F643D;
+  border-bottom: 2px solid #9f643d;
   margin: 30px 0;
 }
 
@@ -89,21 +85,15 @@ body {
   left: 5px;
   transform: translateY(-50%);
   font-size: 1rem;
-  color:black;
+  color: black;
   font-weight: 500;
   pointer-events: none;
-  transition: .5s;
-
-
-
+  transition: 0.5s;
 }
-
 
 .input-box:focus-within label {
   top: -5px;
 }
-
-
 
 .input-box input {
   width: 100%;
@@ -112,10 +102,8 @@ body {
   border: none;
   outline: none;
   font-size: 1em;
-  color:black;
+  color: black;
   font-size: 600;
-
-
 }
 
 .input-box .icon {
@@ -123,23 +111,19 @@ body {
   right: 8px;
   color: #332421;
   line-height: 57px;
-
 }
 
-
 .remember-forgot {
-  font-size: .9em;
+  font-size: 0.9em;
   color: black;
   font-weight: 500;
   margin: -15px 0 15px;
   display: flex;
   justify-content: space-between;
-
 }
 
-
 .remember-forgot label input {
-  accent-color: #A98E77;
+  accent-color: #a98e77;
   margin-right: 4px;
 }
 
@@ -147,30 +131,25 @@ body {
   text-decoration: underline;
 }
 
-
-
 .login-register {
-  font-size: .9em;
+  font-size: 0.9em;
   text-align: center;
   font-weight: 500;
   margin: 25px 0 10px;
 }
 
-
 .login-register p a {
-color: black;
-text-decoration: none;
-font-weight: 600;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
 }
 .login-register p a:hover {
-  text-decoration:  underline;
+  text-decoration: underline;
   cursor: pointer;
 }
 
-
-
 .hover-button::before {
-  content: 'Home';
+  content: "Home";
   position: absolute;
   opacity: 0;
   white-space: nowrap;
@@ -189,7 +168,7 @@ font-weight: 600;
 }
 
 .friends-hover-button::before {
-  content: 'Friends';
+  content: "Friends";
   position: absolute;
   opacity: 0;
   white-space: nowrap;
@@ -208,7 +187,7 @@ font-weight: 600;
 }
 
 .chat-hover-button::before {
-  content: 'Chat';
+  content: "Chat";
   position: absolute;
   opacity: 0;
   white-space: nowrap;
@@ -227,10 +206,10 @@ font-weight: 600;
 }
 
 .coffee-hover-button::before {
-  content: 'Coffee';
+  content: "Coffee";
   position: absolute;
   opacity: 0;
-  white-space: nowrap;  /* To prevent wrapping of text */
+  white-space: nowrap; /* To prevent wrapping of text */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -246,7 +225,7 @@ font-weight: 600;
 }
 
 .calendar-hover-button::before {
-  content: 'Calendar';
+  content: "Calendar";
   position: absolute;
   opacity: 0;
   white-space: nowrap;
@@ -265,7 +244,7 @@ font-weight: 600;
 }
 
 .favorites-hover-button::before {
-  content: 'Favs';
+  content: "Favs";
   position: absolute;
   opacity: 0;
   white-space: nowrap;
@@ -299,19 +278,18 @@ font-weight: 600;
   min-height: 80%; /* Minimum height */
   max-width: 1700px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, .5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   backdrop-filter: blur(100px);
-  box-shadow: 0 0 30px rgba(0,0,0, .5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
   overflow-y: hidden;
 }
 
-
-
 /*  ====================================================================================== */
 .shadow-crawl {
-  box-shadow: inset 15px 0px 20px -10px rgba(0,0,0,0.25), inset -15px 0px 20px -10px rgba(0,0,0,0.25);
+  box-shadow: inset 15px 0px 20px -10px rgba(0, 0, 0, 0.25),
+    inset -15px 0px 20px -10px rgba(0, 0, 0, 0.25);
 }
 
 .bg-combined {
@@ -328,7 +306,7 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../assets/coffeeBackground.png');
+  background-image: url("../assets/coffeeBackground.png");
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -342,26 +320,26 @@ font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../assets/coffeebeans.jpg');
+  background-image: url("../assets/coffeebeans.jpg");
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   z-index: -3;
 }
 
-
 .shadow-float {
-  box-shadow: 0px 16px 16px 0px rgba(0,0,0,0.2);
-  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%), url(../assets/coffeebeans.jpg);
+  box-shadow: 0px 16px 16px 0px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to top, rgba(46, 46, 46, 0.22), #efdbb2 50%),
+    url(../assets/coffeebeans.jpg);
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  padding: .5rem;
+  padding: 0.5rem;
   height: auto;
 }
 
 .carousel-float {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .toolbar-bg {
@@ -373,7 +351,8 @@ font-weight: 600;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.128);
 }
 
-#tool-bar, #reviews {
+#tool-bar,
+#reviews {
   width: 100%;
 }
 

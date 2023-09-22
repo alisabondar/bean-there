@@ -54,7 +54,7 @@ var Messages = ({ userId, room, chatUsers }) => {
 
   const scrollToBottom = () => {
     setTimeout(() => {
-      divRef.current?.scrollIntoView({behavior: "smooth"});
+      divRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 5);
   };
 
