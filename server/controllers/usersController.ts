@@ -180,7 +180,7 @@ var register = async (req: Request, res: Response) => {
 };
 
 var getWishlist = async (req: Request, res: Response) => {
-  console.log("user", req.params.userId);
+  // console.log("user", req.params.userId);
   const user_id = req.params.userId;
 
   await db
@@ -262,7 +262,7 @@ var getFriends = async (req: Request, res: Response) => {
 var updateWishlist = async (req: Request, res: Response) => {
   const { location_id, name } = req.body;
   const user_id = req.params.userId;
-  console.log("this is the user", user_id);
+  // console.log("this is the user", user_id);
   if (!user_id || !location_id) {
     return res.status(400).send({ error: "Missing user_id or location_id" });
   }

@@ -6,7 +6,6 @@ import state from "../store";
 import Location from "./Location.jsx";
 import { useSnapshot } from "valtio";
 
-
 function NavBar() {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,7 +13,7 @@ function NavBar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/user/profile", { withCredentials: true })
+      .get("/user/profile", { withCredentials: true })
       .then((res) => {
         setProfile(res.data);
       })
@@ -34,10 +33,9 @@ function NavBar() {
     }
   };
 
-
   const HandleLocation = () => {
     state.location = true;
-  }
+  };
   return (
     <div className="blurred">
       <div className="mx-auto max-w-7xl px-2 py-2 sm:px-6 lg:px-8">
@@ -61,7 +59,7 @@ function NavBar() {
                   Home
                 </Link>
                 <a
-                   onClick={HandleLocation}
+                  onClick={HandleLocation}
                   className="text-[#747472] hover:cursor-pointer rounded-md px-3 py-2 text-lg font-medium hover:scale-125 transition duration-300 ease-in-out hover:text-[#3C2A21]"
                 >
                   Locations

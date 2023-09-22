@@ -1,6 +1,4 @@
-
-export default function BeanRating ({ rating, updateBean  }) {
-
+export default function BeanRating({ rating, updateBean }) {
   const beanImagePath = "/assets/uncolored-bean.png";
 
   const fullBeans = Math.floor(rating);
@@ -16,7 +14,7 @@ export default function BeanRating ({ rating, updateBean  }) {
 
     const beanStyle = {
       backgroundImage: `url(${beanImagePath})`,
-      backgroundSize: 'cover',
+      backgroundSize: "cover",
     };
 
     beans.push(
@@ -24,7 +22,7 @@ export default function BeanRating ({ rating, updateBean  }) {
         key={i}
         className={`relative w-7 h-7 rounded`}
         onClick={() => {
-          updateBean(i)
+          updateBean(i);
         }}
       >
         {i === fullBeans + 1 && (
@@ -35,19 +33,13 @@ export default function BeanRating ({ rating, updateBean  }) {
         )}
         <div
           style={beanStyle}
-          className={`absolute inset-0 bg-cover bg-center rounded z-20 border-[2px] border-yellow-950 ${i <= fullBeans ? 'bg-yellow-950' : 'bg-transparent'}`}
+          className={`absolute inset-0 bg-cover bg-center rounded z-20 border-[2px] border-yellow-950 ${
+            i <= fullBeans ? "bg-yellow-950" : "bg-transparent"
+          }`}
         ></div>
       </div>
     );
   }
 
-  return (
-
-      <div className="flex space-x-1 justify-center">
-        {beans}
-      </div>
-
-  );
+  return <div className="flex space-x-1 justify-center">{beans}</div>;
 }
-
-

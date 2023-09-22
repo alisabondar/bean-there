@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../axios-config";
 import { useEffect, useState, useRef } from "react";
 import { subDays, formatRelative } from "date-fns";
 
@@ -43,7 +44,7 @@ const buildUserMap = (chatUsers) => {
   return userMap;
 };
 
-const url = "http://localhost:5001/messenger/";
+const url = "/messenger/";
 
 var Messages = ({ userId, room, chatUsers }) => {
   const [messages, setMessages] = useState(null);
