@@ -10,9 +10,9 @@ import Messenger from "./Messenger.jsx";
 
 import {
   headContainerAnimation,
-  headContentAnimation,
-  headTextAnimation,
-  slideAnimation,
+  // headContentAnimation,
+  // headTextAnimation,
+  // slideAnimation,
 } from "../animation/motion";
 
 import {
@@ -26,7 +26,7 @@ import { GiCoffeeCup } from "react-icons/gi";
 import state from "../store";
 
 function Profile() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -129,16 +129,16 @@ function Profile() {
 
   return (
     <AnimatePresence>
-    <div>
-      {/* Link to external stylesheets */}
-      <link
-        rel="stylesheet"
-        href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
-      />
-      <link
-        rel="stylesheet"
-        href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
-      />
+      <div>
+        {/* Link to external stylesheets */}
+        <link
+          rel="stylesheet"
+          href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+        />
 
         <main className="profile-page  ">
           <NavBar />
@@ -252,23 +252,24 @@ function Profile() {
                             // handleButtonClick("location")}
                             className="chat-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
-                        style={{
-                          backgroundColor: "#A98E77",
-                          position: "relative",
-                        }}
-                        type="button"
-                      >
-                        <BsFillChatDotsFill size={23} />
-                      </button>
-                    </div>
-                  </div>
-                  {/* Buttons */}
-                  <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      {/* Button: Coffee */}
-                      <button
-                        onClick={() => handleButtonClick("location")}
-                        className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
+                            style={{
+                              backgroundColor: "#A98E77",
+                              position: "relative",
+                            }}
+                            type="button"
+                          >
+                            <BsFillChatDotsFill size={23} />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Buttons */}
+                      <div className="w-full py-4 lg:w-4/12 px-4 lg:order-1">
+                        <div className="flex justify-center py-6 lg:pt-4 pt-8">
+                          {/* Button: Coffee */}
+                          <button
+                            onClick={() => handleButtonClick("location")}
+                            className="coffee-hover-button uppercase text-[#3C2A21] font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 hover:scale-110 transition duration-300 ease-in-out
   hover:px-6"
                             style={{
                               backgroundColor: "#A98E77",

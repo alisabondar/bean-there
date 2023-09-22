@@ -19,6 +19,18 @@ function NavBar() {
         console.log("error getting profile");
       });
   }, []);
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const response = await axios.post("/user/logout", "Logout", {
+      withCredentials: true,
+    });
+    if (response.data.success) {
+      state.active = false;
+      navigate("/");
+    }
+  };
+
   return (
     <div className="blurred">
       <div className="mx-auto max-w-7xl px-2 py-2 sm:px-6 lg:px-8">
