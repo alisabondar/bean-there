@@ -19,24 +19,41 @@ export default function Location() {
   const photos = [one, two, three, four, five];
   const wrapperRef = useRef(null);
 
-  const fetchCafeList = async (param) => {
+  const fetchCafeList = async (param, filter) => {
     const lat = param.lat || loc.lat;
-    const long = param.lng || loc.long;
+    const long = param.lng || loc.lng;
 
-    axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
-      .then(res => {
-        if (res.data.length < 1) {
-          fetchCafeList('defaultData')
-        } else {
-          setCafeList(res.data);
-        }
-      })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Could not fetch user location', err);
-      })
+    if (filter === undefined) {
+      axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}`)
+        .then(res => {
+          if (res.data.length < 1) {
+            fetchCafeList(loc)
+          } else {
+            setCafeList(res.data);
+          }
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Could not fetch user location', err);
+        })
+    } else {
+      axios.get(`http://localhost:${import.meta.env.VITE_PORT}/location/search/${lat.toString()}/${long.toString()}/${filter}`)
+        .then(res => {
+          if (res.data.length < 1) {
+            fetchCafeList(loc)
+          } else {
+            setCafeList(res.data);
+          }
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Could not fetch user location', err);
+        })
+    }
   }
 
   const fetchZip = async (code) => {
@@ -81,31 +98,44 @@ export default function Location() {
   }
 
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleOuterClick);
-
-    return () => {
-      document.removeEventListener('mousedown', handleOuterClick);
+    const handleOuterClick = (e) => {
+      const formDiv = document.querySelector(".locationWrapper");
+      if (formDiv && !formDiv.contains(e.target)) {
+        state.location = false;
+      }
     };
-  }, []);
-  const handleOuterClick = (e) => {
-    console.log('Outer click detected');
-    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-      state.location = false;
-    }
-  };
 
+
+  const handleFilter = (e) => {
+    const filter = e.currentTarget.getAttribute('data-name');
+    if (filter === 'relevance') {
+      if (zip) {
+        fetchCafeList(zip);
+      } else {
+        fetchCafeList();
+      }
+    } else if (filter === 'distance') {
+      if (zip) {
+        fetchCafeList(zip, 'distance');
+      } else {
+        fetchCafeList(loc, 'distance');
+      }
+    } else {
+      // wishlist
+      // axios.get(`http://localhost:${import.meta.env.VITE_PORT}/${userId}/wishlist`)
+    }
+  }
 
   return (
 
 
     <div onClick={handleOuterClick}>
 
-    <div ref={wrapperRef} className='locationWrapper fixed inset-0 flex-col  items-center justify-center z-50'>
+    <div className='locationWrapper fixed inset-0 flex-col items-center justify-center z-50'>
 <div className='top flex flex-col items-center justify-center'>
     <Toaster />
-    <div className='text-3xl font-bold text-[#e7b14d] mb-4 mt-7 pt-5'>Find your next brew with SipSearcher!</div>
-    <div className='text-[#e7b14d] font-bold mb-6'>Get details and directions for a coffee shop nearest to you!</div>
+    <div className='text-3xl font-bold text-[#e7b14d] mb-4 mt-5'>Find your next brew with SipSearcher!</div>
+    <div className='text-[#e7b14d] mb-6'>Get details and directions for a coffee shop nearest to you!</div>
     <div className='flex justify-center space-x-4'>
         <input
             type="text"
@@ -113,7 +143,7 @@ export default function Location() {
             className="input w-full max-w-sm p-2 border border-gray-300 rounded"
             onChange={handleSearch}
         />
-        <button className="bg-[#e7b14d]  text-white p-2 rounded  hover:scale-110 transition duration-300 ease-in-out">
+        <button className="bg-[#A98E77] text-white p-2 rounded hover:bg-[#61493C] focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50">
             Search
         </button>
     </div>
@@ -126,7 +156,7 @@ export default function Location() {
 
 {loading ? (
     <div className='flex justify-center items-center'>
-        <span className="loading loading-dots loading-lg mt-10 text-[#9F643D]"></span>
+        <span className="loading loading-dots loading-lg mt-10"></span>
     </div>
 ) : (
     <div className='flex space-x-3 p-5 mt-5'>
@@ -136,7 +166,7 @@ export default function Location() {
 )}
 
 
-    </div>
+      </div>
     </div>
   );
 }

@@ -11,16 +11,33 @@ var getCurrent = async (req: Request, res: Response) => {
   const location = `${lat},${long}`;
   const radius = 5000;
   const keyword = 'coffee';
+  const type = 'cafe';
+  const rankby = req.params.filter;
   const apiKey = process.env.GOOGLEAPI_KEY;
-  const requestUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&radius=${radius}&keyword=${keyword}&key=${apiKey}`;
+  const requestUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&radius=${radius}&keyword=${keyword}&type=${type}&key=${apiKey}`;
+  const filterUrl = `${GOOGLE_API_ENDPOINT}?location=${location}&keyword=${keyword}&type=${type}&rankby=${rankby}&key=${apiKey}`
 
-  axios.get(requestUrl)
-   .then(result => {
-      res.json(result.data.results);
-   })
-   .catch(err => {
-      console.error('Cannot fetch nearby locations', err);
-   });
+  if (rankby) {
+    if (rankby === 'distance') {
+      axios.get(filterUrl)
+      .then(result => {
+        res.json(result.data.results);
+      })
+      .catch(err => {
+        console.error('Cannot fetch nearby locations', err);
+      });
+    } else if (rankby === 'reviews') {
+
+    }
+  } else {
+    axios.get(requestUrl)
+      .then(result => {
+        res.json(result.data.results);
+      })
+      .catch(err => {
+        console.error('Cannot fetch nearby locations', err);
+      });
+  }
 };
 
 var getLocations = async (req: Request, res: Response) => {

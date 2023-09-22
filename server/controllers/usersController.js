@@ -9,21 +9,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var passport = require('passport');
-var initializePassport = require('../passport-config.js');
+var passport = require("passport");
+require("../passports/passport-external-config");
+var initializeLocal = require("../passports/passport-local-config");
 var db = require("../db/database");
-var { User, Friend } = require("../models/userModel");
+var { User, Friend, OtpModel } = require("../models/userModel");
 var bcrypt = require("bcrypt");
-initializePassport(passport);
+var sendOTPVerificationEmail = require("../utils/nodemailer");
 var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    passport.authenticate('local', (err, user, info) => {
+    const user = yield User.findOne({
+        where: { email: req.body.email },
+        raw: true,
+    });
+    if (user && user.otp === true) {
+        // verify user and pass
+        const { id, otp } = user;
+        // we want to check if the user has an entry in the otp table
+        const user_id = id;
+        const otpExists = yield OtpModel.findOne({ where: user_id });
+        if (otpExists) {
+            yield OtpModel.destroy({ where: { user_id: id } });
+        }
+        // capture the otp (log it for dev)
+        // email it
+        const otpNumber = yield sendOTPVerificationEmail(user.email);
+        const newOtp = yield OtpModel.create({ user_id: id, otp: otpNumber });
+        console.log("new OTP created: ", newOtp.dataValues);
+        const info = newOtp.toJSON().user_id;
+        // send a response that triggers a otp form ont he front end
+        return res
+            .status(201)
+            .send({ mssg: "otp created", otp: true, user_id: info });
+    }
+    // else do normal passport
+    initializeLocal(passport);
+    passport.authenticate("local", (err, user, info) => {
         if (err) {
             throw err;
         }
-        ;
         if (!user) {
             // failure
-            res.send({ success: false, message: 'Invalid login credentials' });
+            res.send({ success: false, message: "Invalid login credentials" });
         }
         else {
             // authentication success case
@@ -36,14 +62,77 @@ var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         }
     })(req, res, next);
 });
+var logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.clearCookie("user");
+        res.send({ success: true });
+    });
+});
+var verifyOtp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // they would only come here if they have otp;
+    const { userId, otp } = req.body;
+    // check and delete otp
+    const verifyOtp = yield OtpModel.findOne({ where: { user_id: userId, otp } });
+    if (!verifyOtp) {
+        return res.send({ success: false, message: "Incorrect Passcode" });
+    }
+    const { user_id } = verifyOtp.toJSON();
+    yield OtpModel.destroy({ where: { user_id, otp } });
+    // else do normal passport
+    initializeLocal(passport);
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            throw err;
+        }
+        if (!user) {
+            // failure
+            res.send({ success: false, message: "Invalid login credentials" });
+        }
+        else {
+            // authentication success case
+            req.login(user, (err) => {
+                if (err) {
+                    throw err;
+                }
+                res.send({ success: true });
+            });
+        }
+    })(req, res, next);
+});
+var githubLogin = passport.authenticate("github", { scope: ["profile"] });
+var githubCB = passport.authenticate("github", {
+    successRedirect: "http://localhost:5173/profile",
+    failureRedirect: "http://localhost:5173/",
+});
+var googleLogin = passport.authenticate("google", {
+    scope: ["profile", "email"],
+});
+var googleCB = passport.authenticate("google", {
+    successRedirect: "http://localhost:5173/profile",
+    failureRedirect: "http://localhost:5173/",
+});
 var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('this is the req.user!!!:', req.user);
     if (!req.user) {
         return res.send({ error: "user is not logged in" });
     }
-    ;
+    console.log("this is the active user: ", req.user);
     try {
-        const user = yield User.findOne({ where: { id: req.user }, attributes: ["id", "username", "email", "photo", "banner_photo", "about", "private"], raw: true });
+        const user = yield User.findOne({
+            where: { id: req.user },
+            attributes: [
+                "id",
+                "username",
+                "email",
+                "photo",
+                "banner_photo",
+                "about",
+                "private",
+            ],
+            raw: true,
+        });
         res.send(user);
     }
     catch (error) {
@@ -51,23 +140,30 @@ var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password, photo, banner_photo, about } = req.body;
+    const { username, email, password, photo, banner_photo, about, otp } = req.body;
+    const user = yield User.findOne({ where: { email: email } });
+    if (user) {
+        return res.send({
+            message: "There is already an account linked to this email.",
+        });
+    }
     if (!username) {
-        return res.status(400).send({ error: "please enter a username" });
+        return res.status(400).send({ message: "Please enter a username" });
     }
     if (!email) {
-        return res.status(400).send({ error: "please enter a email" });
+        return res.status(400).send({ message: "Please enter a email" });
     }
     if (!password) {
-        return res.status(400).send({ error: "please enter a password" });
+        return res.status(400).send({ message: "Please enter a password" });
     }
     const hashedPassword = yield bcrypt.hash(password, 10);
-    console.log(hashedPassword);
-    User.create({ username, email, password: hashedPassword, photo, about })
+    User.create({ username, email, password: hashedPassword, photo, about, otp })
         .then((user) => {
-        res
-            .status(201)
-            .send({ mssg: "user successfully registered", user: user.dataValues, success: true });
+        res.status(201).send({
+            mssg: "user successfully registered",
+            user: user.dataValues,
+            success: true,
+        });
     })
         .catch((err) => {
         const error = err.message || "internal server error";
@@ -180,4 +276,18 @@ var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(500).send({ error });
     }
 });
-module.exports = { login, register, getWishlist, getUserReviews, getFriends, updateWishlist, getProfile };
+module.exports = {
+    login,
+    logout,
+    googleLogin,
+    googleCB,
+    githubLogin,
+    githubCB,
+    register,
+    getWishlist,
+    getUserReviews,
+    getFriends,
+    updateWishlist,
+    getProfile,
+    verifyOtp,
+};

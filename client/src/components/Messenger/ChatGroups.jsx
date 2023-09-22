@@ -30,12 +30,14 @@ var ChatGroups = ({ id, setRoom, search }) => {
 
   var getChats = (id) => {
     axios
-      .get(url + `rooms/user/${id}`)
+      .get(url + `rooms/user/${id}`, { withCredentials: true })
       .then((result) => {
-        console.log(result.data);
+        // console.log(result.data);
         var userRooms = result.data.rooms;
         //setRooms(userRooms.map((r) => ({ id: r.id, name: r.name }) ))
+        // console.log(userRooms);
         setRooms(userRooms);
+        // console.log(userRooms);
         setRoom(userRooms[0]);
       })
       .catch((err) => {
@@ -55,7 +57,7 @@ var ChatGroups = ({ id, setRoom, search }) => {
   }, [id]);
 
   useEffect(() => {
-    console.log(search);
+    // console.log(search);
     if (search.length > 0) {
       setRooms(
         rooms.filter((room) =>
