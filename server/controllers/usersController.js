@@ -34,7 +34,6 @@ var login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         // email it
         const otpNumber = yield sendOTPVerificationEmail(user.email);
         const newOtp = yield OtpModel.create({ user_id: id, otp: otpNumber });
-        // console.log("new OTP created: ", newOtp.dataValues);
         const info = newOtp.toJSON().user_id;
         // send a response that triggers a otp form ont he front end
         return res
@@ -118,7 +117,6 @@ var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return res.send({ error: "user is not logged in" });
     }
-    // console.log("this is the active user: ", req.user);
     try {
         const user = yield User.findOne({
             where: { id: req.user },
@@ -140,7 +138,8 @@ var getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password, photo, banner_photo, about, otp } = req.body;
+    let { username, email, password, photo, banner_photo, about, otp } = req.body;
+    otp = false; // currently not supporting otp
     const user = yield User.findOne({ where: { email: email } });
     if (user) {
         return res.send({
@@ -171,7 +170,6 @@ var register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 var getWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log("user", req.params.userId);
     const user_id = req.params.userId;
     yield db
         .query(`
@@ -239,7 +237,6 @@ var getFriends = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 var updateWishlist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { location_id, name } = req.body;
     const user_id = req.params.userId;
-    // console.log("this is the user", user_id);
     if (!user_id || !location_id) {
         return res.status(400).send({ error: "Missing user_id or location_id" });
     }

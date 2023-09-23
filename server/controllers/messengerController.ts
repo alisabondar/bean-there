@@ -48,7 +48,6 @@ var getRooms = async (req: Request, res: Response) => {
       rooms: roomsWithMembers,
     });
   } catch (error) {
-    console.log(error);
     res.status(404).send({ error: "unable to login user" });
   }
 };
@@ -68,7 +67,6 @@ var getMessages = async (req: Request, res: Response) => {
       });
     })
     .catch((error: Error) => {
-      console.log(error);
       res.status(404).send({ error: "unable to get messages" });
     });
 };

@@ -77,7 +77,10 @@ export default function Login() {
 
   const googleSubmit = async (e) => {
     e.preventDefault();
-    window.open(`http://localhost:${import.meta.env.VITE_PORT}/user/google`, "_self");
+    window.open(
+      `http://localhost:${import.meta.env.VITE_PORT}/user/google`,
+      "_self"
+    );
   };
 
   const githubSubmit = async (e) => {

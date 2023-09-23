@@ -19,7 +19,6 @@ var { User } = require("../models/userModel");
 var db = require("../db/database");
 var getReviews = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const placeId = req.params.placeId;
-    // console.log(placeId);
     Review.findAll({
         where: { location_id: placeId },
         include: [
@@ -101,7 +100,6 @@ var addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getPlaceDetails = (req, res) => {
     const { placeId } = req.params;
-    // console.log(placeId);
     const url = `https://maps.googleapis.com/maps/api/place/details/json?&place_id=${placeId}&key=${process.env.GOOGLEAPI_KEY}`;
     axios_1.default
         .get(url)

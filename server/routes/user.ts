@@ -13,7 +13,7 @@ var {
   getFriends,
   updateWishlist,
   getProfile,
-  verifyOtp
+  verifyOtp,
 } = require("../controllers/usersController");
 
 // all these endpoints start with /user*
