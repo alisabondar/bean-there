@@ -116,7 +116,7 @@ export default function Company() {
           {/* ToolBar and Reviews */}
           <div className="flex justify-center pt-12 w-3/4">
             <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-4 sm:gap-8 testGrid justify-center items-center">
-              <div className="col-span-2 sm:col-span-2">
+              <div className="col-span-2 sm:col-span-2 smallScreen">
                 <div className="flex-col">
                   <div
                     id="tool-bar"
@@ -137,6 +137,7 @@ export default function Company() {
                       reviews={reviews}
                       updateAvg={updateAvg}
                       name={business.name}
+                      profile={profile}
                     />
                   </div>
                 </div>
@@ -146,7 +147,7 @@ export default function Company() {
                 id="info-cards"
                 className=" h-full sticky top-0 z-10 max-w-[32rem]"
               >
-                <InfoPanel business={business} />
+                  <InfoPanel business={business} profile={profile}/>
               </div>
             </div>
           </div>

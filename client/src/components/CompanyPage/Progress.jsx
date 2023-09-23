@@ -42,11 +42,11 @@ const CompanyRatings = (prop) => {
       <div className="col-start-1 row-start-3">3 stars</div>
       <div className="col-start-1 row-start-2">4 stars</div>
       <div className="col-start-1 row-start-1">5 stars</div>
-      <progress className="progress w-96 col-span-4 col-start-2 row-start-1" value={ratings[5]} max="100"></progress>
-      <progress className="progress w-96 col-span-4 col-start-2 row-start-2" value={ratings[4]} max="100"></progress>
-      <progress className="progress w-96 col-span-4 col-start-2 row-start-3" value={ratings[3]} max="100"></progress>
-      <progress className="progress w-96 col-span-4 col-start-2 row-start-4" value={ratings[2]} max="100"></progress>
-      <progress className="progress w-96 col-span-4 col-start-2 row-start-5" value={ratings[1]} max="100"></progress>
+      <progress className="progress w-80 col-span-4 col-start-2 row-start-1" value={ratings[5]} max="100"></progress>
+      <progress className="progress w-80 col-span-4 col-start-2 row-start-2" value={ratings[4]} max="100"></progress>
+      <progress className="progress w-80 col-span-4 col-start-2 row-start-3" value={ratings[3]} max="100"></progress>
+      <progress className="progress w-80 col-span-4 col-start-2 row-start-4" value={ratings[2]} max="100"></progress>
+      <progress className="progress w-80 col-span-4 col-start-2 row-start-5" value={ratings[1]} max="100"></progress>
     </div>
 
   )
