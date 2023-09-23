@@ -60,7 +60,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Bean There brings coffee lovers together to help them find their favorite coffee shops and meet friends along the way at home and on vacation! 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -134,26 +133,50 @@ Explore different sections of the app by clicking on the navigation links.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+Overview:![1 - R4jN63E](https://github.com/Wingardium-Levicode/bean-there/assets/126842393/85d72f12-2508-464d-90d5-57c8a252bde7)
+Site Responsiveness:![6 - cJJ1z1n](https://github.com/Wingardium-Levicode/bean-there/assets/126842393/5732c340-1e7b-407c-b66a-d90b25e85c9b)
+Profile Page:![2 - slGl03K](https://github.com/Wingardium-Levicode/bean-there/assets/126842393/a192cbf5-7d35-447b-b1c7-0b2058b8f2be)
 
+Messaging Feature:
+![3 - hn7UBsr](https://github.com/Wingardium-Levicode/bean-there/assets/126842393/d5f0841a-bbd0-4cb6-8e80-a02b8852edcf)
+Coffee Shop Location Feature:
+![4 - SvJTMNh](https://github.com/Wingardium-Levicode/bean-there/assets/126842393/20d25cf6-837e-4e97-b55c-6ca1d8855c56)
+Company Page: ![5 - xy8wTJR](https://github.com/Wingardium-Levicode/bean-there/assets/126842393/6456a819-e13a-4919-8e39-6ac85a23e228)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
+
 <!-- ROADMAP -->
 ## Roadmap
-Signing In:
-
-Updating Your Profile:
-
-Navigating to Features:
-Coffee:
-Calendar:
-Favs:
-
-Home:
-Friends:
-Chat:
+- [ ] Home Page
+    - [ ] Functional Nav Bar
+    - [x] Functional Login/Signout Buttons
+    - [x] Fun Facts
+    - [ ] Social Media Links
+- [ ] Profile Page
+    - [ ] Edit Details
+    - [x] Feature Shortcuts
+- [ ] Company Page
+    - [x] Photo Carousel
+    - [x] Sharing
+    - [x] Add Reviews
+    - [ ] Event Maker
+- [ ] Features
+    - [ ] Calendar
+      - [x] View & Add Events
+      - [ ] Private & Public Options
+    - [x] Friends List
+    - [ ] Messages
+      - [ ] Video Chat
+      - [x] Chat Rooms
+    - [x] Favorite List
+    - [ ] Location Search
+      - [x] User's Current Location
+      - [x] Zipcode Search
+      - [ ] Distance From User
+      - [ ] Redirect to Google Maps
 
 See the [open issues](https://github.com/Wingardium-Levicode/blue-ocean/issues) for a full list of proposed features (and known issues).
 
