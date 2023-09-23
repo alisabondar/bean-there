@@ -56,7 +56,6 @@ export default function Location() {
           if (res.data.length < 1) {
             fetchCafeList(loc);
           } else {
-            console.log('hi')
             setCafeList(res.data);
           }
         })

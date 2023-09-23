@@ -14,8 +14,6 @@ const ShareForm = () => {
     e.preventDefault();
     const username = e.target.username.value;
     const message = e.target.message.value;
-    // console.log(`Username: ${username}`);
-    // console.log(`Message: ${message}`);
   };
 
   return (
