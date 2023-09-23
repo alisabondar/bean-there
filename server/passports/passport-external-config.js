@@ -5,11 +5,6 @@ var passport = require('passport');
 var bcrypt = require('bcrypt');
 var { User } = require('../models/userModel.js');
 
-/*
-GOOGLE_CLIENT_ID=560066007622-9mhiloqanf5tf6ovsllcvhfrr7ek22a8.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
-*/
-
 // google strategy
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -37,7 +32,6 @@ passport.use(new GoogleStrategy({
 //   callbackURL: "/user/github/callback",
 //   passReqToCallback: true
 // }, async (req, accessToken, refreshToken, profile, done) => {
-//   console.log('github profile: ', profile);
 //   let user = await User.findOne({ where: { email: profile.username }, raw: true });
 //   if (!user) {
 //     await User.create({

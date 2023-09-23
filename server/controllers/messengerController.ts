@@ -9,16 +9,6 @@ var db = require("../db/database");
 
 // get rooms for user based on a userId
 var getRooms = async (req: Request, res: Response) => {
-  /**
-   * send userId as a param or (or some other way)
-   * look up every room the member is a part of and return those rooms
-   * via the [users | chat_members | chat_rooms] tables
-   *
-   * return list of roomName and their roomId (for message lookup later)
-   */
-
-  // testing get rooms
-
   try {
     const userId = req.params.userId;
 
@@ -53,7 +43,6 @@ var getRooms = async (req: Request, res: Response) => {
         },
       ],
     });
-    // console.log(roomsWithMembers);
     res.status(200).send({
       mssg: "you have reached the getRooms controller",
       rooms: roomsWithMembers,
@@ -66,12 +55,6 @@ var getRooms = async (req: Request, res: Response) => {
 
 // get messages for a room based on a roomId
 var getMessages = async (req: Request, res: Response) => {
-  /**
-   * send roomId with request somehow (params, etc...)
-   * return all messages from [messages]
-   */
-
-  // testing get rooms
   const roomId = req.params.roomId;
 
   await Message.findAll({
@@ -92,23 +75,8 @@ var getMessages = async (req: Request, res: Response) => {
 
 // add a room for a user based on their user_name and associated members
 var addRoom = async (req: Request, res: Response) => {
-  /** send a list of users via req.body and a chatname
-   *  create a new room => grab that room id
-   *  create a row in chat_members for each user with that room_id and that user's_id
-   */
-
-  //  here i assume chat_name is a string, and members is an array of strings
   const { chat_name, members } = req.body;
-  /**
-   * my sample req.body
-   *
-   * {
-   * "chat_name": "Weebs R Us",
-   * "members": ["user2", "user4", "user6"]
-   * }
-   */
 
-  // some light validation
   if (!chat_name) {
     return res.status(404).send({ error: "please enter a chat name" });
   }
@@ -127,7 +95,6 @@ var addRoom = async (req: Request, res: Response) => {
 
   await ChatRoom.create({ chat_name })
     .then((room: { dataValues: { id: number } }) => {
-      // the id of the room created should be room.dataValues.id
       const room_id = room.dataValues.id;
       return room_id;
     })
@@ -146,7 +113,6 @@ var addRoom = async (req: Request, res: Response) => {
         });
 
         await ChatMember.bulkCreate(chatMemberArray).then((results: any) => {
-          // console.log(results);
           res.status(201).send({
             mssg: "successfully created room",
           });
@@ -161,27 +127,9 @@ var addRoom = async (req: Request, res: Response) => {
 
 // add a messaged based on a room_id and a message object
 var addMessage = async (req: Request, res: Response) => {
-  /**
-   * send roomId, in params
-   * send the user who send the message (i guess in case yourself)
-   * create a row in messages for that specific room_id */
-  // console.log(req.params);
-  // console.log(req.body);
-
-  /**
-   * sample linK: http://localhost:5000/messenger/rooms/1/messages/
-   *
-   * sample body:
-   * {
-   * "message_text": "I can't wait to go to the land of the rising sun!",
-   * "message_user": 1 (this is the user id)
-   * }
-   */
-
   const room_id = req.params.roomId;
   const { message_text, message_user } = req.body;
 
-  // light validation
   if (!room_id) {
     return res.status(404).send({ error: "please select a room" });
   }
@@ -196,7 +144,6 @@ var addMessage = async (req: Request, res: Response) => {
 
   Message.create({ message_text, message_user, room_id })
     .then((message: { dataValues: object }) => {
-      // console.log(message);
       res.status(200).send({
         mssg: "you have reached the addMessage controller",
         message: message.dataValues,

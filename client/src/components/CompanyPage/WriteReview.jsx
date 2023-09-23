@@ -28,7 +28,6 @@ const WriteReview = (prop) => {
               "user": {"username": prop.profile.username}
           }
             axios.post(`http://localhost:${import.meta.env.VITE_PORT}/company/${prop.place_id}/reviews/add`, data).then((res) => {
-              console.log(res)
             }).catch((err) => console.log(err))
             updateValue("")
           }}>
