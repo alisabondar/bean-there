@@ -13,7 +13,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Wingardium-Levicode/blue-ocean">
-    <img src="image_480.png" alt="Logo" width="120" height="120">
+    <img src="https://i.imgur.com/VrQhdwC.png" alt="Logo" width="120" height="120">
   </a>
 
 <h3 align="center">BeanThere</h3>
