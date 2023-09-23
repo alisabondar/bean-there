@@ -1,4 +1,3 @@
-// import axios from "axios";
 import axios from "../axios-config";
 import { useEffect, useState } from "react";
 import ChatGroups from "../components/Messenger/ChatGroups.jsx";
@@ -9,7 +8,6 @@ import { FaHome, FaSearch } from "react-icons/fa";
 import { GrReturn } from "react-icons/gr";
 
 var USER_ID = 1;
-// const url = "http://localhost:5001/messenger/";
 const url = "/messenger/";
 
 export default function Messenger({ id }) {
@@ -22,13 +20,11 @@ export default function Messenger({ id }) {
   var getChats = (id, data) => axios.post(url + `rooms/${id}/messages/`, data);
 
   var handleSend = () => {
-    console.log("try send");
     getChats(room.id, {
       message_text: message,
       message_user: USER_ID,
     })
       .then((result) => {
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
