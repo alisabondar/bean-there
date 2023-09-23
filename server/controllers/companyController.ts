@@ -8,7 +8,6 @@ var db = require("../db/database");
 
 var getReviews = async (req: Request, res: Response) => {
   const placeId = req.params.placeId;
-  // console.log(placeId);
 
   Review.findAll({
     where: { location_id: placeId },
@@ -104,7 +103,6 @@ var addReview = async (req: Request, res: Response) => {
 
 const getPlaceDetails = (req: Request, res: Response): void => {
   const { placeId } = req.params;
-  // console.log(placeId);
 
   const url = `https://maps.googleapis.com/maps/api/place/details/json?&place_id=${placeId}&key=${process.env.GOOGLEAPI_KEY}`;
 

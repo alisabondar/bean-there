@@ -173,7 +173,17 @@ VALUES
   ('Great Experience', 'Manhattanville Coffee never disappoints! I enjoyed a delightful cup of coffee and friendly service. It''s my go-to place for coffee.', '2023-09-16 12:00:00', '2023-09-16 12:30:00', 4, 4, 'ChIJQwtmq3v2wokRNOjx5cEBhXg'),
   ('Decent Coffee', 'Caffe Bene serves decent coffee. It''s a good spot to grab a quick cup of joe.', '2023-09-16 13:00:00', '2023-09-16 13:45:00', 3, 4, 'ChIJi3aeTej2wokRtXeeee'),
   ('Not My Favorite', 'Caffe Bene is not my favorite coffee spot. The coffee is decent, but I expected more.', '2023-09-16 14:00:00', '2023-09-16 14:30:00', 3, 4, 'ChIJi3aeTej2wokRtXxeevkeI9s'),
-  ('Disappointing', 'Buunni Coffee - Pinehurst was a disappointment. The coffee lacked flavor, and the ambiance was not inviting.', '2023-09-16 15:00:00', '2023-09-16 15:45:00', 2, 4, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0');
+  ('Disappointing', 'Buunni Coffee - Pinehurst was a disappointment. The coffee lacked flavor, and the ambiance was not inviting.', '2023-09-16 15:00:00', '2023-09-16 15:45:00', 2, 4, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Great Experience', 'Manhattanville Coffee never disappoints! I enjoyed a delightful cup of coffee and friendly service. It''s my go-to place for coffee.', '2023-09-16 11:00:00', '2023-09-16 11:45:00', 4, 1, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Loved the Ambiance', 'Corner Cafe has a fantastic ambiance, but the coffee was average. Still, I''d visit again for the cozy atmosphere.', '2023-09-16 12:00:00', '2023-09-16 12:30:00', 3, 1, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Decent Coffee', 'Caffe Bene serves decent coffee. It''s a good spot to grab a quick cup of joe.', '2023-09-16 13:00:00', '2023-09-16 13:45:00', 3, 1, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Friendly Staff', 'Prospect Coffee Shop has the friendliest staff. The coffee is good, and the service is top-notch!', '2023-09-16 14:00:00', '2023-09-16 14:30:00', 4, 1, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Not Impressed', 'I had high hopes for Kingsbridge Coffee Shop, but the coffee was disappointing. The atmosphere was decent, though.', '2023-09-16 15:00:00', '2023-09-16 15:45:00', 2, 1, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Excellent Brew', 'Manhattanville Coffee never disappoints! Their coffee is consistently excellent, and the staff is friendly and knowledgeable.', '2023-09-16 10:00:00', '2023-09-16 10:30:00', 5, 2, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('A Coffee Gem', 'Corner Cafe is a hidden gem. The coffee is top-notch, and the ambiance is perfect for a quiet afternoon.', '2023-09-16 11:00:00', '2023-09-16 11:45:00', 5, 2, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Average Experience', 'Kingsbridge Coffee Shop provided an average coffee experience. The service was slow, and the coffee was mediocre.', '2023-09-16 12:00:00', '2023-09-16 12:30:00', 3, 2, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Not My Favorite', 'Caffe Bene is not my favorite coffee spot. The coffee is decent, but I expected more.', '2023-09-16 13:00:00', '2023-09-16 13:45:00', 3, 2, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0'),
+  ('Cozy Place', 'Prospect Coffee Shop is a cozy spot to enjoy a cup of coffee. The staff is friendly, and the coffee is good.', '2023-09-16 14:00:00', '2023-09-16 14:30:00', 4, 2, 'ChIJ8yR2pKf2wokRC3eGQ4qQZt0');
 
 -- MOCK DATA FOR THE 'reviews_photos' TABLE
 INSERT INTO reviews_photos (photo_url, review_id)

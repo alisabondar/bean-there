@@ -6,8 +6,8 @@ const config = {
   port: 587,
   secure: false,
   auth: {
-    user: "zatchbelltestingsuite@gmail.com",
-    pass: "luxezcyhgxptlvfg",
+    user: "REDACTED",
+    pass: "REDACTED",
   }
 }
 

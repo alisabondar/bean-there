@@ -53,13 +53,11 @@ var getRooms = async (req: Request, res: Response) => {
         },
       ],
     });
-    // console.log(roomsWithMembers);
     res.status(200).send({
       mssg: "you have reached the getRooms controller",
       rooms: roomsWithMembers,
     });
   } catch (error) {
-    console.log(error);
     res.status(404).send({ error: "unable to login user" });
   }
 };
@@ -85,7 +83,6 @@ var getMessages = async (req: Request, res: Response) => {
       });
     })
     .catch((error: Error) => {
-      console.log(error);
       res.status(404).send({ error: "unable to get messages" });
     });
 };
@@ -146,7 +143,6 @@ var addRoom = async (req: Request, res: Response) => {
         });
 
         await ChatMember.bulkCreate(chatMemberArray).then((results: any) => {
-          // console.log(results);
           res.status(201).send({
             mssg: "successfully created room",
           });
@@ -165,8 +161,6 @@ var addMessage = async (req: Request, res: Response) => {
    * send roomId, in params
    * send the user who send the message (i guess in case yourself)
    * create a row in messages for that specific room_id */
-  // console.log(req.params);
-  // console.log(req.body);
 
   /**
    * sample linK: http://localhost:5000/messenger/rooms/1/messages/
@@ -196,7 +190,6 @@ var addMessage = async (req: Request, res: Response) => {
 
   Message.create({ message_text, message_user, room_id })
     .then((message: { dataValues: object }) => {
-      // console.log(message);
       res.status(200).send({
         mssg: "you have reached the addMessage controller",
         message: message.dataValues,

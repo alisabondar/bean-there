@@ -53,14 +53,12 @@ var getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 },
             ],
         });
-        // console.log(roomsWithMembers);
         res.status(200).send({
             mssg: "you have reached the getRooms controller",
             rooms: roomsWithMembers,
         });
     }
     catch (error) {
-        console.log(error);
         res.status(404).send({ error: "unable to login user" });
     }
 });
@@ -83,7 +81,6 @@ var getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     })
         .catch((error) => {
-        console.log(error);
         res.status(404).send({ error: "unable to get messages" });
     });
 });
@@ -137,7 +134,6 @@ var addRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 return { user_id: user.id, room_id: roomId };
             });
             yield ChatMember.bulkCreate(chatMemberArray).then((results) => {
-                // console.log(results);
                 res.status(201).send({
                     mssg: "successfully created room",
                 });
@@ -155,8 +151,6 @@ var addMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
      * send roomId, in params
      * send the user who send the message (i guess in case yourself)
      * create a row in messages for that specific room_id */
-    // console.log(req.params);
-    // console.log(req.body);
     /**
      * sample linK: http://localhost:5000/messenger/rooms/1/messages/
      *
@@ -180,7 +174,6 @@ var addMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     Message.create({ message_text, message_user, room_id })
         .then((message) => {
-        // console.log(message);
         res.status(200).send({
             mssg: "you have reached the addMessage controller",
             message: message.dataValues,
