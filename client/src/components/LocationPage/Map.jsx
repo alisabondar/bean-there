@@ -4,7 +4,7 @@ import bean from '../../pages/img/icons8-coffee-40.png';
 
 
 const Map = ({ user, zip, cafeList, wishlist }) => {
-  const key = import.meta.env.VITE_GOOGLE_KEY;
+  const key = import.meta.env.VITE_GOOGLEAPI_KEY;
 
   useEffect(() => {
     let lat = zip.lat || user.lat;
