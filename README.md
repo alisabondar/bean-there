@@ -88,13 +88,13 @@ VITE_GOOGLEAPI_KEY
 
 **Navigate to the server**  
 Create an env file with the following keys:  
-
 (for connecting to the database)  
 PG_DB  
 PG_USER  
 PG_PASSWORD  
 PG_HOST  
 PORT  
+
 (for successful API calls)  
 GOOGLEAPI_URL='https://maps.googleapis.com/maps/api/place/nearbysearch/json'  
 GEOCODE_URL='https://maps.googleapis.com/maps/api/geocode/json'  
