@@ -68,7 +68,7 @@
 ### Built With
 
 * [![Vite][Vite.js]][Vite-url]
-* [![PostgreSQL][Postgresql.js]][Postgresql-url]
+* [![PostgreSQL][PostgreSQL.js]][PostgreSQL-url]
 * [![React][React.js]][React-url]
 * [![Node][Node.js]][Node-url]
 * [![Express][Express.js]][Express-url]
@@ -245,4 +245,4 @@ Project Link: [https://github.com/Wingardium-Levicode/blue-ocean](https://github
 [Vite.js]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vitejs.dev/
 [Postgresql.js]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
-[Postgresql-url]: https://www.postgresql.org/
+[PostgreSQL-url]: https://www.postgresql.org/
