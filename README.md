@@ -67,13 +67,14 @@
 
 ### Built With
 
+* [![Vite][Vite.js]][Vite-url]
+* [![PostgreSQL][Postgresql.js]][Postgresql-url]
 * [![React][React.js]][React-url]
 * [![Node][Node.js]][Node-url]
 * [![Express][Express.js]][Express-url]
 * [![Axios][Axios.js]][Axios-url]
 * [![AWS][AWS.js]][AWS-url]
 * [![Tailwind][Tailwind.js]][Tailwind-url]
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -228,8 +229,6 @@ Project Link: [https://github.com/Wingardium-Levicode/blue-ocean](https://github
 [Babel-url]: https://babeljs.io/
 [Node.js]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [Node-url]: https://nodejs.org/en
-[Jest.js]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
-[Jest-url]: https://jestjs.io/
 [Axios.js]: https://img.shields.io/badge/Axios-5A29E4.svg?style=for-the-badge&logo=Axios&logoColor=white
 [Axios-url]: https://axios-http.com/docs/intro
 [Express.js]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
@@ -240,7 +239,10 @@ Project Link: [https://github.com/Wingardium-Levicode/blue-ocean](https://github
 [Webpack-url]: https://webpack.js.org/
 [Tailwind.js]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
 [Tailwind-url]: https://tailwindcss.com
-
 [Express-url]: https://expressjs.com/
 [AWS.js]: https://img.shields.io/badge/Amazon%20AWS-232F3E.svg?style=for-the-badge&logo=Amazon-AWS&logoColor=white
 [AWS-url]: https://aws.amazon.com/
+[Vite.js]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[Postgresql.js]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[Postgresql-url]: https://www.postgresql.org/
