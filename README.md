@@ -81,29 +81,29 @@
 
 <!-- GETTING STARTED -->
 ## Getting Started
-**Navigate to the client**
-Create an env file with the following keys:
-VITE_PORT
-VITE_GOOGLEAPI_KEY
+**Navigate to the client**  
+Create an env file with the following keys:  
+VITE_PORT  
+VITE_GOOGLEAPI_KEY  
 
-**Navigate to the server**
-Create an env file with the following keys:
+**Navigate to the server**  
+Create an env file with the following keys:  
 
-(for connecting to the database)
-PG_DB
-PG_USER
-PG_PASSWORD
-PG_HOST
-PORT
-(for successful API calls)
-GOOGLEAPI_URL='https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-GEOCODE_URL='https://maps.googleapis.com/maps/api/geocode/json'
-GOOGLEAPI_KEY
+(for connecting to the database)  
+PG_DB  
+PG_USER  
+PG_PASSWORD  
+PG_HOST  
+PORT  
+(for successful API calls)  
+GOOGLEAPI_URL='https://maps.googleapis.com/maps/api/place/nearbysearch/json'  
+GEOCODE_URL='https://maps.googleapis.com/maps/api/geocode/json'  
+GOOGLEAPI_KEY  
 
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-GITHUB_CLIENT_ID
-GITHUB_CLIENT_SECRET
+GOOGLE_CLIENT_ID  
+GOOGLE_CLIENT_SECRET  
+GITHUB_CLIENT_ID  
+GITHUB_CLIENT_SECRET  
 
 ### Requirements
 
